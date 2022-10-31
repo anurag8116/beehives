@@ -1,0 +1,3 @@
+::ng-deep body > bs-datepicker-container > div {
+  transform: translate(0, 27.1em) !important;
+}

@@ -1,0 +1,130 @@
+.btn-default.btn-on-2.active {
+  background-color: #006FFC;
+  color: #fff !important;
+}
+
+.btn-default.btn-off-2.active {
+  background-color: #006FFC;
+  color: #fff !important;
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.btn-default {
+  border-color: #ccc !important;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+.addor-align {
+  padding: 0 0 8px 15px !important;
+}
+
+.panel-default > .panel-heading a:after {
+  right: 15px !important;
+  top: 12px !important;
+}
+
+.new-rule-bg {
+  background: none !important;
+  border: none !important;
+}
+
+.new-panel-bottom {
+  margin-bottom: 14px;
+}
+
+.trash-align {
+  border: 1px solid #ccc;
+  padding: 7px 10px;
+  border-radius: 6px;
+  margin: 4px 4px 0 0;
+  cursor: pointer;
+  background: #fff;
+}
+
+.span-inline span {
+  padding: 0 9px;
+  vertical-align: super;
+}
+
+.new-rule-panel-head {
+  padding: 0 0 4px 8px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: none !important;
+  background: #f7f7f7;
+}
+
+.panel {
+  border-radius: 6px !important;
+}
+
+.rule-panel-body {
+  padding-bottom: 0 !important;
+  background: #f7f7f7;
+  padding-top: 0px !important;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.addornew label {
+  margin: 4px 0 0 0;
+}
+
+.input-new-sm {
+  height: 34px !important;
+  font-size: 12px;
+  padding: 0 9px;
+  margin: 8px 0 !important;
+}
+
+.rowwhitebg {
+  background: #fff;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+
+.form-inline select {
+  width: 85%;
+}
+
+.rule-panel-body-top {
+  background: #f7f7f7;
+  padding: 4px 0 12px 0;
+  border-radius: 6px;
+}
+
+.full-panel-row-bg {
+  background: #fff;
+  margin: 9px 17px 0 17px;
+  border-radius: 6px;
+}
+
+.textarea-bottom-size textarea {
+  margin-bottom: 14px;
+}

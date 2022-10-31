@@ -1,0 +1,1294 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>BRS Report</h3>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1 left-space">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" #inputCheck (change)="onCheckBoxClick(inputCheck.checked)" class="checkboxSize">
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                Ledger
+              </label>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <form [formGroup]="form">
+              <div class="">
+                <div class="clearfix">
+                  <div class="row form-inner-cover">
+                    <div class="row">
+                      <div class="col-md-12 top-spc">
+                        <div class="col-md-3 right-margin">
+                          <select class="form-control" formControlName="reconId" #recon>
+                            <option value="null" disabled>&#45;&#45;Recon&#45;&#45;</option>
+                            <option *ngFor="let recon of recons" value="{{recon.id}}">
+                              {{recon.name}}
+                          </select>
+                        </div>
+                        <div class="col-md-3" *ngIf="isLedgerField">
+                          <select class="form-control" #ledger (change)="onLedgerChange(ledger.value)">
+                            <option value="" disabled>----Select One----</option>
+                            <option *ngFor="let ledger of ledgers" value="{{ledger.id}}">
+                              {{ledger.id}}
+                          </select>
+                        </div>
+                        <div class="col-md-2">
+                          <button *ngIf="isLedgerViewButton" type="button"
+                                  (click)="getLedgerReport(recon.value, inputCheck.checked)"
+                                  class="btn submit-btn">View
+                          </button>
+                          <button *ngIf="!isLedgerViewButton" type="button"
+                                  (click)="getReport(recon.value, inputCheck.checked)"
+                                  class="btn submit-btn">View
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-body all-cover-relax-match">
+        <section>
+          <div class="wizard">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content">
+                  <div class="tab-pane active" role="tabpanel" id="step2">
+                    <div class="col-md-12 wizard-body">
+                      <div *ngIf="!isNoDataMessage" class="#TABLEEE" #table>
+                        <div class="center col-md-10">
+                          <!-- <h3 class="center bold">{{'Celio Future Fashion Pvt Ltd'}}</h3>-->
+                        </div>
+                        <div class="col-md-2 download-align top-spc20" align="right">
+                          <a type="button"
+                             (click)="downloadReport(recon.value)"
+                             class="btn download-icon"><i
+                            class="fa fa-download" aria-hidden="true"></i>
+                          </a>
+                        </div>
+                        <table *ngIf="this.reconIds == 25" class="table ntsl-report-table reporttable"
+                               style="border-color: #0c1312" border="2">
+                          <thead>
+                          <tr>
+                            <th class="th-style" colspan="6">Reconciliation of Books of Accounts</th>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style" colspan="2">Client Name :</td>
+                            <td *ngIf="reconIds == 25" class="bold td-style" colspan="4">Date Of Reconciliation :
+                              20/7/2021
+                            </td>
+                            <td *ngIf="reconIds == 24" class="bold td-style" colspan="4">Date Of Reconciliation :</td>
+                          </tr>
+                          <tr>
+                            <td *ngIf="reconIds == 25" class="bold td-style" colspan="2">Period : 24 July'20 to 20
+                              July'21
+                            </td>
+                            <td *ngIf="reconIds == 24" class="bold td-style" colspan="2">Period :</td>
+                            <td class="bold td-style" colspan="4">Prepared By :</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style" colspan="2">Unit :</td>
+                            <td class="bold td-style" colspan="4"></td>
+                          </tr>
+                          <tr>
+                            <th class="column-width th-style wizard-center" border="2">Add/Less</th>
+                            <th class="wizard-center th-style" border="2">Particular</th>
+                            <th class="wizard-center th-style" border="2">Amount (Rs)</th>
+                            <th class="wizard-center th-style" border="2">Annexure</th>
+                            <th class="wizard-center th-style" border="2">Actionable</th>
+                            <th class="wizard-center th-style" border="2">Status</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[0].addLess}}</td>
+                            <td class="bold td-style">{{reportData[0].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[0].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[1].addLess}}</td>
+                            <td class="bold td-style">{{reportData[1].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[1].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[2].addLess}}</td>
+                            <td class="bold wizard-center td-style">{{reportData[2].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[0].amount - reportData[1].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[2].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[2].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[2].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[3].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[3].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[3].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[3].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[3].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[4].addLess}}
+                            </td>
+                            <td class="td-style padding-top-15"><a
+                              (click)="getTransactionData(5, reportData[4].particular)" href="#tran4" id="tran4"
+                              data-toggle="collapse" class="menu collapsed">{{reportData[4].particular}}</a></td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[4].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[4].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[4].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[4].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[5].addLess}}</td>
+                            <td class="td-style"><a (click)="getTransactionData(6, reportData[5].particular)"
+                                                    href="#tran5" id="tran5"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[5].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[5].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[6].addLess}}</td>
+                            <td class="td-style"><a (click)="getTransactionData(7, reportData[6].particular)"
+                                                    href="#tran6" id="tran6"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[6].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[6].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[6].annexure}}</td>
+                            <td class="wizard-center td-style ">{{reportData[6].actionable}}</td>
+                            <td class="wizard-center td-style ">{{reportData[6].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[7].addLess}}
+                            </td>
+                            <td class="td-style padding-top-15"><a
+                              (click)="getTransactionData(8, reportData[7].particular)" href="#tran7" id="tran7"
+                              data-toggle="collapse" class="menu collapsed">{{reportData[7].particular}}</a></td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[7].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[7].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[7].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[7].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[8].addLess}}</td>
+                            <td class="td-style"><a (click)="getTransactionData(9, reportData[8].particular)"
+                                                    href="#tran8" id="tran8"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[8].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[8].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[9].addLess}}</td>
+                            <td class="td-style"><a (click)="getTransactionData(10, reportData[9].particular)"
+                                                    href="#tran9" id="tran9"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[9].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[9].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[10].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15"><a
+                              (click)="getTransactionData(11, reportData[10].particular)" href="#tran10" id="tran10"
+                              data-toggle="collapse" class="menu collapsed">{{reportData[10].particular}}</a></td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[10].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[10].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[10].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[10].status}}</td>
+                          </tr>
+                          <tr *ngIf="reconIds == 24">
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[16].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15"><a
+                              (click)="getTransactionData(11, reportData[17].particular)" href="#tran10" id="tran21"
+                              data-toggle="collapse" class="menu collapsed">{{reportData[16].particular}}</a></td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[16].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[16].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[16].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[16].status}}</td>
+                          </tr>
+                          <tr *ngIf="reconIds == 25">
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[11].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[11].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount +
+                              reportData[4].amount -
+                              reportData[5].amount - reportData[6].amount + reportData[7].amount -reportData[8].amount +
+                              reportData[9].amount + reportData[10].amount}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].status}}</td>
+                          </tr>
+                          <tr *ngIf="reconIds == 24">
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[11].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[11].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[11].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[12].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[12].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[12].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[12].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[12].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[12].status}}</td>
+                          </tr>
+                          <tr *ngIf="reconIds == 25">
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[13].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[13].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount +
+                              reportData[4].amount -
+                              reportData[5].amount -reportData[6].amount + reportData[7].amount -reportData[8].amount +
+                              reportData[9].amount + reportData[10].amount - reportData[12].amount}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].status}}</td>
+                          </tr>
+                          <tr *ngIf="reconIds == 24">
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[13].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[13].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount +
+                              reportData[4].amount - reportData[5].amount
+                              - reportData[6].amount + reportData[7].amount - reportData[8].amount +
+                              reportData[9].amount + reportData[10].amount
+                              + reportData[11].amount | number : '1.2-2'}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].status}}</td>
+                          </tr>
+                          <tr *ngIf="reconIds == 24">
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[14].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[14].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[14].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[14].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[14].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[14].status}}</td>
+                          </tr>
+                          <tr *ngIf="reconIds == 24">
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[15].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[15].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount +
+                              reportData[4].amount - reportData[5].amount
+                              - reportData[6].amount + reportData[7].amount - reportData[8].amount +
+                              reportData[9].amount + reportData[10].amount
+                              + reportData[11].amount - reportData[14].amount | number : '1.2-2'}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[15].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[15].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[15].status}}</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <table *ngIf="this.reconIds == 24" class="table ntsl-report-table reporttable"
+                               style="border-color: #0c1312" border="2">
+                          <thead>
+                          <tr>
+                            <th class="th-style" colspan="6">Reconciliation of Books of Accounts</th>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style">Client Name : Lifestyle</td>
+                            <td *ngIf="reconIds == 25" class="bold td-style" colspan="4">Date Of Reconciliation :
+                              20/7/2021
+                            </td>
+                            <td *ngIf="reconIds == 24" class="bold td-style" colspan="4">Date Of Reconciliation :</td>
+                          </tr>
+                          <tr>
+                            <td *ngIf="reconIds == 25" class="bold td-style" colspan="2">Period : 24 July'20 to 20
+                              July'21
+                            </td>
+                            <td *ngIf="reconIds == 24" class="bold td-style">Period :</td>
+                            <td class="bold td-style" colspan="4">Prepared By :</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style">Unit :</td>
+                            <td class="bold td-style" colspan="4"></td>
+                          </tr>
+                          <tr>
+                            <th class="wizard-center th-style" border="2">Particular</th>
+                            <th class="wizard-center th-style" border="2">Amount (Rs)</th>
+                            <th class="wizard-center th-style" border="2">Annexure</th>
+                            <th class="wizard-center th-style" border="2">Actionable</th>
+                            <th class="wizard-center th-style" border="2">Status</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td class="bold td-style">{{reportData[0].particular}}</td>
+                            <td class="bold td-style wizard-right">{{reportData[0].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style">{{reportData[1].particular}}</td>
+                            <td class="bold td-style wizard-right">{{reportData[1].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style padding-top-15">{{reportData[2].particular}}</td>
+                            <td class="bold td-style padding-top-15 wizard-right">{{reportData[2].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[2].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[2].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[2].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style padding-top-15">Invoices:</td>
+                            <td class="td-style wizard-right padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <td class="td-style">{{reportData[3].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[3].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[3].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[3].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[3].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style padding-top-15">Returns:</td>
+                            <td class="td-style wizard-right padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                          </tr>
+                          <tr>
+                            <td class="td-style">{{reportData[4].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[4].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[4].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[4].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[4].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style"><a (click)="getTransactionData(6, reportData[5].particular)"
+                                                    href="#tran5" id="tran51"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[5].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[5].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style padding-top-15">Debit Notes:</td>
+                            <td class="td-style wizard-right padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                            <td class="wizard-center td-style padding-top-15"></td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <td class="td-style"><a (click)="getTransactionData(7, reportData[6].particular)"
+                                                    href="#tran6" id="tran61"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[6].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[6].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[6].annexure}}</td>
+                            <td class="wizard-center td-style ">{{reportData[6].actionable}}</td>
+                            <td class="wizard-center td-style ">{{reportData[6].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style"><a (click)="getTransactionData(8, reportData[7].particular)"
+                                                    href="#tran7" id="tran71"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[7].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[7].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[7].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[7].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[7].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style"><a (click)="getTransactionData(9, reportData[8].particular)"
+                                                    href="#tran8" id="tran81"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[8].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[8].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style"><a
+                              (click)="getTransactionData(10, reportData[9].particular)" href="#tran9" id="tran91"
+                              data-toggle="collapse" class="menu collapsed">{{reportData[9].particular}}</a></td>
+                            <td class="td-style wizard-right">{{reportData[9].amount | number :
+                              '1.2-2'}}
+                            </td>
+                            <td class="wizard-center td-style">{{reportData[9].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style">{{reportData[10].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[10].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[10].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[10].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[10].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style"><a (click)="getTransactionData(12, reportData[11].particular)"
+                                                    href="#tran10" id="tran211"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[11].particular}}</a>
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[11].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[11].annexure}}</td>
+                            <td class="wizard-center td-style ">{{reportData[11].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[11].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style bold padding-top-15"><a (click)="getTransactionData(13, reportData[12].particular)"
+                                                    href="#tran10" id="tran212"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[12].particular}}</a>
+                            </td>
+                            <td class="td-style bold wizard-right padding-top-15">{{reportData[12].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center bold td-style padding-top-15">{{reportData[12].annexure}}</td>
+                            <td class="wizard-center bold td-style padding-top-15">{{reportData[12].actionable}}</td>
+                            <td class="wizard-center bold td-style padding-top-15">{{reportData[12].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style bold"><a (click)="getTransactionData(14, reportData[13].particular)"
+                                                    href="#tran10" id="tran213"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[13].particular}}</a>
+                            </td>
+                            <td class="td-style bold wizard-right">{{reportData[13].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center bold td-style">{{reportData[13].annexure}}</td>
+                            <td class="wizard-center bold td-style">{{reportData[13].actionable}}</td>
+                            <td class="wizard-center bold td-style">{{reportData[13].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-style bold"><a (click)="getTransactionData(15, reportData[14].particular)"
+                                                    href="#tran10" id="tran214"
+                                                    data-toggle="collapse" class="menu collapsed">{{reportData[14].particular}}</a>
+                            </td>
+                            <td class="td-style bold wizard-right">{{reportData[14].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center bold td-style">{{reportData[14].annexure}}</td>
+                            <td class="wizard-center bold td-style">{{reportData[14].actionable}}</td>
+                            <td class="wizard-center bold td-style">{{reportData[14].status}}</td>
+                          </tr>
+                          <!--<tr>
+                            <td class="td-style">{{reportData[15].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[15].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[15].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[15].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[15].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style padding-top-15">{{reportData[16].particular}}</td>
+                            <td class="bold td-style padding-top-15 wizard-right">{{reportData[2].amount +
+                              reportData[3].amount + reportData[4].amount - reportData[5].amount
+                              - reportData[6].amount - reportData[7].amount - reportData[8].amount +
+                              reportData[9].amount - reportData[10].amount
+                              + reportData[11].amount + reportData[12].amount + reportData[13].amount +
+                              reportData[14].amount - reportData[15].amount | number : '1.2-2'}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[16].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[16].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[16].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style">{{reportData[17].particular}}</td>
+                            <td class="bold td-style wizard-right">{{reportData[17].amount | number : '1.2-2'}}</td>
+                            <td class="wizard-center td-style">{{reportData[17].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[17].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[17].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style padding-top-15">{{reportData[18].particular}}</td>
+                            <td class="bold td-style padding-top-15 wizard-right">{{reportData[2].amount +
+                              reportData[3].amount + reportData[4].amount - reportData[5].amount
+                              - reportData[6].amount - reportData[7].amount - reportData[8].amount +
+                              reportData[9].amount - reportData[10].amount
+                              + reportData[11].amount + reportData[12].amount + reportData[13].amount +
+                              reportData[14].amount - reportData[17].amount - reportData[15].amount | number : '1.2-2'}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[18].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[18].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[18].status}}</td>
+                          </tr>-->
+                          </tbody>
+                        </table>
+                        <table *ngIf="this.reconName && this.reconName == 'FSN'"
+                               class="table ntsl-report-table reporttable" style="border-color: #0c1312" border="2">
+                          <thead>
+                          <tr>
+                            <th class="th-style" colspan="6">Reconciliation of Books of Accounts</th>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style" colspan="2">Client Name : FSN</td>
+
+                            <td class="bold td-style" colspan="4">Date Of Reconciliation :</td>
+                          </tr>
+                          <tr>
+
+                            <td class="bold td-style" colspan="2">Period :</td>
+                            <td class="bold td-style" colspan="4">Prepared By :</td>
+                          </tr>
+                          <tr>
+                            <td class="bold td-style" colspan="2">Unit :</td>
+                            <td class="bold td-style" colspan="4"></td>
+                          </tr>
+                          <tr>
+                            <th class="column-width th-style wizard-center" border="2">Add/Less</th>
+                            <th class="wizard-center th-style" border="2">Particular</th>
+                            <th class="wizard-center th-style" border="2">Amount (Rs)</th>
+                            <th class="wizard-center th-style" border="2">Annexure</th>
+                            <th class="wizard-center th-style" border="2">Actionable</th>
+                            <th class="wizard-center th-style" border="2">Status</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[0].addLess}}</td>
+                            <td class="bold td-style">{{reportData[0].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[0].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[0].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[1].addLess}}</td>
+                            <td class="bold td-style">{{reportData[1].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[1].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[1].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[2].addLess}}</td>
+                            <td class="bold wizard-center td-style">{{reportData[2].particular}}</td>
+                            <td class="td-style wizard-right">{{reportData[0].amount - reportData[1].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[2].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[2].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[2].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[3].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[3].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[3].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[3].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[3].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[4].addLess}}
+                            </td>
+                            <td class="td-style padding-top-15">{{reportData[4].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[4].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[4].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[4].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[4].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[5].addLess}}</td>
+                            <td class="td-style">{{reportData[5].particular}}
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[5].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[5].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[6].addLess}}</td>
+                            <td class="td-style">{{reportData[6].particular}}
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[6].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[6].annexure}}</td>
+                            <td class="wizard-center td-style ">{{reportData[6].actionable}}</td>
+                            <td class="wizard-center td-style ">{{reportData[6].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[7].addLess}}
+                            </td>
+                            <td class="td-style padding-top-15">{{reportData[7].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[7].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[7].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[7].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[7].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[8].addLess}}</td>
+                            <td class="td-style">{{reportData[8].particular}}
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[8].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[8].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style">{{reportData[9].addLess}}</td>
+                            <td class="td-style">{{reportData[9].particular}}
+                            </td>
+                            <td class="td-style wizard-right">{{reportData[9].amount}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].annexure}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].actionable}}</td>
+                            <td class="wizard-center td-style">{{reportData[9].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[10].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[10].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[10].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[10].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[10].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[10].status}}</td>
+                          </tr>
+
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[11].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[11].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount +
+                              reportData[4].amount -
+                              reportData[5].amount - reportData[6].amount + reportData[7].amount -reportData[8].amount +
+                              reportData[9].amount + reportData[10].amount}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[11].status}}</td>
+                          </tr>
+
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[12].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[12].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[12].amount}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[12].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[12].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[12].status}}</td>
+                          </tr>
+                          <tr>
+                            <td class="wizard-center column-width bold td-style padding-top-15">
+                              {{reportData[13].addLess}}
+                            </td>
+                            <td class="bold td-style padding-top-15">{{reportData[13].particular}}</td>
+                            <td class="td-style padding-top-15 wizard-right">{{reportData[3].amount +
+                              reportData[4].amount -
+                              reportData[5].amount -reportData[6].amount + reportData[7].amount -reportData[8].amount +
+                              reportData[9].amount + reportData[10].amount - reportData[12].amount}}
+                            </td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].annexure}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].actionable}}</td>
+                            <td class="wizard-center td-style padding-top-15">{{reportData[13].status}}</td>
+                          </tr>
+
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <section *ngIf="celioData.length && isCelio">
+
+          <div class="wizard">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content">
+
+                  <div class="tab-pane active" role="tabpanel" id="step12">
+                    <div class="col-md-12 wizard-body">
+                      <div class=" table-responsive #TABLEEE" #table>
+                        <div class="col-md-10">
+                          <h3 class="bold"></h3>
+                        </div>
+                        <!-- <div class="col-md-2 download-align top-spc20" align="right">
+                               <a type="button" [href]="url" title="Download" download="report.xlsx"
+                                  (click)="selectReport('Consolidated')"
+                                  class="btn download-icon"><i
+                                 class="fa fa-download" aria-hidden="true"></i>
+                               </a>
+                             </div>-->
+                        <table class="table table-hover ntsl-report-table" border="1">
+                          <thead>
+                          <tr>
+                            <th>Particulars</th>
+                            <th>Debit Amt.</th>
+                            <th>Credit Amt.</th>
+                            <th>Closing Balance</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td class="bold"> Opening balance</td>
+                            <td></td>
+                            <td></td>
+                            <td class="wizard-right bold">{{celioOpeningAmount | number:'1.2-2'}}{{' Dr'}}</td>
+                          </tr>
+                          <tr *ngFor="let entry of celioData; let i = index">
+                            <td>{{entry?.particulars}}</td>
+                            <td class="wizard-right">{{(entry?.type === 'Dr' ? entry.amount : 0)| number:'1.2-2'}}
+                            </td>
+                            <td class="wizard-right">{{(entry?.type === 'Cr' ? entry.amount: 0)| number:'1.2-2'}}
+                            </td>
+                            <td class="wizard-right">{{ getCelioClosingAmount(entry.amount, entry?.type, i)}}
+                            </td>
+                          </tr>
+                          <tr class="bold">
+                            <td class="wizard-center">Sum</td>
+                            <td class="wizard-right">{{sumOfCelioDebit | number:'1.2-2'}}</td>
+                            <td class="wizard-right">{{sumOfCelioCredit | number:'1.2-2'}}</td>
+                            <td class="wizard-right">
+                              {{getCelioTotalClosingAmount()}}
+                            </td>
+                          </tr>
+                          <!-- <tr class="bold" *ngFor="let trxn of unreconcieldTrxn">
+                                 <td class="wizard-center" colspan="2"><a href="javascript:void(0);"
+                                                                          (click)="glConfigDetails(trxn.id, trxn?.trxnDate)">{{trxn?.discription}}</a>
+                                 </td>
+                                 <td class="wizard-right">{{(trxn?.type === 'DEBIT' ? trxn?.amount :
+                                   0)| number:'1.2-2'}}
+                                 </td>
+                                 <td class="wizard-right">{{(trxn?.type === 'CREDIT' ? trxn?.amount:
+                                   0)| number:'1.2-2'}}
+                                 </td>
+                                 <td class="wizard-right"></td>
+                               </tr>-->
+                          <!-- <tr class="bold">
+                             <td class="wizard-center" colspan="2">Error check</td>
+                             <td class="wizard-right"></td>
+                             <td class="wizard-right"></td>
+                             <td class="wizard-right">
+                               {{getClosingAmount(reportData?.sumOfDebit, reportData?.sumOfCredit, reportData?.sumOfClosingBalance)}}
+                             </td>
+                           </tr>-->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <section *ngIf="taibahData.length && isTaibah">
+
+          <div class="wizard">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content">
+
+                  <div class="tab-pane active" role="tabpanel" id="step13">
+                    <div class="col-md-12 wizard-body">
+                      <div class=" table-responsive #TABLEEE" #table>
+                        <div class="col-md-10">
+                          <h3 class="bold"></h3>
+                        </div>
+                        <!-- <div class="col-md-2 download-align top-spc20" align="right">
+                               <a type="button" [href]="url" title="Download" download="report.xlsx"
+                                  (click)="selectReport('Consolidated')"
+                                  class="btn download-icon"><i
+                                 class="fa fa-download" aria-hidden="true"></i>
+                               </a>
+                             </div>-->
+                        <table class="table table-hover ntsl-report-table" border="1">
+                          <thead>
+                          <tr>
+                            <th>Particulars</th>
+                            <th>Debit Amt.</th>
+                            <th>Credit Amt.</th>
+                            <th>Closing Balance</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td class="bold"> Opening balance</td>
+                            <td></td>
+                            <td></td>
+                            <td class="wizard-right bold">{{taibahOpeningAmount | number:'1.2-2'}}{{' Cr'}}</td>
+                          </tr>
+                          <tr *ngFor="let entry of taibahData; let i = index">
+                            <td>{{entry?.particulars}}</td>
+                            <td class="wizard-right">{{(entry?.type === 'Dr' ? entry.amount : 0)| number:'1.2-2'}}
+                            </td>
+                            <td class="wizard-right">{{(entry?.type === 'Cr' ? entry.amount: 0)| number:'1.2-2'}}
+                            </td>
+                            <td class="wizard-right">{{ getTaibahClosingAmount(entry.amount, entry?.type, i)}}
+                            </td>
+                          </tr>
+                          <tr class="bold">
+                            <td class="wizard-center">Sum</td>
+                            <td class="wizard-right">{{sumOfTaibahDebit | number:'1.2-2'}}</td>
+                            <td class="wizard-right">{{sumOfTaibahCredit | number:'1.2-2'}}</td>
+                            <td class="wizard-right">
+                              {{getTaibahTotalClosingAmount()}}
+                            </td>
+                          </tr>
+                          <!-- <tr class="bold" *ngFor="let trxn of unreconcieldTrxn">
+                                 <td class="wizard-center" colspan="2"><a href="javascript:void(0);"
+                                                                          (click)="glConfigDetails(trxn.id, trxn?.trxnDate)">{{trxn?.discription}}</a>
+                                 </td>
+                                 <td class="wizard-right">{{(trxn?.type === 'DEBIT' ? trxn?.amount :
+                                   0)| number:'1.2-2'}}
+                                 </td>
+                                 <td class="wizard-right">{{(trxn?.type === 'CREDIT' ? trxn?.amount:
+                                   0)| number:'1.2-2'}}
+                                 </td>
+                                 <td class="wizard-right"></td>
+                               </tr>-->
+                          <!-- <tr class="bold">
+                             <td class="wizard-center" colspan="2">Error check</td>
+                             <td class="wizard-right"></td>
+                             <td class="wizard-right"></td>
+                             <td class="wizard-right">
+                               {{getClosingAmount(reportData?.sumOfDebit, reportData?.sumOfCredit, reportData?.sumOfClosingBalance)}}
+                             </td>
+                           </tr>-->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <div *ngIf="isNoDataMessage" class="row">
+          <div class="col-md-12">
+            <div class="tab-content">
+
+              <div class="col-md-12 wizard-body">
+                <div class=" table-responsive #TABLEEE" #table>
+                  <div class="center col-md-10">
+                    <h5 class="center">No Report</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <div class="panel panel-body all-cover-relax-match">
+         <section *ngIf="reportData.length && isReconData">
+           <div class="wizard">
+             <div class="row">
+               <div class="col-md-12">
+                 <div class="tab-content">
+                   <div class="tab-pane active" role="tabpanel" id="step2">
+                     <div class="col-md-12 wizard-body">
+                       <div class="#TABLEEE" #table>
+                         <div class="center col-md-10">
+                           <h3 class="center bold">{{'Celio Future Fashion Pvt Ltd'}}</h3>
+                         </div>
+                         <div class="col-md-2 download-align top-spc20" align="right">
+                           <a type="button" [href]="url" title="Download" download="report.xlsx"
+                              (click)="downloadReport()"
+                              class="btn download-icon"><i
+                             class="fa fa-download" aria-hidden="true"></i>
+                           </a>
+                         </div>
+                         <table class="table ntsl-report-table reporttable" style="border-color: #0c1312" border="2">
+                           <thead>
+                           <tr>
+                             <th class="th-style" border="2">Particulars</th>
+                             <th class="th-style" border="2">Amount (Rs)</th>
+                             &lt;!&ndash;<th class="th-style" border="2">Annexure</th>&ndash;&gt;
+                             <th class="th-style" border="2">Action Owner</th>
+                            &lt;!&ndash; <th class="th-style" border="2">Remarks</th>&ndash;&gt;
+                           </tr>
+                           </thead>
+                           <tbody>
+                           <tr>
+                             <td class="bold td-style">Balance as per Celio Future Fashion Pvt Ltd.</td>
+                             <td class="wizard-right td-style">{{celioFuture}}</td>
+                             <td class="td-style"></td>
+                        &lt;!&ndash;     <td class="td-style"></td>
+                             <td class="td-style"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="bold td-style">Balance as per Pahchaan</td>
+                             <td class="wizard-right td-style">{{taibahCollection}}</td>
+                             <td class="td-style"></td>
+                            &lt;!&ndash; <td class="td-style"></td>
+                             <td class="td-style"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style-diff">Net Difference</td>
+                             <td class="td-style-diff-2">{{celioFuture - taibahCollection}}</td>
+                             <td class="td-style"></td>
+                            &lt;!&ndash; <td class="td-style"></td>
+                             <td class="td-style"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-summ-style">Summary of difference</td>
+                             <td class="td-summ-style" ></td>
+                             <td class="td-summ-style" ></td>
+                           &lt;!&ndash;  <td class="td-summ-style"></td>
+                             <td class="td-summ-style"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="bold td-style" style="text-decoration: underline;">Invoice:-</td>
+                             <td class="wizard-right td-style"></td>
+                             <td class="td-style"></td>
+                           &lt;!&ndash;  <td class="td-style"></td>
+                             <td class="td-style"></td>&ndash;&gt;
+                           </tr>
+                           <tr >
+                             <td class="td-style">{{reportData[0].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[0].amount? reportData[0].amount : 0}}</td>
+                            &lt;!&ndash; <td class="td-style">{{reportData[0].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[0].actionOwner}}</td>
+                            &lt;!&ndash; <td class="td-style">{{reportData[0].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style">{{reportData[1].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[1].amount? reportData[1].amount : 0}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[1].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[1].actionOwner}}</td>
+                        &lt;!&ndash;     <td class="td-style">{{reportData[1].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style-diff" style="text-decoration: underline;">Returns:-</td>
+                             <td class="td-style-diff"></td>
+                             <td class="td-style-diff"></td>
+                            &lt;!&ndash; <td class="td-style-diff"></td>
+                             <td class="td-style-diff"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style">{{reportData[2].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[2].amount? reportData[2].amount : 0}}</td>
+                            &lt;!&ndash; <td class="td-style">{{reportData[2].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[2].actionOwner}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[2].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style">{{reportData[3].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[3].amount? reportData[3].amount : 0}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[3].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[3].actionOwner}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[3].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style-diff" style="text-decoration: underline;">Payment:-</td>
+                             <td class="td-style-diff"></td>
+                             <td class="td-style-diff"></td>
+                             &lt;!&ndash;<td class="td-style-diff"></td>
+                             <td class="td-style-diff"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style">{{reportData[4].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[4].amount? reportData[4].amount : 0}}</td>
+                            &lt;!&ndash; <td class="td-style">{{reportData[4].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[4].actionOwner}}</td>
+                           &lt;!&ndash;  <td class="td-style">{{reportData[4].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style">{{reportData[5].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[5].amount? reportData[5].amount : 0}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[5].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[5].actionOwner}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[5].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style-diff" style="text-decoration: underline;">Debit & Credit Note:-</td>
+                             <td class="td-style-diff"></td>
+                             <td class="td-style-diff"></td>
+                             &lt;!&ndash;<td class="td-style-diff"></td>
+                             <td class="td-style-diff"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style">{{reportData[6].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[6].amount? reportData[6].amount : 0 }}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[6].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[6].actionOwner}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[6].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style">{{reportData[7].particulars}}</td>
+                             <td class="wizard-right td-style">{{reportData[7].amount? reportData[7].amount : 0}}</td>
+                            &lt;!&ndash; <td class="td-style">{{reportData[7].annexure}}</td>&ndash;&gt;
+                             <td class="td-style">{{reportData[7].actionOwner}}</td>
+                             &lt;!&ndash;<td class="td-style">{{reportData[7].remarks}}</td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-style-diff">Round off</td>
+                             <td class="td-style-diff" style="text-align: right">{{roundoff}}</td>
+                             <td class="td-style-diff"></td>
+                            &lt;!&ndash; <td class="td-style-diff"></td>
+                             <td class="td-style-diff"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-summ-style" style="text-align: center">Total Difference </td>
+                             <td class="td-summ-style" style="text-align: right">{{totalDifference| number:'1.2-2' }}</td>
+                             <td class="td-summ-style" ></td>
+                          &lt;!&ndash;   <td class="td-summ-style"></td>
+                             <td class="td-summ-style"></td>&ndash;&gt;
+                           </tr>
+                           <tr>
+                             <td class="td-summ-style" style="text-align: center">Balance difference yet to be identified</td>
+                             <td class="td-summ-style" style="text-align: right">{{balanceDifference| number:'1.2-2'}}</td>
+                             <td class="td-summ-style" ></td>
+                             &lt;!&ndash;<td class="td-summ-style"></td>
+                             <td class="td-summ-style"></td>&ndash;&gt;
+                           </tr>
+                           </tbody>
+                         </table>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+         </section>
+
+         <section *ngIf="celioData.length && isCelio">
+
+           <div class="wizard">
+             <div class="row">
+               <div class="col-md-12">
+                 <div class="tab-content">
+
+                   <div class="tab-pane active" role="tabpanel" id="step12">
+                     <div class="col-md-12 wizard-body">
+                       <div class=" table-responsive #TABLEEE" #table>
+                         <div class="col-md-10">
+                           <h3 class="bold"></h3>
+                         </div>
+                         &lt;!&ndash; <div class="col-md-2 download-align top-spc20" align="right">
+                                <a type="button" [href]="url" title="Download" download="report.xlsx"
+                                   (click)="selectReport('Consolidated')"
+                                   class="btn download-icon"><i
+                                  class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+                              </div>&ndash;&gt;
+                         <table class="table table-hover ntsl-report-table" border="1">
+                           <thead>
+                           <tr>
+                             <th>Particulars</th>
+                             <th>Debit Amt.</th>
+                             <th>Credit Amt.</th>
+                             <th>Closing Balance</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                            <tr>
+                               <td class="bold"> Opening balance</td>
+                               <td></td>
+                               <td></td>
+                               <td class="wizard-right bold">{{celioOpeningAmount | number:'1.2-2'}}{{' Dr'}}</td>
+                             </tr>
+                           <tr *ngFor="let entry of celioData; let i = index">
+                             <td>{{entry?.particulars}}</td>
+                             <td class="wizard-right">{{(entry?.type === 'Dr' ? entry.amount : 0)| number:'1.2-2'}}
+                             </td>
+                             <td class="wizard-right">{{(entry?.type === 'Cr' ? entry.amount: 0)| number:'1.2-2'}}
+                             </td>
+                             <td class="wizard-right">{{ getCelioClosingAmount(entry.amount, entry?.type, i)}}
+                             </td>
+                           </tr>
+                           <tr class="bold">
+                             <td class="wizard-center">Sum</td>
+                             <td class="wizard-right">{{sumOfCelioDebit | number:'1.2-2'}}</td>
+                             <td class="wizard-right">{{sumOfCelioCredit | number:'1.2-2'}}</td>
+                             <td class="wizard-right">
+                               {{getCelioTotalClosingAmount()}}</td>
+                           </tr>
+                           &lt;!&ndash; <tr class="bold" *ngFor="let trxn of unreconcieldTrxn">
+                                  <td class="wizard-center" colspan="2"><a href="javascript:void(0);"
+                                                                           (click)="glConfigDetails(trxn.id, trxn?.trxnDate)">{{trxn?.discription}}</a>
+                                  </td>
+                                  <td class="wizard-right">{{(trxn?.type === 'DEBIT' ? trxn?.amount :
+                                    0)| number:'1.2-2'}}
+                                  </td>
+                                  <td class="wizard-right">{{(trxn?.type === 'CREDIT' ? trxn?.amount:
+                                    0)| number:'1.2-2'}}
+                                  </td>
+                                  <td class="wizard-right"></td>
+                                </tr>&ndash;&gt;
+                          &lt;!&ndash; <tr class="bold">
+                             <td class="wizard-center" colspan="2">Error check</td>
+                             <td class="wizard-right"></td>
+                             <td class="wizard-right"></td>
+                             <td class="wizard-right">
+                               {{getClosingAmount(reportData?.sumOfDebit, reportData?.sumOfCredit, reportData?.sumOfClosingBalance)}}
+                             </td>
+                           </tr>&ndash;&gt;
+                           </tbody>
+                         </table>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+         </section>
+         <section *ngIf="taibahData.length && isTaibah">
+
+           <div class="wizard">
+             <div class="row">
+               <div class="col-md-12">
+                 <div class="tab-content">
+
+                   <div class="tab-pane active" role="tabpanel" id="step13">
+                     <div class="col-md-12 wizard-body">
+                       <div class=" table-responsive #TABLEEE" #table>
+                         <div class="col-md-10">
+                           <h3 class="bold"></h3>
+                         </div>
+                         &lt;!&ndash; <div class="col-md-2 download-align top-spc20" align="right">
+                                <a type="button" [href]="url" title="Download" download="report.xlsx"
+                                   (click)="selectReport('Consolidated')"
+                                   class="btn download-icon"><i
+                                  class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+                              </div>&ndash;&gt;
+                         <table class="table table-hover ntsl-report-table" border="1">
+                           <thead>
+                           <tr>
+                             <th>Particulars</th>
+                             <th>Debit Amt.</th>
+                             <th>Credit Amt.</th>
+                             <th>Closing Balance</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                            <tr>
+                               <td class="bold"> Opening balance</td>
+                               <td></td>
+                               <td></td>
+                               <td class="wizard-right bold">{{taibahOpeningAmount | number:'1.2-2'}}{{' Cr'}}</td>
+                             </tr>
+                           <tr *ngFor="let entry of taibahData; let i = index">
+                             <td>{{entry?.particulars}}</td>
+                             <td class="wizard-right">{{(entry?.type === 'Dr' ? entry.amount : 0)| number:'1.2-2'}}
+                             </td>
+                             <td class="wizard-right">{{(entry?.type === 'Cr' ? entry.amount: 0)| number:'1.2-2'}}
+                             </td>
+                             <td class="wizard-right">{{ getTaibahClosingAmount(entry.amount, entry?.type, i)}}
+                             </td>
+                           </tr>
+                           <tr class="bold">
+                             <td class="wizard-center">Sum</td>
+                             <td class="wizard-right">{{sumOfTaibahDebit | number:'1.2-2'}}</td>
+                             <td class="wizard-right">{{sumOfTaibahCredit | number:'1.2-2'}}</td>
+                             <td class="wizard-right">
+                               {{getTaibahTotalClosingAmount()}}</td>
+                           </tr>
+                           &lt;!&ndash; <tr class="bold" *ngFor="let trxn of unreconcieldTrxn">
+                                  <td class="wizard-center" colspan="2"><a href="javascript:void(0);"
+                                                                           (click)="glConfigDetails(trxn.id, trxn?.trxnDate)">{{trxn?.discription}}</a>
+                                  </td>
+                                  <td class="wizard-right">{{(trxn?.type === 'DEBIT' ? trxn?.amount :
+                                    0)| number:'1.2-2'}}
+                                  </td>
+                                  <td class="wizard-right">{{(trxn?.type === 'CREDIT' ? trxn?.amount:
+                                    0)| number:'1.2-2'}}
+                                  </td>
+                                  <td class="wizard-right"></td>
+                                </tr>&ndash;&gt;
+                           &lt;!&ndash; <tr class="bold">
+                              <td class="wizard-center" colspan="2">Error check</td>
+                              <td class="wizard-right"></td>
+                              <td class="wizard-right"></td>
+                              <td class="wizard-right">
+                                {{getClosingAmount(reportData?.sumOfDebit, reportData?.sumOfCredit, reportData?.sumOfClosingBalance)}}
+                              </td>
+                            </tr>&ndash;&gt;
+                           </tbody>
+                         </table>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+         </section>
+
+         <div *ngIf="isNoDataMessage" class="row">
+           <div class="col-md-12">
+             <div class="tab-content">
+
+               <div class="col-md-12 wizard-body">
+                 <div class=" table-responsive #TABLEEE" #table>
+                   <div class="center col-md-10">
+                     <h5 class="center">No Transaction</h5>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>-->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="col-md-12 right-pad2 left-pad2" *ngIf="isEdit">
+
+  <div class="panel panel-heading newhead newbg">
+    <div class="row">
+      <div class="col-md-6 innerheadsource">
+        <h4>File Availability</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-profile">
+    <div class="clearfix">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row form-inner-cover">
+
+          <div class="panel-profile cover2">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <label class="lbl required">Module </label>
+                  <select formControlName="moduleId" #moduleId
+                          class="form-control input-sm" (change)="onModuleChange(moduleId.value,true)">
+                    <option value="null" disabled>--Select One--</option>
+                    <option *ngFor="let module of modules" value="{{module.id}}">
+                      {{module.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div [hidden]="dataSources.length==0" class="row">
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <label>Data Source</label>
+                </div>
+                <div class="col-md-4">
+                  <label class="required"> Type</label>
+                </div>
+                <div class="col-md-3">
+                  <label class="required">File Avail Time </label>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="dataSources.length==0" class="mar-left"
+                 *ngFor=" let cycle of form.get('sourceAvails')['controls'] ; let i = index">
+              <div class="" formArrayName="sourceAvails">
+                <div class=" formArray" [formGroupName]="i">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-3">
+                        <select class="form-control" #sourece disabled formControlName="dataSourceId">
+                          <option *ngFor="let sourece of dataSources" value="{{sourece.id}}">
+                            {{sourece.name}}
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group inline-label-align radio-label">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <label class="fancy-radio">
+                                <input value="DAY_WISE" type="radio" #type formControlName="reconSettingType">
+                                <span><i></i>Day Wise</span>
+                              </label>
+                            </div>
+                            <div class="col-md-6">
+                              <label class="fancy-radio">
+                                <input value="CYCLE_WISE" type="radio" #type (change)="resetTime(i,cycle.get('reconSettingType').value)" formControlName="reconSettingType">
+                                <span><i></i>Cycle Wise</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <timepicker [ngModelOptions]="{standalone: true}" [showMeridian]="false"
+                                    formControlName="formFileAvailTime"
+                                    [disabled]="(cycle.get('reconSettingType').value==='CYCLE_WISE')"
+                                    [showSpinners]="false"></timepicker>
+                      </div>
+                      <div class="col-sm-1">
+                        <a href="javascript:void(0);" (click)="removeCycle(i)"
+                           class="text-danger delete-btn"><i class="fa fa-trash-o"></i></a>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="dataSources.length>0 && moduleId.value" class="row">
+              <div class="col-md-12">
+                <div class="tab-content">
+
+                  <div class="col-md-12 wizard-body">
+                    <div class=" table-responsive #TABLEEE" #table>
+                      <div class="center col-md-10">
+                        <h5 class="center">No DataSource found for this Module</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" align="right">
+            <div class="form-group">
+              <button [ladda]="isLoading" [hidden]="dataSources.length==0" data-size="s" type="submit"
+                      class="submit-btn">Submit
+              </button>
+              <button type="button" (click)="cancel()" class="btn btn-primary cancel-btn">Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+<div *ngIf="!isEdit">
+  <app-file-avail-detail [reconCycleData]="reconCycleData"
+                         (editReconCycle)="editReconCycl($event)" (newForm)="openNewForm()"></app-file-avail-detail>
+</div>

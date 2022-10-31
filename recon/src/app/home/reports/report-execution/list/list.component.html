@@ -1,0 +1,86 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>Report Executions</h3>
+            </div>
+            <div class="col-md-6" align="right">
+              <a routerLinkActive="active"
+                 [routerLink]="['/home/reports', 'report-execution', {outlets: {'fullBodyOutlet': ['new']}}]" title="">
+                <button type="button" class="btn btn-success new-page-btn"><i class="fa fa-plus-circle"
+                                                                              aria-hidden="true"></i> New
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="clearfix">
+            <div class="row form-inner-cover">
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <label>Report</label>
+                  <select class="form-control" #report
+                          (change)="search(report.value, 1)">
+                    <option [value]="0">--All--</option>
+                    <option *ngFor="let report of reports" value="{{report.id}}">{{report.name}}
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Group</label>
+                  <select class="form-control" #group
+                          (change)="search(group.value, 2)">
+                    <option [value]="0">--All--</option>
+                    <option *ngFor="let group of groups" value="{{group.id}}">{{group.name}}
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Execution Type</label>
+                  <select class="form-control" #executionType
+                          (change)="search(executionType.value, 3)">
+                    <option value="">--ALL--</option>
+                    <option value="MANUAL">MANUAL</option>
+                    <option value="AUTOMATIC">AUTOMATIC</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Status</label>
+                  <select class="form-control" #status
+                          (change)="search(status.value, 5)">
+                    <option value="">--ALL--</option>
+                    <option value="NEW">New</option>
+                    <option value="START">Start</option>
+                    <option value="STOP">Stop</option>
+                    <option value="CREATED">Created</option>
+                    <option value="ASSIGNED">Assigned</option>
+                    <option value="EDITED">Edited</option>
+                    <option value="LEVEL_1_ACCEPT">Level 1 Accept</option>
+                    <option value="LEVEL_1_REJECT">Level 1 Reject</option>
+                    <option value="LEVEL_2_ACCEPT">Level 2 Accept</option>
+                    <option value="LEVEL_2_REJECT">Level 2 Reject</option>
+                    <option value="LEVEL_3_ACCEPT">Level 3 Accept</option>
+                    <option value="LEVEL_3_REJECT">Level 3 Reject</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-profile panel-top-spc">
+        <div class="clearfix">
+          <div class="col-md-12 top-spc all-cover-report-executions">
+            <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

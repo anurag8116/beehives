@@ -1,0 +1,99 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+
+    <div class="col-md-12 right-pad left-pad">
+
+      <h4 class="newbg">Dispute Queue</h4>
+      <ul class="nav nav-tabs nav-justified nav-tab-bg">
+        <li class="active"><a data-toggle="tab" href="#" (click)="disputeClick()">Dispute</a></li>
+        <li><a data-toggle="tab" href="#" (click)="chargebackClick()">ChargeBack</a></li>
+        <li><a data-toggle="tab" href="#" (click)="goodfaithClick()">Goodfaith ChargeBack</a></li>
+        <li><a data-toggle="tab" href="#" (click)="prearbitrationClick()">Pre Arbitration</a></li>
+        <li><a data-toggle="tab" href="#" (click)="arbitrationClick()">Arbitration</a></li>
+      </ul>
+
+    </div>
+
+    <div class="col-md-3 left-pad right-pad2">
+      <div class="panel panel-profile panel_height" *ngIf="showModules">
+        <div class="clearfix">
+
+          <table class="table table-hover table-inner-align privilege-table-cover" id="tableModule">
+            <tbody>
+            <tr>
+              <th class="newbg">Modules</th>
+            </tr>
+            <tr *ngFor="let module of modules; let i = index " (click)="select(i)"
+                [ngClass]="{'active': selectedIndexForMod == i  }">
+              <td><a href="javascript:void(0);" (click)="onModuleChange(module.id)" class="active">
+                <div>{{module.name}}</div>
+              </a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 left-pad2 right-pad2">
+      <div class="panel-profile" *ngIf="showList">
+
+        <div class="panel panel-profile">
+          <div class="clearfix">
+            <div class="row form-inner-cover cover2">
+              <div class="col-md-12 top-spc">
+                <div class="col-md-3 right-margin">
+                  <label>Account</label>
+                  <input type="text" #acc (keyup)="searchByAccount(acc.value)" class="form-control  input-sm"
+                         placeholder="By Account Number">
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Card Number</label>
+                  <input type="text" #card (keyup)="searchByCardNumber(card.value)" class="form-control  input-sm"
+                         placeholder="By Card Number">
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Customer Name</label>
+                  <input type="text" #name (keyup)="searchByName(name.value)" class="form-control  input-sm"
+                         placeholder="By Name">
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Status</label>
+                  <select class="form-control input-sm" #statu (change)="searchByStatus(statu.value)">
+                    <option value="">--All--</option>
+                    <option *ngFor="let statu of status" value="{{statu}}">
+                      {{statu}}
+                  </select>
+                </div>
+
+                <div class="col-md-12 top-spc">
+
+                  <button type="button" (click)="onAssignClick()" class="btn submit-btn">Assign</button>
+                  <button type="button" class="btn submit-btn" (click)="onEdit()">Edit</button>
+                  <button type="button" class="btn submit-btn" (click)="onDelete()">Delete</button>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-profile all-cover-disputes">
+          <div class="clearfix">
+            <div class="col-md-12 top-spc" *ngIf="showList">
+              <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

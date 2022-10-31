@@ -1,0 +1,158 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">{{isEditMode === true ? 'Edit Recon Data Element' : 'New Recon Data Element'}}</h3>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="panel-body">
+            <div class="panel panel-profile border-none cover2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-3" formGroupName="module">
+                    <div class="form-group">
+                      <label class="required">Module</label>
+                      <select class="form-control input-sm" formControlName="id" #module
+                              (change)="onModuleSelect(module.value)">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let parentModule of modules" value="{{parentModule.id}}">
+                          {{parentModule.name}}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12"><h4>Elements </h4></div>
+            </div>
+
+            <div class="panel panel-profile border-none cover2">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class=" required">Name</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class=" required">Primary Data Source</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class=" required">Primary Data Element</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="required">Secondary Data Source</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class=" required">Secondary Data Element</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngFor=" let dataElement of form.get('dataElementMapping')['controls'] ; let i = index">
+                <div class="col-sm-12" formArrayName="dataElementMapping">
+                  <div class="row formArray" [formGroupName]="i">
+                    <div class="col-md-12">
+                      <div class="col-md-2">
+                        <div class="form-group inline-label-align">
+                          <input type="text" formControlName="name" class="form-control input-sm"
+                                 placeholder="Name">
+                        </div>
+                      </div>
+                      <div class="col-md-2" formGroupName="dataSourcePrimary">
+                        <div class="form-group">
+                          <select class="form-control input-sm" #dataSourcePrimary formControlName="id">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let dataSource of dataSources" value="{{dataSource.id}}">
+                              {{dataSource.name}}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group" formGroupName="dataElementPrimary">
+                          <select class="form-control input-sm" #dataElementPrimary formControlName="id">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let element of dataSourceMap.get(+dataSourcePrimary.value)"
+                                    value="{{element.id}}">
+                              {{element.name}}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2" formGroupName="dataSourceSecondary">
+                        <div class="form-group ">
+                          <select class="form-control input-sm" #dataSourceSecondary formControlName="id">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let dataSource of dataSources" value="{{dataSource.id}}">
+                              {{dataSource.name}}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group" formGroupName="dataElementSecondary">
+                          <select class="form-control input-sm" #dataElementSecondary formControlName="id">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let element of dataSourceMap.get(+dataSourceSecondary.value)"
+                                    value="{{element.id}}">
+                              {{element.name}}
+                          </select>
+                        </div>
+                      </div>
+                      <div *ngIf="!isEditMode" class="col-md-1">
+                        <a href="javascript:void(0);" (click)="removeDataElement(i)"
+                           class="text-danger delete-btn"><i class="fa fa-trash-o"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div  class="row bottom-30">
+                <div class="col-sm-12">
+                  <div class="col-md-12">
+                    <div *ngIf="!isEditMode" class="col-md-6">
+                      <button type="button" (click)="addDataElement()" class="btn btn-primary add-btn"><i
+                        class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12" align="right">
+                  <button type="submit" class="submit-btn" [ladda]="isLoading">{{isEditMode?'Update':'Submit'}}</button>
+                  <button type="button"
+                          [routerLink]="['/home/recon', 'data-element', {outlets: {'fullBodyOutlet': ['list']}}]"
+                          class="btn btn-primary cancel-btn">Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

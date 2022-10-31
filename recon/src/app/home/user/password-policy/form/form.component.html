@@ -1,0 +1,115 @@
+<div class="main" *ngIf="!formOpen">
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Password Policy</h3>
+        </div>
+        <div class="panel-body">
+          <form [formGroup]="passwordPolicyForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Min Length</label>
+                  <input type="number" formControlName="minLength" class="form-control input-sm"
+                         placeholder="Length" minlength="1">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Max Length</label>
+                  <input type="number" formControlName="maxLength" class="form-control input-sm"
+                         placeholder="Length" maxlength="2">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Password Max Age(In Days)</label>
+                  <input type="number" formControlName="passwordMaxAge" class="form-control input-sm"
+                         placeholder="Days">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Special Char Allowed</label>
+                  <select class="form-control input-sm" formControlName="specialCharAllowed" #allowSpecChar
+                          (change)="allowSpecialCh(allowSpecChar.value)">
+                    <option *ngFor="let allowed of allow" value="{{allowed.value}}">{{allowed.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Password Expiry Warning(In Days)</label>
+                  <input type="number" formControlName="passwordExpWarning" class="form-control input-sm"
+                         placeholder="Days">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Password Max Failure</label>
+                  <input type="number" formControlName="passwordMaxFailure" class="form-control input-sm"
+                         placeholder="Length">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Allow User to change Pwd</label>
+                  <select class="form-control input-sm" formControlName="allowUserToChamgePwd" #allowUser>
+                    <option *ngFor="let allowed of allow" value="{{allowed.value}}">{{allowed.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Upper Case Letters</label>
+                  <select class="form-control input-sm" formControlName="uppercaseLetterAllowed" #allowupper>
+                    <option *ngFor="let allowed of allow" value="{{allowed.value}}">{{allowed.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3" *ngIf="isShow">
+                <div class="form-group">
+                  <label class="required">Special Characters</label>
+                  <input type="text" formControlName="specialCharacters" class="form-control input-sm"
+                         placeholder="text field">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Number Allowed</label>
+                  <select class="form-control input-sm" formControlName="numberAllowed" #allownumber>
+                    <option *ngFor="let allowed of allow" value="{{allowed.value}}">{{allowed.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="required">Use Policy</label>
+                  <select class="form-control input-sm" formControlName="usePolicy" #policy>
+                    <option *ngFor="let allowed of allow" value="{{allowed.value}}">{{allowed.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" align="right">
+                <button type="submit" class="btn submit-btn">Save</button>
+                <button type="button" (click)="cancel()" class="btn btn-primary cancel-btn">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="formOpen">
+  <app-detail [passwordPolicy]="passwordPolicy" (onEdit)="editMode()"></app-detail>
+</div>
+
+

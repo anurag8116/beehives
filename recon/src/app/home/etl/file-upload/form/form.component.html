@@ -1,0 +1,90 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">File Upload</h3>
+        </div>
+        <form>
+          <div class="panel-body">
+
+            <div class="panel-profile cover2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-2">
+                    <label class="required">Recon</label>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <select class="form-control input-sm" #recon (change)="getDataSourceConfig(recon)">
+                        <option [value]="0">--All--</option>
+                        <option *ngFor="let recon of recons" value="{{recon.id}}">
+                          {{recon.name}}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px">
+                <div class="col-md-12">
+                  <div class="col-md-2">
+                    <label class="required">File Name</label>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <select class="form-control input-sm" #filename (change)="onDataSourceChange(filename.value)">
+
+                        <option [value]="0">--Select File Name--</option>
+                        <option *ngFor="let fileConfig of dataSources" value="{{fileConfig.id}}">
+                          {{fileConfig.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 20px">
+                <div class="col-md-12">
+                  <div class="col-md-2">
+                    <label class="required">File</label>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="file-upload" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> Upload File
+                      </label>
+                      <input id="file-upload" [disabled]="!dataSourceId" #file multiple
+                             (change)="onFileSelect($event.target.files)" type="file" [accept]="accept" style="display:none;"/>
+                      <p>{{filesName}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 20px">
+              <div class="col-md-12">
+                <div class="col-md-12" align="right">
+                  <button type="button" class="submit-btn" data-size="s" (click)="uploadFile()" [ladda]="isLoading">
+                    Upload File
+                  </button>
+                  <button type="button" class="btn btn-primary cancel-btn" (click)="reset(file)">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-profile panel-top-spc">
+            <div class="clearfix">
+              <div class="col-md-12 top-spc all-cover-report-executions" *ngIf="showTable">
+                <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

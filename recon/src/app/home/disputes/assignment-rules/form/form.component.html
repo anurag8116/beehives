@@ -1,0 +1,54 @@
+<div class="col-md-12 left-pad2 right-pad2">
+
+  <div class="panel">
+    <div class="panel-heading newbg">
+      <h3 class="panel-title">New Assignment</h3>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="panel-body">
+        <div class="panel-profile cover2">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="required">Module</label>
+                  <select class="form-control input-sm" #parentModule formControlName="moduleId">
+                    <option value="null" disabled>--Select One--</option>
+                    <option *ngFor="let parentModule of modules" value="{{parentModule.id}}">
+                      {{parentModule.name}}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="required">Role</label>
+                  <select class="form-control input-sm" #modrole formControlName="roleId">
+                    <option value="null" disabled>--Select One--</option>
+                    <option *ngFor="let modulerole of roles" value="{{modulerole.id}}">
+                      {{modulerole.name}}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12" align="right">
+          <button type="submit" class="submit-btn" data-size="s" [ladda]="isLoading">
+            submit
+          </button>
+          <button type="button"
+                  [routerLink]="['/home/disputes/part', 'assignment-rules', {outlets: {'bodyOutlet': ['list']}}]"
+                  class="btn btn-primary cancel-btn">Cancel
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+

@@ -1,0 +1,126 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 left-pad2 right-pad">
+          <div class="panel panel-profile all-panel-align">
+            <div class="clearfix">
+              <table class="table table-hover table-inner-align privilege-table-cover">
+                <tbody>
+                <tr>
+                  <th class="newbg">Recons</th>
+                </tr>
+                <tr *ngFor="let recon of recons; let i = index" (click)="select(i)"
+                    [ngClass]="{'active': selectedIndex == i  }">
+                  <td><a href="javascript:void(0);" class="active">
+                    <div (click)="onSelectRecon(recon.id)">{{recon.name}}</div>
+                  </a>
+                  </td>
+                </tr>
+                <tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 left-pad2 right-pad2">
+          <div class="panel panel-profile">
+            <div class="panel panel-heading newhead newbg"><h4>{{duplicateList?'Duplicate Match Transaction':'Reconciled Transaction'}}</h4></div>
+            <div class="clearfix">
+              <div class="row form-inner-cover">
+                <div class="row form-inner-cover">
+                  <div class="col-md-8">
+                    <div class="col-md-4 right-margin">
+                      <label>Data Source</label>
+                      <select class="form-control" #dataSource [(ngModel)]="selectedSourceViewId"
+                              (change)="onDataSourceChange(dataSource.value,reconIteration.value)">
+                        <option disabled="true">Select one</option>
+                        <option *ngFor="let dataSourceView of dataSourcesViews" value="{{dataSourceView.id}}">
+                          {{dataSourceView.datasourceVo.name}}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 right-margin">
+                      <label>Recon Iteration</label>
+                      <select class="form-control" #reconIteration [(ngModel)]="selectedIterationId"
+                              (change)="onDataSourceChange(dataSource.value,reconIteration.value)">
+                        <option value="null">All</option>
+                        <option *ngFor="let reconIteration of reconIterations" value="{{reconIteration.id}}">
+                          {{reconIteration.reconName}} {{reconIteration.executionStartTime | date:'MMM dd yyyy, hh:mm a'}}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 right-margin">
+                      <label>Rule</label>
+                      <select class="form-control" #rule [(ngModel)]="selectedRuleId"
+                              (change)="onDataSourceChange(dataSource.value, reconIteration.value,rule.value)">
+                        <option value="">Select one</option>
+                        <option *ngFor="let rule of rules" value="{{rule.id}}">
+                          {{rule.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 top-spc20" align="right">
+                    <button type="button" (click)="onForcedUnMatch()" class="btn btn-primary add-btn">Force UnMatch
+                    </button>
+                    <button *ngIf="duplicateList"  type="button" (click)="onForcedUnMatch()" class="btn btn-primary add-btn">Knock Off
+                    </button>
+                    <button type="button" (click)="viewTransactionHistory()" class="btn btn-primary add-btn">
+                      History
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-profile">
+            <div class="row form-inner-cover">
+              <div class="col-md-12 top-spc">
+                <div class="col-md-3 right-margin" *ngFor="let searchFiled of searchFileds">
+                  <label>{{searchFiled.label}}</label>
+                  <input type="text" (keyup)="searchByName($event.target.value,searchFiled.fieldName)"
+                         class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-profile panel-top-spc">
+            <div class="clearfix all-cover-force-unmatch">
+              <div class="col-md-12 table-responsive top-spc" *ngIf="showTable">
+                <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

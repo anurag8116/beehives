@@ -1,0 +1,391 @@
+<div id="sidebar-nav" class="sidebar">
+  <div class="sidebar-scroll">
+    <nav>
+      <ul class="nav newul">
+        <li *ngIf="dashboards || dashlets || dashboardExport || dashboardImport">
+          <a id="dashboard" href="#subPages" (click)="setSelectedMenu($event,'subPages')"
+             data-toggle="collapse"
+             class="menu collapsed"><i class="fa fa-tachometer"></i>
+            <span>Dashboards</span>
+            <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="dashboards"><a routerLinkActive="active"
+                                        [routerLink]="['dashboard', 'full' , {outlets: {'fullBodyOutlet': ['config']}}]"
+                                        class="">Dashboards</a></li>
+              <li *ngIf="dashlets"><a routerLinkActive="active"
+                                      [routerLink]="['dashboard', 'dashlet' , {outlets: {'sideOutlet': ['list']}}]"
+                                      class="">Dashlets</a></li>
+              <li *ngIf="dashboardExport"><a routerLinkActive="active"
+                                             [routerLink]="['dashboard/full', 'export', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                             class="">Export</a></li>
+              <li *ngIf="dashboardImport"><a routerLinkActive="active"
+                                             [routerLink]="['dashboard/full', 'import', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                             class="">Import</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="pipelines || pipelineOperations || assignedInvalidData || invalidData || invalidDataView
+              || masterDataType || masterData || masterDataView || rollbacks || assignedMasterData || ejviewer ||
+              fileUpload || fileApproval || cashbackCoupon">
+          <a id="etl" href="#subPages2" (click)="setSelectedMenu($event,'subPages2')" routerLinkActive="active"
+             data-toggle="collapse" class="menu collapsed"><i
+            class="fa fa-file"></i>
+            <span>ETL</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages2" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="pipelines" id="etl_pipe"><a routerLinkActive="active" id="pipelines"
+                                                     [routerLink]="['etl', 'pipeline', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                     class="">Pipelines</a>
+              </li>
+              <li *ngIf="pipelineOperations" id="etl_pipe_exec"><a routerLinkActive="active" id="pipelineExecutions"
+                                                                   [routerLink]="['etl/part', 'execution', {outlets: {'sideOutlet': ['list']}}]"
+                                                                   class="">Pipeline
+                Operations</a></li>
+              <li *ngIf="assignedInvalidData" id="etl_assign_inv_data"><a routerLinkActive="active"
+                                                                          id="assignInvalidData"
+                                                                          [routerLink]="['etl/part', 'assign-invalid-data', {outlets: {'sideOutlet': ['list'],'bodyOutlet': ['bodyOutlet']}}]"
+                                                                          class="">Assigned Invalid Data</a></li>
+              <li *ngIf="invalidData" id="etl_inv_data"><a routerLinkActive="active" id="invalidData"
+                                                           [routerLink]="['etl/part', 'invalid-data', {outlets: {'sideOutlet': ['list'],'bodyOutlet': ['bodyOutlet']}}]"
+                                                           class="">Invalid Data</a></li>
+              <li *ngIf="invalidDataView" id="etl_inv_data_view"><a routerLinkActive="active" id="invalidDataView"
+                                                                    [routerLink]="['etl', 'invalid-data-view', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                                    class="">Invalid
+                Data View</a>
+              </li>
+              <li *ngIf="masterDataType" id="etl_mas_data_type"><a routerLinkActive="active" id="masterDataType"
+                                                                   [routerLink]="['etl', 'master-data-type', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                                   class="">Master
+                Data Type</a></li>
+              <li *ngIf="masterData" id="etl_mas_data"><a routerLinkActive="active" id="masterData"
+                                                          [routerLink]="['etl/part', 'master-data', {outlets: {'sideOutlet': ['list'],'bodyOutlet': ['bodyOutlet']}}]"
+                                                          class="">Master Data</a></li>
+              <li *ngIf="assignedMasterData" id="assigned_Master_Data"><a routerLinkActive="active"
+                                                                          id="assignedMasterData"
+                                                                          [routerLink]="['etl/part', 'assigned-master-data', {outlets: {'sideOutlet': ['list'],'bodyOutlet': ['bodyOutlet']}}]"
+                                                                          class="">Assigned Master Data</a></li>
+              <li *ngIf="masterDataView" id="etl_mas_data_view"><a routerLinkActive="active" id="masterDataView"
+                                                                   [routerLink]="['etl', 'master-data-view', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                                   class="">Master
+                Data View</a>
+              </li>
+              <li *ngIf="rollbacks" id="etl_roll_back"><a routerLinkActive="active" id="rollbacks"
+                                                          [routerLink]="['etl', 'rollback', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                          class="">Rollbacks</a>
+              </li>
+              <li *ngIf="ejviewer" id="ej_viewer"><a routerLinkActive="active" id="ejviewer"
+                                                     [routerLink]="['etl', 'ej-viewer', {outlets: {'fullBodyOutlet': ['view']}}]"
+                                                     class="">Ej Viewer</a>
+              </li>
+              <li *ngIf="fileUpload" id="file_upload"><a routerLinkActive="active" id="fileUpload"
+                                                         [routerLink]="['etl', 'file-upload', {outlets: {'fullBodyOutlet': ['form']}}]"
+                                                         class="">File Upload</a>
+              </li>
+              <li *ngIf="fileApproval" id="file_approval"><a routerLinkActive="active" id="fileApproval"
+                                                         [routerLink]="['etl', 'file-upload', {outlets: {'fullBodyOutlet': ['file-approval']}}]"
+                                                         class="">File Approval</a>
+              </li>
+              <li *ngIf="cashbackCoupon" id="cashback_coupon"><a routerLinkActive="active" id="cashbackCoupon"
+                                                         [routerLink]="['etl', 'cashback-coupon', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                         class="">Cashback Coupon</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="relaxMatch || dataElements || rules || ruleGroups || recons || modules || glConfig || glBalancing
+              || dataSources || reconciledTransaction || dataSourceView || unReconciledTransaction || reconIteration
+               || rcGlBalancing || brsReport || rahejaReport || airtel_brs_Report || invoiceReport ||reconDuplicate">
+          <a href="#subPages3" (click)="setSelectedMenu($event,'subPages3')" data-toggle="collapse"
+             class=" menu collapsed"><i class="fa fa-files-o"></i>
+            <span>Recon</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages3" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="reconIteration" id="rec_itera"><a routerLinkActive="active" id="reconIteration"
+                                                           [routerLink]="['recon', 'iteration', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                           class="">Recon Iterations</a></li>
+              <li *ngIf="relaxMatch" id="rec_relax_match"><a routerLinkActive="active" id="relaxMatch"
+                                                             [routerLink]="['recon', 'relax-match', {outlets: {'fullBodyOutlet': ['form']}}]"
+                                                             class="">Relax Match</a></li>
+              <li *ngIf="dataElements" id="rec_data_ele"><a routerLinkActive="active" id="dataElement"
+                                                            [routerLink]="['recon', 'data-element', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                            class="">Data Element</a>
+              </li>
+              <li *ngIf="rules" id="rec_rule"><a routerLinkActive="active" id="rules"
+                                                 [routerLink]="['recon', 'rule', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                 class="">Rules</a>
+              </li>
+              <li *ngIf="ruleGroups" id="rec_group"><a routerLinkActive="active" id="groups"
+                                                       [routerLink]="['recon', 'rule-group', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                       class="">Rule
+                Groups</a></li>
+              <li *ngIf="recons" id="rec_recon"><a routerLinkActive="active" id="recons"
+                                                   [routerLink]="['recon', 'recons', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                   class="">Recons</a></li>
+              <li *ngIf="modules" id="rec_module"><a routerLinkActive="active" id="modules"
+                                                     [routerLink]="['recon', 'module', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                     class="">Modules</a>
+              </li>
+              <li *ngIf="dataSources" id="rec_source"><a routerLinkActive="active" id="sources"
+                                                         [routerLink]="['recon', 'data-source', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                         class="">Data
+                Sources</a></li>
+              <li *ngIf="dataSourceView" id="rec_unmatch_tran_view"><a routerLinkActive="active"
+                                                                       id="unmatchedTransactionView"
+                                                                       [routerLink]="['recon', 'unmatched-transaction-view', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                                       class="">Data Source View</a>
+              </li>
+              <li *ngIf="reconciledTransaction" id="rec_match_tran"><a routerLinkActive="active" id="matchedTransaction"
+                                                                       [routerLink]="['recon', 'matched-transactions', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                                       class="">Reconciled </a></li>
+              <li *ngIf="reconDuplicate" id="rec_dup_match_tran"><a routerLinkActive="active" id="reconDuplicate"
+                                                                       [routerLink]="['recon', 'matched-transactions', {outlets: {'fullBodyOutlet': ['duplicate-list']}}]"
+                                                                       class="">Duplicate Matching</a></li>
+              <li *ngIf="unReconciledTransaction" id="rec_unmatch_tran"><a routerLinkActive="active"
+                                                                           id="unmatchedTransaction"
+                                                                           [routerLink]="['recon/part', 'unmatched-transaction', {outlets:{'sideOutlet': ['list'],'bodyOutlet': ['bodyOutlet']}}]"
+                                                                           class="">Unreconciled</a></li>
+
+              <li *ngIf="glConfig" id="gl_Config"><a routerLinkActive="active"
+                                                     id="glConfig"
+                                                     [routerLink]="['recon', 'gl-config', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                     class="">GL Configuration</a></li>
+              <li *ngIf="glBalancing" id="gl_balancing"><a routerLinkActive="active"
+                                                           id="glBalancing"
+                                                           [routerLink]="['recon', 'gl-config', {outlets: {'fullBodyOutlet': ['gl-report']}}]"
+                                                           class="">GL Balancing Report</a></li>
+              <li *ngIf="rcGlBalancing" id="rc_gl_balancing"><a routerLinkActive="active"
+                                                                id="rcGlBalancing"
+                                                                [routerLink]="['recon', 'gl-config', {outlets: {'fullBodyOutlet': ['rc-gl-report']}}]"
+                                                                class="">GL Balancing Report</a></li>
+
+              <li *ngIf="settlementReport" id="settlement_Report"><a routerLinkActive="active"
+                                                                     id="settlementReport"
+                                                                     [routerLink]="['recon','settlement', {outlets: {'fullBodyOutlet': ['report']}}]"
+                                                                     class="">Settlement Report</a></li>
+              <li *ngIf="brsReport" id="brs_Report"><a routerLinkActive="active"
+                                                       id="brsReport"
+                                                       [routerLink]="['recon','brs', {outlets: {'fullBodyOutlet': ['report']}}]"
+                                                       class="">BRS Report</a></li>
+              
+              <li *ngIf="airtel_brs_Report" id="airtel_Report"><a routerLinkActive="active"
+                                                        id="airtel_brs_Report"
+                                                        [routerLink]="['recon','brs', {outlets: {'fullBodyOutlet': ['airtel']}}]"
+                                                        class="">Airtel BRS Report</a></li>
+              <li *ngIf="rahejaReport" id="raheja_Report"><a routerLinkActive="active"
+                                                             id="rahejaReport"
+                                                             [routerLink]="['recon','raheja', {outlets: {'fullBodyOutlet': ['report']}}]"
+                                                             class="">Raheja Report</a></li>
+              <li *ngIf="irctcBrs" id="irctc_Brs"><a routerLinkActive="active"
+                                                     id="irctcBrs"
+                                                     [routerLink]="['recon','brs', {outlets: {'fullBodyOutlet': ['irctc']}}]"
+                                                     class="">IRCTC BRS Report</a></li>
+                                                      <li *ngIf="invoiceReport" id="invoice_Report"><a routerLinkActive="active"
+                                                       id="invoiceReport"
+                                                       [routerLink]="['recon','brs', {outlets: {'fullBodyOutlet': ['invoice-report']}}]"
+                                                       class="">Invoice Report</a></li>
+
+              <li *ngIf="openTickets" id="open_Tickets"><a routerLinkActive="active"
+                                                       id="openTickets"
+                                                       [routerLink]="['recon','tickets', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                       class="">My Tickets</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="passwordPolicy || users || escalations || roles || privileges
+              || approvelRight || pendingApprovals || errorLog">
+          <a href="#subPages4" (click)="setSelectedMenu($event,'subPages4')" data-toggle="collapse"
+             class=" menu collapsed"><i class="fa fa-user"></i>
+            <span>User</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages4" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="pendingApprovals" id="user_pen_appr"><a routerLinkActive="active" id="pendingApprovals"
+                                                                 [routerLink]="['user', 'pending-approvals', {outlets: {'sideOutlet': ['approval-category']}}]"
+                                                                 class="">Pending Approvals</a></li>
+              <li *ngIf="passwordPolicy" id="user_pass_policy"><a routerLinkActive="active" id="passwordPolicy"
+                                                                  [routerLink]="['user/full', 'password-policy', {outlets: {'fullBodyOutlet': ['new']}}]"
+                                                                  class="">Password
+                Policy</a></li>
+              <li *ngIf="users" id="user_list"><a routerLinkActive="active" id="userList"
+                                                  [routerLink]="['user/full', 'users', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                  class="">Users</a></li>
+              <li *ngIf="escalations" id="user_esca"><a routerLinkActive="active" id="escalations"
+                                                        [routerLink]="['user/full', 'escalations', {outlets: {'fullBodyOutlet': ['new']}}]"
+                                                        class="">Escalations</a>
+              </li>
+              <li *ngIf="roles" id="user_roles"><a routerLinkActive="active" id="roles"
+                                                   [routerLink]="['user/full', 'role', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                   class="">Roles</a>
+              </li>
+              <li *ngIf="privileges" id="user_priv"><a routerLinkActive="active" id="privileges"
+                                                       [routerLink]="['user/full', 'role', {outlets: {'fullBodyOutlet': ['privilege']}}]"
+                                                       class="">Privileges</a>
+              </li>
+              <li *ngIf="approvelRight" id="user_appr_right"><a routerLinkActive="active" id="approvelRights"
+                                                                [routerLink]="['user/full', 'approvel-rights', {outlets: {'fullBodyOutlet': ['new']}}]"
+                                                                class="">Approval
+                Rights</a></li>
+              <li *ngIf="errorLog"><a routerLinkActive="active"
+                                      [routerLink]="['user/full', 'error-log', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                      class="">Error Log</a></li>
+
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="job || jobExecutions">
+          <a href="#subPages5" (click)="setSelectedMenu($event,'subPages5')" data-toggle="collapse"
+             class="menu collapsed"><i class="fa fa-calendar"></i>
+            <span>Scheduler</span>
+            <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages5" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="job" id="sche_job"><a routerLinkActive="active" id="jobs"
+                                               [routerLink]="['scheduler', 'job', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                               class="">Jobs</a>
+              </li>
+              <li *ngIf="jobExecutions"><a routerLinkActive="active" id="jobsexecutions"
+                                           [routerLink]="['scheduler', 'job-execution', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                           class="">Job Executions</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="reports   || reportExecutions || reportExport || reportImport || downloadReport">
+          <a href="#subPages6" (click)="setSelectedMenu($event,'subPages6')" data-toggle="collapse"
+             class="menu collapsed"><i class="fa fa-bug"></i>
+            <span>Reports</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages6" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="reports" id="rep_reports"><a routerLinkActive="active" id="reports"
+                                                      [routerLink]="['reports/part', {outlets: {'sideOutlet': ['list']}}]"
+                                                      class="">Reports</a></li>
+
+                                                      <li *ngIf="downloadReport" id="settlement_recon_report"><a routerLinkActive="active"
+                                                                                                             id="downloadReport"
+                                                                                                             [routerLink]="['reports','download', {outlets: {'fullBodyOutlet': ['report']}}]"
+                                                                                                             class="">Download Report</a></li>
+              <li *ngIf="reportExecutions" id="repo_rep_exec"><a routerLinkActive="active" id="reportExecution"
+                                                                 [routerLink]="['reports', 'report-execution', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                                                 class="">Report
+                Executions</a></li>
+              <li *ngIf="reportExport"><a routerLinkActive="active"
+                                          [routerLink]="['reports', 'export', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                          class="">Export</a></li>
+              <li *ngIf="reportImport"><a routerLinkActive="active"
+                                          [routerLink]="['reports', 'import', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                          class="">Import</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="auditLogs">
+          <a routerLinkActive="active" (click)="setSelectedMenu($event,'sub')"
+             [routerLink]="['user/full','audit-logs',{outlets: {'fullBodyOutlet': ['list']}}]"><i
+            class="fa fa-history"></i>
+            <span>Audit Logs</span></a>
+        </li>
+        <li *ngIf="dataProviders || lookupProviders">
+          <a href="#subPages7" (click)="setSelectedMenu($event,'subPages7')" data-toggle="collapse"
+             class=" menu collapsed"><i class="fa fa-database"></i> <span>Data Provider</span>
+            <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages7" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="dataProviders"><a routerLinkActive="active"
+                                           [routerLink]="['dataprovider', 'dataproviders',{outlets: {'sideOutlet': ['dataprovider-list']}}]">Data
+                Providers</a></li>
+              <li *ngIf="lookupProviders"><a routerLinkActive="active"
+                                             [routerLink]="['dataprovider/lookup','lookupproviders', {outlets: {'sideOutlet': ['lookupprovider-list']}}]">Lookup
+                Providers</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="issuerDisputes || issuerChargeback || issuerGoodfaithChargeback || issuerPreArbitrations
+            || issuerArbitrations  || aquirerChargeBack || aquirerGoodfaithChargeback
+            || aquirerPreArbitrations || aquirerArbitrations || onus">
+          <a href="#subPages9" data-toggle="collapse" (click)="setSelectedMenu($event,'subPages9')"
+             class="menu collapsed"><i class="fa fa-users"></i>
+            <span>Disputes</span>
+            <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+          <div id="subPages9" class="collapse ">
+            <ul class="nav">
+              <li *ngIf="ntrTransactionDispute || issuerDisputes || issuerChargeback || issuerGoodfaithChargeback || issuerPreArbitrations
+              || issuerArbitrations ">
+                <a href="#subPages91" data-toggle="collapse" class="collapsed"><i class="fa fa-database"></i> <span>Issuer</span>
+                  <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                <div id="subPages91" class="collapse ">
+                  <ul class="nav inner-nav">
+                    <li *ngIf="ntrTransactionDispute"><a routerLinkActive="active"
+                                                  [routerLink]="['disputes', 'issuer-disputes', {outlets: {'fullBodyOutlet': ['ntr-transaction']}}]">NTR Transaction</a>
+                    </li>
+                    <li *ngIf="issuerDisputes"><a routerLinkActive="active"
+                                                  [routerLink]="['disputes', 'issuer-disputes', {outlets: {'fullBodyOutlet': ['list','ALL']}}]">Disputes</a>
+                    </li>
+                    <li *ngIf="issuerChargeback"><a routerLinkActive="active"
+                                                    [routerLink]="['disputes', 'issuer-disputes', {outlets: {'fullBodyOutlet': ['list','CHARGE_BACK']}}]">Charge
+                      Backs</a></li>
+                    <li *ngIf="issuerGoodfaithChargeback"><a routerLinkActive="active"
+                                                             [routerLink]="['disputes','issuer-disputes', {outlets: {'fullBodyOutlet': ['list','GOOD_FAITH']}}]">Goodfaith
+                      Charge Backs</a></li>
+                    <li *ngIf="issuerPreArbitrations"><a routerLinkActive="active"
+                                                         [routerLink]="['disputes','issuer-disputes', {outlets: {'fullBodyOutlet': ['list','PRE_ARBITRATION']}}]">Pre
+                      Arbitrations</a></li>
+                    <li *ngIf="issuerArbitrations"><a routerLinkActive="active"
+                                                      [routerLink]="['disputes','issuer-disputes', {outlets: {'fullBodyOutlet': ['list','ARBITRATIONS']}}]">Arbitrations</a>
+                    </li>
+                    <li *ngIf="issuerDisputes"><a routerLinkActive="active"
+                                                  [routerLink]="['disputes','issuer-disputes', {outlets: {'fullBodyOutlet': ['queue']}}]">Dispute
+                      Queue</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                *ngIf="aquirerChargeBack || aquirerGoodfaithChargeback || aquirerPreArbitrations || aquirerArbitrations">
+                <a href="#subPages92" data-toggle="collapse" class="collapsed"><i class="fa fa-database"></i> <span>Acquirer</span>
+                  <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                <div id="subPages92" class="collapse ">
+                  <ul class="nav inner-nav">
+                    <li *ngIf="aquirerChargeBack"><a routerLinkActive="active"
+                                                     [routerLink]="['disputes','acquirer-arbitration', {outlets: {'fullBodyOutlet': ['list','CHARGE_BACK']}}]">Charge
+                      Backs</a></li>
+                    <li *ngIf="aquirerGoodfaithChargeback"><a routerLinkActive="active"
+                                                              [routerLink]="['disputes','acquirer-arbitration', {outlets: {'fullBodyOutlet': ['list','GOOD_FAITH']}}]">Goodfaith
+                      Charge Backs</a></li>
+                    <li *ngIf="aquirerPreArbitrations"><a routerLinkActive="active"
+                                                          [routerLink]="['disputes','acquirer-arbitration', {outlets: {'fullBodyOutlet': ['list','PRE_ARBITRATIONS']}}]">Pre
+                      Arbitrations</a></li>
+                    <li *ngIf="aquirerArbitrations"><a routerLinkActive="active"
+                                                       [routerLink]="['disputes','acquirer-arbitration', {outlets: {'fullBodyOutlet': ['list','ARBITRATIONS']}}]">Arbitrations</a>
+                    </li>
+                    <li *ngIf="aquirerChargeBack"><a routerLinkActive="active"
+                                                     [routerLink]="['disputes','acquirer-arbitration', {outlets: {'fullBodyOutlet': ['queue']}}]">Dispute
+                      Queue</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                *ngIf="onus || onusQueue">
+                <a href="#subPages105" data-toggle="collapse" class="collapsed"><i class="fa fa-database"></i> <span>Onus</span>
+                  <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                <div id="subPages105" class="collapse ">
+                  <ul class="nav inner-nav">
+                    <li *ngIf="onus"><a routerLinkActive="active"
+                                        [routerLink]="['disputes', 'onus', {outlets: {'fullBodyOutlet': ['list']}}]"
+                                        class=""> Dispute</a></li>
+                    <li *ngIf="onusQueue"><a routerLinkActive="active"
+                                             [routerLink]="['disputes', 'onus', {outlets: {'fullBodyOutlet': ['queue']}}]"
+                                             class="">Dispute Queue</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li *ngIf="disputeSetting"><a routerLinkActive="active"
+                                            [routerLink]="['disputes/part', {outlets: {'sideOutlet': ['setting']}}]"
+                                            class="">Dispute Setting</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="settings"><a routerLinkActive="active"
+                                [routerLink]="['setting/part', 'captcha', {outlets: {'sideOutlet': ['list'],'bodyOutlet': ['bodyOutlet']}}]"
+                                class=""><i class="fa fa-history"></i>Setting</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+

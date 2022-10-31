@@ -1,0 +1,59 @@
+<!-- WRAPPER -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="brand">
+    <a [routerLink]="['/home']"><img src="assets/images/bee-recon3.png" alt="Klorofil Logo" class="img-responsive logo"
+                                     id="brand_logo"></a>
+  </div>
+  <div class="container-fluid">
+    <div class="navbar-btn">
+      <button type="button" (click)="clickOnHideLeftMenu()" class="btn-toggle-fullwidth"><i
+        [ngClass]="isHideLeftMenu ? 'lnr lnr-arrow-right-circle' : 'lnr lnr-arrow-left-circle'"></i></button>
+    </div>
+    <div class="navbar-btn navbar-btn-right"></div>
+    <div id="navbar-menu">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle icon-menu" (click)="dashletData()" data-toggle="dropdown"><i class="lnr lnr-download"></i></a>
+          <ul class="dropdown-menu notifications ui-notification">
+            <li *ngFor="let download of downloads">
+              <a class="notification-item" href="javascript:void(0);" (click)="downloadFile(download.id)">
+              <span class="dot bg-warning"></span>{{download.dashletName | truncate:[43, '...']}}<br>
+              <span>{{download.requestedOn | date: 'dd/MM/yyyy hh:mm a'}}</span>--
+              <span>{{download.requestedBy}}</span></a>
+            </li>
+            <li><a class="more" href="javascript:void(0);" (click)="downloadClick()">See All</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+            <i class="lnr lnr-alarm"></i>
+            <span class="badge bg-danger">{{notifications.totalResult}}</span></a>
+          <ul class="dropdown-menu notifications ui-notification">
+            <li *ngFor="let notifications of notifications.uiNotifications"><a class="notification-item"><span
+              class="dot bg-warning"></span>{{notifications.displayMessage | truncate:[43, '...']}}<br><span
+              class="badge">{{notifications.notifiedOn | date: 'dd/MM/yyyy hh:mm a'}}</span></a>
+            </li>
+            <li><a class="more" href="javascript:void(0);" (click)="unseenClick()">See All</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown" style="width: 200px">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img [src]="profilePic"
+                                                                          class="img-circle" alt="Avatar"
+                                                                          style="height: 30px; width: 28px"> <span>{{userDetail.appUserName}}</span>
+            <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="javascript:void(0);" (click)="profile()"><i class="lnr lnr-user"></i>
+              <span>My Profile</span></a></li>
+            <li><a href="javascript:void(0);" (click)="onSetting()"><i class="lnr lnr-cog"></i>
+              <span>My Settings</span></a></li>
+            <li *ngIf="allowUserChangedPass === true"><a href="javascript:void(0);" (click)="changePassword()"><i
+              class="lnr lnr-dice"></i> <span>Change Password</span></a></li>
+            <li><a href="javascript:void(0);" (click)="logout()"><i class="lnr lnr-exit"></i> <span>Logout</span></a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

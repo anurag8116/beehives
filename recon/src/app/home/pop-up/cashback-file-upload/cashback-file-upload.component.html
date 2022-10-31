@@ -1,0 +1,54 @@
+<div class="panel-heading newhead newbgpopup">
+  <div class="row">
+    <div class="col-md-12">
+      <h4><b> Upload File</b></h4>
+    </div>
+  </div>
+</div>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="required">Txn From Date</label>
+          <input type="text" (bsValueChange)="fileName = ''" [(ngModel)]="txnFromDate"
+                 class="form-control input-sm" placeholder="From Date"
+                 bsDatepicker #fromDate
+                 (click)="toDate.value=''; txnToDate = null"
+                 [bsConfig]="bsConfig">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="required">Txn To Date</label>
+          <input type="text" (bsValueChange)="fileName = ''" [(ngModel)]="txnToDate"
+                 class="form-control input-sm" placeholder="To Date"
+                 bsDatepicker #toDate
+                 (click)="getToDatePickerConfig(fromDate.value)"
+                 [bsConfig]="bsConfigRestrictPastDate">
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label class="required">File</label>
+      </div>
+      <div class="col-md-10">
+        <div class="form-group">
+          <label for="file-upload" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i> Upload File
+          </label>
+          <input id="file-upload" #file (change)="onFileSelect($event.target.files)" type="file"
+                 accept=".csv" style="display:none;"/>
+          <p class="text-overflow">{{filesName}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 top-spc28" align="right">
+      <button type="button" (click)="uploadFile()" class="submit-btn" data-size="s" [ladda]="isLoading">Upload</button>
+      <button type="button" (click)="close()" class="btn btn-primary cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>

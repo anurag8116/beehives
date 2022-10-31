@@ -1,0 +1,54 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 right-pad left-pad2">
+          <div class="panel panel-profile all-panel-align">
+            <div class="clearfix">
+              <table class="table table-hover table-inner-align privilege-table-cover">
+                <tbody>
+                <tr>
+                  <th class="newbg">Privilege Types</th>
+                </tr>
+                <tr *ngFor="let privilege of privileges; let i = index" (click)="select(i)"
+                    [ngClass]="{'active': selectedIndex == i  }">
+                  <td id="checke">
+                    <a href="javascript:void(0); ">
+                      <div (click)="onSelectPrivilege(privilege.id)">{{privilege.name}}</div>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 right-pad2 left-pad2 all-panel-align">
+          <div class="panel panel-profile">
+            <div class="panel panel-heading newhead newbg"><h4>Privilege Menu</h4></div>
+            <div class="row form-inner-cover all_form">
+              <div class="col-md-12">
+                <div class=" col-md-3">
+                  <label>Privilage Menu</label>
+                </div>
+                <div class="col-md-9">
+                  <label>Description</label>
+                </div>
+              </div>
+              <div class="col-md-12 top-spc10" *ngFor="let privilegeMenu of privilegeMenus; let i = index">
+                <div class="col-md-3">
+                  <i class="fa fa-bar-chart" aria-hidden="true"></i> {{privilegeMenu.name}}
+                </div>
+                <div class="col-md-9">
+                  {{privilegeMenu.description}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

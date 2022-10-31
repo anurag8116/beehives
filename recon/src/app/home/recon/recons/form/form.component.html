@@ -1,0 +1,64 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">{{isEditMode === true ? 'Edit Recon' : 'New Recon'}}</h3>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="panel-body all_form">
+
+            <div class="panel-profile cover2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-4">
+                    <div class="form-group inline-label-align">
+                      <label class="required">Name</label>
+                      <input type="text" formControlName="name" class="form-control input-sm" placeholder="Name" maxlength="50">
+                    </div>
+                  </div>
+                  <div class="col-md-4" formGroupName="module">
+                    <div class="form-group ">
+                      <label class="required"> Module </label>
+                      <select class="form-control input-sm" #module formControlName="id">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let module of modules" value="{{module.id}}">
+                          {{module.name}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Recon run Time</label>
+                      <input type="number" formControlName="runTime" class="form-control input-sm"
+                             placeholder="Recon run Time">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12" align="right">
+                  <button type="submit" class="submit-btn" data-size="s" [ladda]="isLoading">
+                    {{isEditMode?'Update':'Submit'}}
+                  </button>
+                  <button type="button" [routerLink]="['/home/recon', 'recons', {outlets: {'fullBodyOutlet': ['list']}}]"
+                          class="btn btn-primary cancel-btn">Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

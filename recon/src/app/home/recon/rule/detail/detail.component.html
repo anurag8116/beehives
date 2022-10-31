@@ -1,0 +1,161 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Rule Detail</h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-body">
+
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Id</label> :
+                  <span>{{rule.id}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Name</label> : <span>{{rule.name}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Short Name</label> : <span>{{rule.shortName}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Recon</label> : <span>{{rule.reconName}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Primary Data Source</label> : <span>{{rule.primaryDataSource?.name}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Secondary Data Source</label> : <span>{{rule.secondaryDataSource?.name}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Module</label> : <span>{{rule.module?.name}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Prevent Duplicate Match</label> : <span>{{rule.preventDuplicateMatch}}</span>
+                </div>
+              </div>
+              <div class="col-md-4" *ngIf="rule.matchingType === 'ONE_TO_MANY'">
+                <div class="form-inline">
+                  <label>Bulk Data in Secondray Datasource</label> : <span>{{rule.bulkdata}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row detailpage">
+              <div class="col-md-6">
+                <div class="form-inline">
+                  <label>Description</label> : <span>{{rule.discription}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="custom-tabs-line tabs-line-bottom left-aligned">
+            <ul class="nav" role="tablist">
+              <li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">Conditions</a></li>
+            </ul>
+          </div>
+          <div class="tab-content all_form">
+            <div class="tab-pane tab-pane2 fade in active cover2" id="tab-bottom-left1">
+              <div class="panel-body">
+                <div *ngFor="let condition of rule.conditions ; let i = index">
+                  <div class="row">
+                    <div class="col-md-12"><h4>{{'Condition'+(i+1)}} </h4></div>
+                  </div>
+                  <div class="panel panel-profile border-none cover2 box_hidden_align">
+                    <div class="row detailpage">
+                      <div class="col-md-12 rowbg">
+                        <div class="col-md-4">
+                          <div class="form-inline">
+                            <label>Data Element</label> : <span>{{condition.elementOne?.name}}</span>
+                          </div>
+                        </div>
+                        <div *ngIf="condition.elementOne?.varianceType" class="col-md-4">
+                          <div class="form-inline">
+                            <label>Variance</label> : <span>{{condition.elementOne?.varianceType}}</span>
+                          </div>
+                        </div>
+                        <div *ngIf="condition.elementOne?.value" class="col-md-4">
+                          <div class="form-inline">
+                            <label>Value</label> : <span>{{condition.elementOne?.value}}</span>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-inline">
+                            <label>Matching Operator </label> : <span>{{condition.matchingOperator}}</span>
+                          </div>
+                        </div>
+                        <div *ngIf="condition.elementSecond?.name" class="col-md-4">
+                          <div class="form-inline">
+                            <label>Data Element Sec</label> : <span>{{condition.elementSecond?.name}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row detailpage">
+                      <div class="col-md-12">
+
+                        <div *ngIf="condition.elementSecond?.varianceType" class="col-md-4">
+                          <div class="form-inline">
+                            <label>Variance</label> : <span>{{condition.elementSecond?.varianceType}}</span>
+                          </div>
+                        </div>
+                        <div *ngIf="condition.elementSecond?.value" class="col-md-4">
+                          <div class="form-inline">
+                            <label>Value</label> : <span>{{condition.elementSecond?.value}}</span>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-inline">
+                            <label>Condition Joint Type</label> : <span>{{condition.conditionJointType}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12" align="right">
+                <button type="button" [routerLink]="['/home/recon', 'rule', {outlets: {'fullBodyOutlet': ['list']}}]"
+                        class="btn submit-btn">Back
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

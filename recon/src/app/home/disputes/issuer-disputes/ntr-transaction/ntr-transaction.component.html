@@ -1,0 +1,111 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 left-pad2 right-pad">
+          <div class="panel panel-profile all-panel-align">
+            <div class="clearfix">
+              <table class="table table-hover table-inner-align privilege-table-cover">
+                <tbody>
+                <tr>
+                  <th class="newbg">Recons</th>
+                </tr>
+                <tr *ngFor="let dataSource of dataSources; let i = index" (click)="select(i)"
+                    [ngClass]="{'active': selectedIndex == i  }">
+                  <td><a href="javascript:void(0);" class="active">
+                    <div (click)="onSelectDataSource(dataSource.id)">{{dataSource.name}}</div>
+                  </a>
+                  </td>
+                </tr>
+                <tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 left-pad2 right-pad2">
+          <div class="panel panel-profile">
+            <div class="panel panel-heading newhead newbg"><h4>NTR Transaction</h4></div>
+            <div class="clearfix">
+              <div class="row form-inner-cover">
+                <form [formGroup]="form">
+                  <div class="col-md-4" *ngIf="hasRoleCardOps">
+                    <input formControlName="isReversalTxn" (click)="onCheckboxSelect($event.target.checked, 'isReversalTxn')" type="checkbox"
+                           class="checkboxSize">
+                    <span><i></i>Show Reversal Transaction</span>
+                  </div>
+                  <div class="col-md-8">
+                    <input formControlName="isArchive" (click)="onCheckboxSelect($event.target.checked, 'isArchive')" type="checkbox"
+                       class="checkboxSize">
+                     <span><i></i>View Archived Data</span>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Network Data</label>
+                              <input type="text" formControlName="nwData" (keyup)="search($event.target.value, 'NWDATA')" 
+                                  class="form-control" placeholder="Network Data">
+                      </div>
+                      <div class="col-md-4">
+                        <label>RRN</label>
+                              <input type="text" formControlName="rrn" (keyup)="search($event.target.value, 'RRN')" class="form-control" placeholder="RRN">
+                      </div>
+                      <div class="col-md-4">
+                        <label>KIT No</label>
+                              <input type="text" formControlName="kitNo" (keyup)="search($event.target.value, 'PROXY_CARD_NUMBER')" class="form-control" placeholder="KIT No">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label>Date</label>
+                        <div class="form-group">
+                          <input type="text" formControlName="fromDate" (bsValueChange)="searchByDate($event, 'fromTrxn')"
+                                class="range-group-input form-control" placeholder="From"
+                                bsDatepicker #fromDate
+                                (click)="toDate.value=''; form.controls.toDate.setValue(null)"
+                                [bsConfig]="bsConfig">
+                          <span class="range-group-addon">to</span>
+                          <input type="text" formControlName="toDate" (bsValueChange)="searchByDate($event, 'toTrxn')"
+                                class="range-group-input form-control" placeholder="Till"
+                                bsDatepicker #toDate
+                                (click)="getToDatePickerConfig(fromDate.value)"
+                                [bsConfig]="getDatePickerConfigRestrictPastDate">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1 top-spc28">
+                    <button type="button" (click)="onFilterTransaction()" class="btn btn-primary add-btn">Search</button>
+                  </div>
+                </form>
+              </div>
+              
+              <div class="row form-inner-cover">
+                <div class="col-md-12">
+                  
+              <button type="button" (click)="onRaiseDispute(false,false)" class="btn btn-primary add-btn">Dispute</button>
+              <button *ngIf="hasRoleCardOps" type="button" (click)="onRaiseDispute(true, false)" class="btn btn-primary add-btn">Dispute on Reversal</button>
+                  <button *ngIf="hasRoleCardOps" type="button" (click)="onRaiseDispute(false, true)" class="btn btn-primary add-btn">Dual Dispute</button>
+              <button type="button" (click)="onViewHistory()" class="btn btn-primary add-btn">View History</button>
+                </div>
+              </div>
+              
+            </div>
+          <div class="panel panel-profile panel-top-spc">
+            <div class="clearfix all-cover-force-unmatch">
+              <div class="col-md-12 table-responsive top-spc" *ngIf="showTable">
+                <table datatable [dtOptions]="dtOptions" class="table table-condensed column-spacing">
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>
+</div>

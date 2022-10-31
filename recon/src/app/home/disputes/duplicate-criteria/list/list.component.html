@@ -1,0 +1,53 @@
+<div class="col-md-12 left-pad2 right-pad2">
+  <div class="panel panel-profile">
+    <div class="panel panel-heading newhead newbg iconsize">
+      <div class="row">
+        <div class="col-md-6 innerheadsource">
+          <h4>Duplicate Criteria</h4>
+        </div>
+        <div class="col-md-6" align="right">
+          <a [routerLink]="['/home/disputes/part', 'duplicate-criteria', {outlets: {'bodyOutlet': ['form']}}]"
+             title="">
+            <button type="button" class="btn btn-success new-page-btn"><i class="fa fa-plus-circle"
+                                                                          aria-hidden="true"></i> New
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="panel-body panel-body-align">
+      <div class="clearfix">
+        <div class="row form-inner-cover cover2">
+          <div class="col-md-12 top-spc">
+            <div class="col-md-3 right-margin">
+              <label>Name</label>
+              <input type="text" #name (keyup)="search(name.value, 1)" class="form-control input-sm"
+                     placeholder="name">
+            </div>
+            <div class="col-md-3 right-margin">
+              <label>Module</label>
+              <select class="form-control input-sm" #module (change)="search(module.value, 2)">
+                <option [value]="0">--All--</option>
+                <option *ngFor="let module of modules" value="{{module.id}}">
+                  {{module.name}}
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-profile panel-top-spc">
+    <div class="clearfix">
+      <div class="col-md-12 top-spc all-cover-data-sources">
+        <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+

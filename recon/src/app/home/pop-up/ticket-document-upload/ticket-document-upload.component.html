@@ -1,0 +1,52 @@
+<div class="panel panel-heading newhead newbg">
+  <div class="row">
+    <div class="col-md-4">
+      <h4><b> Document </b></h4>
+    </div>
+  </div>
+</div>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12">
+        <div class="col-md-6"><label class="required">Title</label></div>
+        <div class="col-md-5"> <label class="required">File</label></div>
+        <div class="col-md-1 "></div>
+      </div>
+      <form [formGroup]="upload" class="form_inner">
+        <div *ngFor="let document of upload.get('document')['controls']; let i = index">
+          <div formArrayName="document">
+            <div [formGroupName]="i">
+              <div class="col-md-12 top-spc">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" formControlName="title" class="form-control" maxlength="100">
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <app-file-input (onFileSelect)="fileChangeEvent($event, i)"></app-file-input>
+                </div>
+                <div class="col-md-1 ">
+                  <label class=""></label>
+                  <a href="javascript:void(0);" (click)="removeDocument(i)" class="text-danger mt-4"><i class="fa fa-trash-o"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="col-sm-12">
+        <button type="button" (click)="addDocument()" class="btn btn-primary add-btn">Add</button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="submit-btn" data-size="s" [ladda]="isLoading"
+                (click)="documentSubmit()">Submit
+        </button>
+        <button type="button" class="btn btn-primary cancel-btn" (click)="close()" data-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

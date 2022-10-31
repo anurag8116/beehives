@@ -1,0 +1,234 @@
+<div class="main" xmlns="http://www.w3.org/1999/html">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>GL Balancing Report</h3>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="form">
+          <div class="">
+            <div class="clearfix">
+              <div class="row form-inner-cover">
+                <div class="col-md-12 top-spc">
+                  <div class="col-md-3 right-margin">
+                    <select class="form-control" formControlName="glName" #config>
+                      <option value="" disabled>--Gl Name--</option>
+                      <option *ngFor="let config of glBalanceConfigs" value="{{config.id}}">
+                        {{config.glName}}
+                    </select>
+                  </div>
+
+
+                  <div class="col-md-3 right-margin">
+                    <input type="text" formControlName="glDate"
+                           class=" form-control bg-icon" placeholder="date"
+                           bsDatepicker #date
+                           [bsConfig]="bsConfig">
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" (click)="getReport(config.value,date.value)"
+                            class="btn submit-btn">View
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel panel-body all-cover-relax-match">
+        <section *ngIf="reportData?.creditEntries.length>0 || reportData?.debitEntries.length>0">
+
+          <div class="wizard">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="wizard-report-main pull-right">
+                  <div class="wizard-inner wizard-report-tabs">
+                    <!--<div class="connecting-line"></div>-->
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li id="reconTab" role="presentation" class="active">
+                        <a href="#step1" data-toggle="tab" (click)="selectReport('Segregated')" aria-controls="step1"
+                           role="tab" title="Step 1">
+                          Segregated
+                        </a>
+                      </li>
+                      <li id="matchingRulesTab" role="presentation">
+                        <a href="#step2" data-toggle="tab"
+                           aria-controls="step2" role="tab"
+                           title="Step 2">
+                          Consolidated
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content">
+                  <div class="tab-pane active" role="tabpanel" id="step1">
+
+
+                    <div class="col-md-12 top-spc all-cover-data-sources" #table>
+                      <!-- report code-->
+                      <div class="col-md-10">
+                        <h3 class="center">{{reportData?.bankName}}</h3>
+                        <h5 class="center">{{reportData?.glName}}</h5>
+                      </div>
+                      <div class="col-md-2 download-align top-spc20" align="right">
+                        <a type="button" title="Download" [href]="url" (click)="selectReport('Segregated')"
+                           class="btn download-icon">
+                          <i class="fa fa-download" aria-hidden="true"></i>
+                        </a>
+                      </div>
+                      <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>Closing Balance as on:</td>
+                          <td>{{reportData?.glClosingBalanceDate |date:['dd-MM-yyy']}}</td>
+                          <td>{{reportData?.glClosingBalance}}</td>
+                        </tr>
+                        <tr>
+                          <td><b>CREDIT ENTRIES</b></td>
+                          <td><b>ENTRY_TYPE</b></td>
+                          <td><b>Particulars</b></td>
+                          <td><b>Amount</b></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>Opening Balance on {{reportData?.glClosingBalanceDate |date:['dd-MM-yyy']}}</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr *ngFor="let entry of reportData?.creditEntries">
+                          <td>{{entry?.entryName}}</td>
+                          <td>{{entry?.entryType}}</td>
+                          <td style="color:#0000ff"><a href="javascript:void(0);"
+                                                       (click)="glConfigDetails(entry.glConfigId, 'Segregated')">{{entry?.discription}} </a>
+                          </td>
+                          <td>{{entry?.amount}}</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td><b>Sum of Credit Entries:</b></td>
+                          <td></td>
+                          <td><b>{{reportData?.sumOfCreditEntries}}</b></td>
+                        </tr>
+                        <tr>
+                          <td><b>DEBIT ENTRIES</b></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+
+                        <tr *ngFor="let entry of reportData?.debitEntries">
+                          <td>{{entry?.entryName}}</td>
+                          <td>{{entry?.entryType}}</td>
+                          <td style="color:#0000ff"><a href="javascript:void(0);"
+                                                       (click)="glConfigDetails(entry.glConfigId, 'Segregated')">{{entry?.discription}}
+                          </a></td>
+                          <td>{{entry?.amount}}</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td><b>Sum of Debit Entries :</b></td>
+                          <td></td>
+                          <td><b>{{reportData?.sumOfDebitEntries}}</b></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Error Check</td>
+                          <td><b>0.00</b></td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane " role="tabpanel" id="step2">
+                    <div class="col-md-12 wizard-body">
+                      <div class=" table-responsive #TABLEEE" #table>
+                        <div class="center col-md-10">
+                          <h3 class="center">{{reportData?.bankName}}</h3>
+                          <h5 class="center">{{reportData?.glName}}</h5>
+                        </div>
+                        <div class="col-md-2 download-align top-spc20" align="right">
+                          <a type="button" title="Download" [href]="url" (click)="selectReport('Consolidated')"
+                             class="btn download-icon"><i
+                            class="fa fa-download" aria-hidden="true"></i>
+                          </a>
+                        </div>
+                        <table class="table table-hover ntsl-report-table" border="1">
+                          <thead>
+                          <tr>
+                            <th>S.No.</th>
+                            <th>Step Code</th>
+                            <th>Description</th>
+                            <th>Debit Amount</th>
+                            <th>Credit Amount</th>
+                            <th>Total Trxn</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let entry of segregateReport; let i = index">
+                            <td>{{i + 1}}
+                            </td>
+                            <td>CUM-TIE-VCH-{{i + 1}}</td>
+                            <td><a href="javascript:void(0);"
+                                   (click)="glConfigDetails(entry.glConfigId, 'Consolidated')">{{entry?.entryName
+                              + entry?.entryType + entry?.discription}}</a></td>
+                            <td class="wizard-right">{{entry?.type === 'DEBIT' ? entry.amount : 0}}</td>
+                            <td class="wizard-right">{{entry?.type === 'CREDIT' ? entry.amount : 0}}</td>
+                            <td class="wizard-center">{{entry?.count}}</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <div *ngIf="reportData?.creditEntries.length==0 &&reportData?.debitEntries.length==0" class="row">
+          <div class="col-md-12">
+            <div class="tab-content">
+
+              <div class="col-md-12 wizard-body">
+                <div class=" table-responsive #TABLEEE" #table>
+                  <div class="center col-md-10">
+                    <h5 class="center">No Transaction found for this Date</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

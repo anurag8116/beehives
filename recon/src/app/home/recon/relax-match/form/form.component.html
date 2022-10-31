@@ -1,0 +1,315 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Relax Match</h3>
+        </div>
+        <div class="panel-body all-cover-relax-match">
+          <section>
+            <div class="wizard">
+              <div class="wizard-inner">
+                <!--<div class="connecting-line"></div>-->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li id="reconTab" role="presentation" class="active">
+                    <a href="#step1" class="disabled" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                      Recon
+                    </a>
+                  </li>
+                  <li id="matchingRulesTab" role="presentation">
+                    <a href="#step2" data-toggle="tab" class="disabled" (click)="onMatchingRuleSelect()"
+                       aria-controls="step2" role="tab"
+                       title="Step 2">
+                      Matching Rules
+                    </a>
+                  </li>
+                  <li id="resultTab" role="presentation" class="disabled alignreslt">
+                    <a href="#step3" class="disabled" data-toggle="tab" aria-controls="step2" role="tab" title="Step 3">
+                      Result
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="tab-content">
+                  <div class="model" class="tab-pane active" role="tabpanel" id="step1">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="required">Module</label>
+                            <select class="form-control input-sm" formControlName="moduleId" #module
+                                    (change)="onModuleChange(module.value)">
+                              <option *ngFor="let module of modules" value="{{module.id}}">{{module.name}}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="required">Recon</label>
+                            <select class="form-control input-sm" formControlName="reconId" #recon
+                                    (change)="onReconChange(recon.value)">
+                              <option *ngFor="let recon of recons" value="{{recon.id}}">{{recon.name}}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="required">RuleGroup</label>
+                            <angular2-multiselect [data]="ruleGroups" [settings]="dropDownSettings"
+                                                  formControlName="manualRuleGroup">
+                            </angular2-multiselect>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3 ">
+                          <div class="form-group checkbox">
+                            <label style="font-size: 1em">
+                              <input type="checkbox" #proposeMatch formControlName="proposeMatch">
+                              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                              Propose match
+                            </label></div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12 spc-bottom" align="right">
+                        <a
+                          (click)="onClickNext()"
+                          class="btn submit-btn">Next</a>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <!--   rule window    -->
+
+
+                  <div class="model" class="tab-pane" role="tabpanel" id="step2">
+
+                    <div class="panel-group" id="accordion" role="tablist"
+                         aria-multiselectable="true">
+
+                      <div class="panel-default colaspe-panel formArray"
+                           *ngFor=" let matchingRule of form.get('matchingRules')['controls'] ; let i = index">
+                        <div formArrayName="matchingRules">
+                          <div [formGroupName]="i">
+                            <div class="panel-heading border-none padding_none" role="tab" [attr.id]="'heading'+i">
+
+                              <div
+                                class="drag-toggle-align custom-switch custom-switch-label-onoff custom-switch-sm pl-0">
+                                <input class="custom-switch-input" [attr.id]="'exe'+i"
+                                       formControlName="ruleEnable" value="true" [checked]="true" type="checkbox">
+                                <label class="custom-switch-btn" [attr.for]="'exe'+i"></label>
+                              </div>
+
+
+                              <h4 class="panel-title">
+                                <a class="colaspe-inner-panel head-matching-rules" role="button" data-toggle="collapse"
+                                   data-parent="#accordion"
+                                   [href]="'#collapse'+i"
+                                   aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+                                  {{matchingRule.get('ruleName').value}}
+                                </a>
+                              </h4>
+
+                            </div>
+                            <div [attr.id]="'collapse'+i"
+                                 class="panel-collapse collapse" role="tabpanel"
+                                 [attr.aria-labelledby]="'heading'+i">
+
+                              <div class="panel-body colaspe-panel-body">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                      <table class="table table-bg" border="1">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                        <tr
+                                          *ngFor=" let condition of matchingRule.get('conditions')['controls'] ; let j = index">
+                                          <div formArrayName="conditions">
+                                            <div class="colaspe-ul-align" [formGroupName]="j">
+                                              <ul>
+                                                <li>
+                                                  <div
+                                                    class="custom-switch custom-switch-label-onoff custom-switch-sm pl-0">
+                                                    <input class="custom-switch-input" [attr.id]="'exe'+i+'_'+j"
+                                                           type="checkbox" formControlName="conditionEnable"
+                                                           value="true" [checked]="true" type="checkbox">
+                                                    <label class="custom-switch-btn" [attr.for]="'exe'+i+'_'+j"></label>
+                                                  </div>
+
+                                                </li>
+                                                <li *ngIf="condition.get('elementOne').get('id').value">
+                                                  <div class="form-group" formGroupName="elementOne">
+                                          <span> <input type="text" class="hidden"
+                                                        readonly="true">{{getNameElement(matchingRule.value,condition.get('elementOne').value)}}</span>
+                                                    <input
+                                                      *ngIf="((condition.get('elementOne').get('valueType').value==='STATIC'||condition.get('elementOne').get('valueType').value==='VARIANCE') )"
+                                                      type="text" class="form-control input-sm"
+                                                      placeholder="text field" formControlName="value">
+                                                  </div>
+                                                </li>
+                                                <li class="list-border">
+                                                  <div class="form-group">
+                                          <span> <input type="text" class="hidden"
+                                                        readonly="true">{{condition.get('matchingOperator').value}}</span>
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="form-group" formGroupName="elementSecond">
+                                          <span> <input type="text" class="hidden"
+                                                        readonly="true">{{getNameElement(matchingRule.value,condition.get('elementSecond').value)}}</span>
+                                                    <input
+                                                      *ngIf="((condition.get('elementSecond').get('valueType').value==='VARIANCE')||(condition.get('elementSecond').get('dataElement').value===null&&condition.get('elementSecond').get('valueType').value==='NONE')&&(['IS_NULL','IS_NOT_NULL'].indexOf(condition.get('matchingOperator')?.value)===-1))"
+                                                      type="text" class="form-control input-sm"
+                                                      placeholder="text field" formControlName="value">
+                                                  </div>
+                                                </li>
+                                              </ul>
+
+                                            </div>
+                                          </div>
+
+                                        </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="col-md-12 spc-bottom" align="right">
+
+                      <a (click)="onClickPrevious()" class="btn submit-btn">Previous</a>
+
+                      <button type="submit" class="btn submit-btn">Submit</button>
+                    </div>
+                  </div>
+
+
+                  <!--   rule window   end -->
+
+
+                  <div class="model" class="tab-pane" role="tabpanel" id="step3">
+                    <div class="panel panel-profile">
+                      <div class="panel-body panel-body-align">
+                        <!-- <ngx-spinner bdColor="rgba(51,51,51,0.8)"
+                                      size="medium"
+                                      color="#43bfef"
+                                      type="ball-scale-multiple">
+                           <p style="font-size: 20px; color: white">Loading...</p>-->
+                        <div class="clearfix">
+                          <div class="row form-inner-cover cover2">
+                            <div class="col-md-12 top-spc">
+                              <div class="col-md-3 right-margin">
+                                <label>Data Source</label>
+                                <select class="form-control input-sm" #dataSource [(ngModel)]="dataSourceId"
+                                        [ngModelOptions]="{standalone: true}"
+                                        (change)="onDataSourceChange(dataSource.value, relaxMatchId)">
+                                  <option disabled="true">Select one</option>
+                                  <option *ngFor="let dataSource of dataSources" value="{{dataSource.id}}">
+                                    {{dataSource.datasourceVo.name}}
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="col-md-7"></div>
+                              <div class="col-md-2" *ngIf="form.get('proposeMatch').value">
+                                <button type="button" (click)="onDiscardSubmit()" class="btn btn-primary add-btn">
+                                  Discard
+                                </button>
+                              </div>
+                            </div>
+                            <div class="row form-inner-cover cover2">
+                              <div class="col-md-12 top-spc">
+                                <div class="col-md-3 right-margin" *ngFor="let searchFiled of searchFileds">
+                                  <label>{{searchFiled.label}}</label>
+                                  <input type="text" (keyup)="searchByName($event.target.value,searchFiled.fieldName)"
+                                         class="form-control input-sm">
+                                </div>
+                              </div>
+                              <div *ngIf="form.get('proposeMatch').value" class="col-md-12 spc-bottom"
+                                   align="right">
+
+                                <button type="button" (click)="submitPerposeTransToApprovalShow()"
+                                        class="btn submit-btn">
+                                  Process
+                                </button>
+                                <button type="button" (click)="onCancelButton()"
+                                        class="btn btn-primary cancel-btn">Cancel
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- </ngx-spinner>-->
+                      </div>
+                    </div>
+                    <div class="panel panel-profile panel-top-spc">
+                      <div class="clearfix">
+                        <div class="col-md-12 table-responsive top-spc" *ngIf="!showTable">
+                          {{jobStatus}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-profile panel-top-spc">
+                      <div class="clearfix">
+                        <div class="col-md-12 table-responsive top-spc" *ngIf="showTable">
+                          <table datatable [dtOptions]="dtOptions" #relaxMatchTable id="relaxMatchTable"
+                                 class="table table-condensed">
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div id="relax-description-modal" class="modal" role="dialog" aria-labelledby="modal-submit-invoice-label">
+      <div class="modal-dialog model-new-align">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="panel panel-heading newhead newbg">
+            <h4 class="modal-title">Description</h4>
+          </div>
+          <form [formGroup]="relaxmatchForm">
+            <div class="modal-body">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea formControlName="description" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="modal-footer">
+            <div class="col-md-12 top-spc">
+              <button type="button" (click)="submitPerposeTransToApproval()" class="btn submit-btn">Yes</button>
+              <button type="button" class="btn btn-primary cancel-btn" (click)="relaxMatchDescriptionCancel()"
+                      data-dismiss="modal">No
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>
+

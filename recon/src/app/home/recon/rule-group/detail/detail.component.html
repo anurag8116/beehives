@@ -1,0 +1,112 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Rule Group Detail</h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-body">
+            <div class="row detailpage">
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>ID</label> :
+                    <span>{{ruleGroup.id}}</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Name</label> : <span>{{ruleGroup.name}}</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Short Name</label> : <span>{{ruleGroup.shortName}}</span>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Module</label> : <span>{{ruleGroup.module?.name}}</span>
+                </div>
+              </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Recon</label> :
+                    <span>{{ruleGroup.reconName}}</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Execution Type </label> :
+                    <span>{{ruleGroup.executionType}}</span>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row detailpage">
+                <div class="col-md-6">
+                  <div class="form-inline">
+                    <label>Discription</label> : <span>{{ruleGroup.discription}}</span>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+          <div class="row detailpage">
+            <div class="col-md-12"><h4>Rules </h4></div>
+          </div>
+          <div class="panel panel-profile border-none cover2 box_hidden_align">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="lbl6">Rule</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Execution Order</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngFor="let element of ruleGroup.rules" class="row formArray">
+              <div class="col-md-12 ">
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <span>{{element.rule?.name}}</span>
+                  </div>
+                </div>
+                <div class="col-md-4" align="">
+                  <div class="form-inline">
+                    <span>{{element.executionOrder}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12" align="right">
+                <button type="button" [routerLink]="['/home/recon', 'rule-group', {outlets: {'fullBodyOutlet': ['list']}}]"
+                        class="btn submit-btn">Back
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

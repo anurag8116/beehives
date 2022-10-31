@@ -1,0 +1,438 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">{{isEditMode === true ? 'Edit GL CONFIG': 'New GL CONFIG'}}</h3>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="panel-body" *ngIf="isForm">
+            <div class="panel panel-profile border-none cover2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="required">GL Number</label>
+                      <input type="text" formControlName="glNumber" class="form-control input-sm"
+                             placeholder="GL Number">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="required">GL Name</label>
+                      <input type="text" formControlName="glName" class="form-control input-sm"
+                             placeholder="GL Name">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12"><h4>CONFIGURATION</h4></div>
+            </div>
+
+            <!--   <div class="panel panel-profile border-none cover2 all-cover-new-data-sources">-->
+
+
+            <div class="wrapper center-block">
+              <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default border-none2"
+                     *ngFor=" let config of form.get('configDetails')['controls'] ; let i = index">
+                  <div class="col-sm-12" formArrayName="configDetails">
+
+                    <div class="row formArray" [formGroupName]="i">
+                      <div class="panel-heading theme-panel-head active" role="tab" [attr.id]="'heading'+i">
+                        <h4 class="panel-title">
+                          <a role="button" data-toggle="collapse" data-parent="#accordion2" [href]="'#collapse'+i"
+                             aria-expanded="false" [attr.aria-controls]="'collapse'+i">
+                            {{config.get('description').value!==''?config.get('description').value:'Gl Transaction'}}
+                            <a *ngIf="i > 0" class="cursor pull-right dot" (click)="removeconfig(i)"><i
+                              class="fa fa-trash-o" aria-hidden="true"
+                              style="margin-top: 3px; margin-right: 4px"></i></a>
+                          </a>
+                        </h4>
+                      </div>
+                      <div [attr.id]="'collapse'+i" class="panel-collapse collapse" role="tabpanel"
+                           [attr.aria-labelledby]="'heading'+i">
+                        <div class="panel-body">
+                          <div>
+                            <div class="col-sm-12">
+
+                              <div class="row formArray">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <hr color='red'>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="col-md-3">
+                                      <div class="form-group">
+                                        <label class="required">Type</label><br>
+
+                                        <div class="col-md-6 padding_none">
+                                          <label class="fancy-radio">
+                                            <input formControlName="transactionType" value="CREDIT" type="radio">
+                                            <span><i></i>Credit</span>
+                                          </label>
+                                        </div>
+
+                                        <div class="col-md-6 padding_none">
+                                          <label class="fancy-radio">
+                                            <input formControlName="transactionType" value="DEBIT" type="radio">
+                                            <span><i></i>Debit</span>
+                                          </label>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <div class="form-group">
+                                        <label class="required">Data Source</label>
+                                        <select class="form-control input-sm" formControlName="dataSourceId"
+                                                #dataSourceId>
+                                          <option value="" disabled>--Select One--</option>
+                                          <option *ngFor="let dataSource of dataSources" value="{{dataSource.id}}">
+                                            {{dataSource.name}}
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="form-group">
+                                        <label class="required">Transaction Date column</label>
+                                        <select class="form-control input-sm" formControlName="trxnDateColumnId"
+                                                #trxnDateColumnId>
+                                          <option value="" disabled>--Select One--</option>
+                                          <option *ngFor="let element of dataSourceMap.get(+dataSourceId.value)"
+                                                  value="{{element.id}}">
+                                            {{element.name}}
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label>Description</label>
+                                        <input type="text" formControlName="description" class="form-control input-sm"
+                                               placeholder="Description">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!--           conditions                -->
+
+                                <div class="panel-heading2">Common Condition</div>
+                                <div class="panel-body2">
+                                  <div class="panel-group all_form margin_none" id="accordion" role="tablist"
+                                       aria-multiselectable="true">
+                                    <div class="panel"
+                                         *ngFor=" let condition of config.get('conditions')['controls'] ; let a = index">
+                                      <div class="" formArrayName="conditions">
+                                        <div [formGroupName]="a">
+                                          <div class="panel-heading new-rule-panel-head">
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="btn-group addornew" id="jointTypesButton"
+                                                     data-toggle="buttons">
+                                                  <label class="btn btn-default btn-on-2 btn-sm "
+                                                         [ngClass]="(condition.get('conditionJointType').value=='AND')?'active':''"
+                                                         (click)="updateFormConditionType('AND',i, a)">
+                                                    <input type="radio" value="AND" formControlName="conditionJointType"
+
+                                                    >And</label>
+                                                  <label class="btn btn-default btn-off-2 btn-sm "
+                                                         [ngClass]="(condition.get('conditionJointType').value=='OR')?'active':''"
+                                                         (click)="updateFormConditionType('OR',i,a)">
+                                                    <input type="radio" value="OR" formControlName="conditionJointType"
+                                                    >Or</label>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6" align="right" *ngIf="a > 0">
+                                                <i class="fa fa-trash-o trash-align" aria-hidden="true"
+                                                   (click)="removeCondition(i,a)"></i>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="panel-body rule-panel-body">
+                                            <div class="row rowwhitebg">
+                                              <div class="col-md-12">
+                                                <div class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Data Element</label>
+                                                    <select class="form-control input-sm" #dataElement
+                                                            (change)="setOperators(dataElement.value, +dataSourceId.value, i,a)"
+                                                            formControlName="dataElement">
+                                                      <option value="null" disabled>--Select One--</option>
+                                                      <option
+                                                        *ngFor="let element of dataSourceMap.get(+dataSourceId.value)"
+                                                        value="{{element.id}}">
+                                                        {{element.name}}
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Matching Operator</label>
+                                                    <select class="form-control input-sm"
+                                                            formControlName="matchingOperator">
+                                                      <option value="null" disabled>--Select One--</option>
+                                                      <option *ngFor="let operator of filterOperators.get(i+'_'+a)"
+                                                              value="{{operator.id}}">
+                                                        {{operator.value}}
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Value Type</label>
+                                                    <select class="form-control input-sm" #valueType
+                                                            formControlName="valueType">
+                                                      <option *ngFor="let type of filterValueTypes.get(i+'_'+a)"
+                                                              value="{{type}}">
+                                                        {{type}}
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Value</label>
+                                                    <input type="text" formControlName="value"
+                                                           class="form-control input-sm"
+                                                           placeholder="text field">
+                                                  </div>
+                                                </div>
+                                                <div *ngIf="(valueType.value==='VARIANCE')" class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Variance Type</label>
+                                                    <select class="form-control input-sm"
+                                                            formControlName="varianceType">
+                                                      <option value="null" disabled>--Select One--</option>
+                                                      <option *ngFor="let varianceType of varianceTypes"
+                                                              value="{{varianceType}}">
+                                                        {{varianceType}}
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="col-md-2">
+                                        <button type="button" (click)="addCommanConditions(i)"
+                                                class="btn btn-primary add-btn"><i
+                                          class="fa fa-plus-circle" aria-hidden="true"></i>
+                                          Add Conditions
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                                <!--                 Slab            -->
+
+                                <div class="panel-heading2 margin-top-15">Slab</div>
+
+                                <div class="panel-body2">
+                                  <div class="panel-group all_form margin_none" id="accordionjhjk" role="tablist"
+                                       aria-multiselectable="true">
+                                    <div class="panel"
+                                         *ngFor=" let glSlab of config.get('glSlabs')['controls'] ; let b = index">
+                                      <div class="" formArrayName="glSlabs">
+                                        <div [formGroupName]="b">
+                                          <div class="panel-heading2">{{'Slab'+(b+1)}}</div>
+                                          <div class="panel-body rule-panel-body">
+                                            <div>
+                                              <div class=""
+                                                   *ngFor=" let slabCondition of glSlab.get('slabConditions')['controls'] ; let c = index">
+                                                <div class="" formArrayName="slabConditions">
+                                                  <div [formGroupName]="c">
+                                                    <div class="row rowwhitebg">
+                                                      <div class="col-md-12">
+                                                        <div class="col-md-2">
+                                                          <div class="form-group ">
+                                                            <label class="required">Data Element</label>
+                                                            <select class="form-control input-sm" #element
+                                                                    (change)="setSlabCondOperators(element.value, +dataSourceId.value, c)"
+                                                                    formControlName="dataElement">
+                                                              <option value="null" disabled>----Select One----</option>
+                                                              <option
+                                                                *ngFor="let element of dataSourceMap.get(+dataSourceId.value)"
+                                                                value="{{element.id}}">
+                                                                {{element.name}}
+                                                            </select>
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                          <div class="form-group">
+                                                            <label class="required">Matching Operator</label>
+                                                            <select class="form-control input-sm"
+                                                                    formControlName="matchingOperator">
+                                                              <option value="null" disabled>--Select One--</option>
+                                                              <option
+                                                                *ngFor="let operator of filterSlabCondOperators.get(dataSourceId.value+'_'+element.value)"
+                                                                value="{{operator.id}}">
+                                                                {{operator.value}}
+                                                            </select>
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                          <div class="form-group">
+                                                            <label class="required">Value</label>
+                                                            <input type="text" formControlName="value"
+                                                                   class="form-control input-sm"
+                                                                   placeholder="value">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-2 top-spc28">
+                                                          <div class="btn-group addornew" id="dcd"
+                                                               data-toggle="buttons">
+                                                            <label class="btn btn-default btn-on-2 btn-sm "
+                                                                   [ngClass]="(slabCondition.get('conditionJointType').value=='AND')?'active':''"
+                                                                   (click)="updateFormSlapCondition('AND',i,b,c)">
+                                                              <input type="radio" value="AND"
+                                                                     formControlName="conditionJointType"
+
+                                                              >And</label>
+                                                            <label class="btn btn-default btn-off-2 btn-sm "
+                                                                   [ngClass]="(slabCondition.get('conditionJointType').value=='OR')?'active':''"
+                                                                   (click)="updateFormSlapCondition('OR',i,b,c)">
+                                                              <input type="radio" value="OR"
+                                                                     formControlName="conditionJointType"
+                                                              >Or</label>
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-4" align="right">
+                                                          <i class="fa fa-trash-o trash-align" aria-hidden="true"
+                                                             (click)="removeSlabConditions(i,b,c)"></i>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+
+                                            <div class="row rowwhitebg">
+                                              <div class="col-md-12">
+                                                <div class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Formula Select</label>
+                                                    <select class="form-control input-sm" #formulaType
+                                                            formControlName="formulaSelect"
+                                                            (change)="onFormulaTypeSelect(formulaType.value,i,b)">
+                                                      <option value="null" disabled>--Select One--</option>
+                                                      <option *ngFor="let formulaType of formulaTypes"
+                                                              value="{{formulaType}}">
+                                                        {{formulaType}}
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Field</label>
+                                                    <select class="form-control input-sm" formControlName="field">
+                                                      <option value="null" disabled>--Select One--</option>
+                                                      <option
+                                                        *ngFor="let element of dataSourceMap.get(+dataSourceId.value)"
+                                                        value="{{element.id}}">
+                                                        {{element.name}}
+                                                    </select>
+                                                  </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                  <div class="form-group">
+                                                    <label class="required">Value</label>
+                                                    <input type="text" formControlName="value"
+                                                           class="form-control input-sm"
+                                                           placeholder="text field">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row bottom-30">
+                                              <div class="col-sm-12">
+                                                <div class="col-md-6">
+                                                  <button type="button" (click)="addSlabConditions(i, b)"
+                                                          class="btn btn-primary add-btn"><i
+                                                    class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                    Add Slab Condition
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="col-md-2">
+                                        <button type="button" (click)="addGlSlab(i)"
+                                                class="btn btn-primary add-btn"><i
+                                          class="fa fa-plus-circle" aria-hidden="true"></i>
+                                          Add GL Slab
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row bottom-30">
+              <div class="col-sm-12">
+                <div class="col-md-6">
+                  <button type="button" (click)="addConfiguration()" class="btn btn-primary add-btn"><i
+                    class="fa fa-plus-circle" aria-hidden="true"></i>
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--    </div>-->
+
+            <div class="row">
+              <div class="col-md-12" align="right">
+                <button type="submit" class="submit-btn" data-size="s" [ladda]="isLoading">
+                  {{isEditMode?'update':'submit'}}
+                </button>
+                <button type="button"
+                        [routerLink]="['/home/recon', 'gl-config', {outlets: {'fullBodyOutlet': ['list']}}]"
+                        class="btn btn-primary cancel-btn">Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

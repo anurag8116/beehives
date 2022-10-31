@@ -1,0 +1,91 @@
+<div class="panel panel-profile">
+  <div class="panel panel-heading newhead newbg iconsize">
+    <div class="row">
+      <div class="col-md-6 innerheadsource">
+        <h3>New TAT</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover2">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row form-inner-cover">
+        <div class="col-md-12 spc-bottom">
+          <div class="col-md-3">
+            <label class="required">Module</label>
+          </div>
+
+          <div class="col-md-3">
+            <label class="required">Type</label>
+          </div>
+
+          <div class="col-md-3">
+            <label class="required">TAT (in days)</label>
+          </div>
+
+          <div class="col-md-3">
+            <label class="required">Cut off time</label>
+          </div>
+        </div>
+
+        <div *ngFor=" let dataElement of form.get('disputeTatVo')['controls'] ; let i = index">
+          <div class="col-sm-12" formArrayName="disputeTatVo">
+            <div class="row formArray" [formGroupName]="i">
+              <div class="col-md-12 spc-bottom">
+                <div class="col-md-3">
+                  <select class="form-control input-sm input-sm2" formControlName="moduleId">
+                    <option value="null" disabled>Select</option>
+                    <option *ngFor="let module of modules" value="{{module.id}}">
+                      {{module.name}}
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select class="form-control input-sm input-sm2" formControlName="type">
+                    <option value="null" disabled>--Select One--</option>
+                    <option *ngFor="let type of approvalTypes" value="{{type.value}}">
+                      {{type.name}}
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control input-sm input-sm2" formControlName="days">
+                </div>
+                <div class="col-md-2">
+                  <select class="form-control input-sm input-sm2" formControlName="cutOffTime">
+                    <option value="null" disabled>--Select One--</option>
+                    <option *ngFor="let number of numbers" value="{{number}}">
+                      {{number}}
+                  </select>
+                </div>
+                <div class="col-md-1">
+                  <a href="javascript:void(0);" (click)="removeDataElement(i)"
+                     class="text-danger delete-btn"><i class="fa fa-trash-o"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-6" *ngIf="!editMode">
+            <button type="button" (click)="addDataElement()" class="btn submit-btn"><i
+              class="fa fa-plus-circle" aria-hidden="true"></i>
+              Add
+            </button>
+          </div>
+
+
+          <div class="col-md-12" align="right">
+            <button type="submit" data-size="s" class="submit-btn" [ladda]="isLoading">
+              {{editMode?'update':'Submit'}}
+            </button>
+            <button type="button" [routerLink]="['/home/disputes/part', 'tat', {outlets: {'bodyOutlet': ['list']}}]"
+                    class="btn btn-primary cancel-btn">Cancel
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+

@@ -1,0 +1,62 @@
+.th-style {
+  border-color: #0c1312;
+  border-left: 2px solid black;
+}
+
+.td-style {
+  border-top:none;
+  border-bottom:none;
+  padding: 1px;
+  padding-left: 1px !important;
+  border-left: 2px solid black;
+  font-size: 13px !important;
+}
+
+.padding-top-15 {
+  padding-top: 15px !important;
+}
+
+.td-style-diff {
+  border-top:none;
+  border-bottom:none;
+  padding-top: 10px;
+  padding-bottom: 1px;
+  padding-left: 1px !important;
+  font-weight: bold !important;
+  border-left: 2px solid black;
+}
+
+.td-style-diff-2 {
+  border-top:none;
+  border-bottom:none;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 1px;
+  text-decoration: underline;
+  text-align: right;
+  font-weight: bold;
+  border-left: 2px solid black;
+}
+
+.td-summ-style {
+  padding: 1px;
+  padding-left: 1px !important;
+  font-weight: bold !important;
+  border-color: #0c1312;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.marginTop {
+  margin-top: 20px;
+}
+
+.column-width {
+  width: 70px;
+}
+
+.active td a {
+  color: #00090D !important;
+}
+

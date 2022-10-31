@@ -1,0 +1,38 @@
+<form [formGroup]="form">
+  <div class="panel panel-heading newhead newbg">
+    <h4 class="modal-title">Advance Refund Given</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6 spc-bottom">
+        <div class="form-group">
+          <label class="required">Advance Amount</label>
+          <input type="text" OnlyNumber="true" formControlName="advanceAmount" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="col-md-6 spc-bottom">
+        <label class="required">Advance Date:</label>
+        <input type="text" bsDatepicker formControlName="advanceDate"
+               class="form-control form-control input-sm" placeholder="date"
+               [bsConfig]="bsConfig">
+      </div>
+      <div class="col-md-6 spc-bottom">
+        <label class="required">Advance Refund Proof (Upload Doc)(only jpg, pdf, csv allowed)</label>
+        <input #file (change)="onFileSelect($event.target.files)" type="file" accept=".jpg,.jpeg,.pdf,.csv" class="file-upload-btn" />
+        <input type="text" class="form-control input-sm" [value]="advanceRefundFileNameControl.value" placeholder="Upload file..." id="fileUploadId" />
+      </div>
+      <div class="col-md-6 spc-bottom">
+          <label>Txn Reference Number</label>
+          <input type="text" formControlName="txnReferenceNumber" class="form-control input-sm">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="submit-btn" data-size="s" [ladda]="isLoading"
+            (click)="processSubmit()">Submit
+    </button>
+    <button type="button" class="btn btn-primary cancel-btn" (click)="close()" data-dismiss="modal">
+      Cancel
+    </button>
+  </div>
+</form>

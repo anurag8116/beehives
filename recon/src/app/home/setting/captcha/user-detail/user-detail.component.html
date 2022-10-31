@@ -1,0 +1,75 @@
+
+  <div class="clearfix">
+    <div class="row form-inner-cover cover2">
+      <div class="row">
+        <div class="col-md-12 table-responsive2">
+          <table class="table table_spc table-striped">
+            <tr id="heading-color">
+              <th>Setting</th>
+              <th>Enabled</th>
+            </tr>
+            <tr *ngFor="let element of user">
+              <td>{{element.displayMessage}}</td>
+              <td>{{element.settingValue}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12" align="right">
+        <button type="submit"  data-size="s" (click)="edit()" class="btn submit-btn">Edit</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+<!--
+<div class="col-md-12 left-pad">
+  <div class="panel-body">
+    <div class="row top-spc">
+      <div class="row detailpage">
+        <div class="col-md-12">
+          <div class="col-md-7">
+            <div class="">
+              <label>Setting</label>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="">
+              <label>Enabled</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let element of user" class="row formArray detailpage">
+      <div class="col-md-12">
+        <div class="col-md-7">
+          <div class="">
+            <span>{{element.displayMessage}}</span>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="">
+            <span>{{element.settingValue}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-12" align="right">
+      <button (click)="edit()" data-size="s" type="submit" class="submit-btn">Edit</button>
+    </div>
+  </div>
+</div>
+
+-->

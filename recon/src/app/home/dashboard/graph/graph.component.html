@@ -1,0 +1,64 @@
+<div class="panel auto-height output-panel">
+  <div class="panel-heading newcommanbginner">
+    <div class="col-md-8">
+      <h3 class="panel-title">{{dashlet.name}}
+        <div class="drill-down-label" *ngIf="drillDownFilters.length >0 "> - Filtered by <p class="drill-down-label"
+                                                                                            *ngFor="let drillDownFilter of drillDownFilters; let last = last;">
+          {{drillDownFilter.value}} &nbsp;&nbsp; </p></div>
+      </h3>
+    </div>
+    <div align="right" class="col-md-4 dashboard-icon-size cursor">
+      <button [disabled]='!isFilterViewAble' (click)="openDialog()"><i class="fa fa-filter"
+                                                                       [class.active]='!isFilterViewAble'
+                                                                       aria-hidden="true"></i></button>
+      <button [disabled]='!showChart' (click)="zoomChart()"><i [class.active]='!showChart' class="fa fa-arrows-alt"
+                                                               aria-hidden="true"></i></button>
+      <button [disabled]='!showChart' (click)="refreshGraph()"><i [class.active]='!showChart' class="fa fa-refresh"
+                                                                  aria-hidden="true"></i></button>
+      <div id="download" class="chart-download">
+        <a href="javascript:void(0)" class="dropdown-toggle icon-menu icon-menu2" data-toggle="dropdown">
+          <i class="fa fa-download" aria-hidden="true"></i>
+        </a>
+        <ul class="dropdown2-menu dropdown-menu dropdown-menu2 notifications dropdown-menu-dashlet">
+          <li><a class="notification-item" (click)="downloadAsPdf('PDF',$event)"><i class="fa fa-file-pdf-o"
+                                                                                    aria-hidden="true"></i>Download as
+            Pdf</a></li>
+          <li><a class="notification-item" (click)="downloadAsPdf('IMAGE',$event)"><i class="fa fa-file-image-o"
+                                                                                      aria-hidden="true"></i>Download as
+            Image</a></li>
+        </ul>
+      </div>
+      <!--<a href="javascript:void(0)" class="dropdown-toggle icon-menu icon-menu2" data-toggle="dropdown">
+        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu2 notifications dropdown-menu-dashlet">
+        <li *ngFor="let toggleChartType of toggleChartTypes"><a  class="notification-item" (click)="tonggleGraph(toggleChartType.value)"><i class="fa fa-search" aria-hidden="true"></i>{{toggleChartType.name}}</a></li>
+      </ul>-->
+    </div>
+  </div>
+  <div *ngIf="showChart">
+    <div class="canvas-outer-div">
+      <div class="graph-dynmic">
+        <canvas baseChart #baseChart="base-chart" id="dashlet-chart-{{dashletId}}" width="0"
+                [datasets]="chartData"
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [legend]="chartLegend"
+                [colors]="chartBackgroundColors"
+                [chartType]="chartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+        <div *ngIf="chartData.length === 0" class="dashlet-loader">
+          <div class="dataTables_processing panel panel-default" style="display: block;">No data available.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!showChart" class="dashlet-loader">
+    <div id="DataTables_Table_0_processing" class="dataTables_processing panel panel-default"
+         style="display: block;">
+      Processing...
+    </div>
+  </div>
+</div>

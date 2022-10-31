@@ -1,0 +1,208 @@
+<!-- MAIN -->
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-12 left-pad2 right-pad2">
+          <div class="panel panel-profile">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="clearfix">
+                <!-- TABBED CONTENT -->
+                <div class="panel panel-heading newhead newbg"><h4>{{isEditMode === true ? 'Edit Data Source View' : 'New Data Source View'}}</h4></div>
+                <div class="panel-profile border-none2 cover3 all_form">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-sm-3" formGroupName="recon">
+                        <label class="lbl required">Recon : </label>
+                        <select formControlName="id" #reco (change)="onReconChange(reco.value)"
+                                class="form-control input-sm">
+                          <option value="null" disabled>select</option>
+                          <option *ngFor="let recon of recons" value="{{recon.id}}">
+                            {{recon.name}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="inline-label-align" formGroupName="dataSource">
+                          <label class="lbl required">Data Source : </label>
+                          <select formControlName="id" #dataSource (change)="onDataSourceTypeChange(dataSource.value)"
+                                  class="form-control input-sm">
+                            <option value="null" disabled>select</option>
+                            <option *ngFor="let dataSource of dataSources" value="{{dataSource.id}}">
+                              {{dataSource.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-inner-cover">
+                    <div class="custom-tabs-line tabs-line-bottom left-aligned">
+                      <ul class="nav" role="tablist">
+                        <li class="active"><a [href]="'#column'" role="tab" data-toggle="tab">Columns</a></li>
+                        <li><a [href]="'#filter'" role="tab" data-toggle="tab">Filters</a></li>
+                     <!--   <li><a [href]="'#sorter'" role="tab" data-toggle="tab">Sorters</a></li>-->
+                      </ul>
+                    </div>
+                    <div class="tab-content">
+                      <div class="tab-pane tab-pane2 fade in active cover2" [attr.id]="'column'">
+                        <div class="row">
+                          <div class="col-md-12 ">
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label class="required">Label</label>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label class="required">Field</label>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label>Sorter</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row"
+                             *ngFor="let tableColumn of form.get('tableColumns')['controls']; let i = index">
+                          <div formArrayName="tableColumns">
+                            <div class="col-md-12 " [formGroupName]="i">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <input [attr.disabled]="tableColumn.get('fieldName').value === 'ID' ? '' : null" formControlName="label" id="label" type="text"
+                                         class="form-control input-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <select formControlName="dataElementId" id="fieldName" #column
+                                          (change)="autoGenrateColName(column.value,i)" [attr.disabled]="tableColumn.get('fieldName').value === 'ID' ? '' : null"
+                                          class="form-control input-sm">
+                                    <option *ngFor="let masterDataElement of masterDataElements"
+                                            value="{{masterDataElement.id}}">{{masterDataElement.name}}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <input formControlName="sorter" [attr.disabled]="tableColumn.get('fieldName').value === 'ID' ? '' : null" type="checkbox" class="checkboxSize">
+                                </div>
+                              </div>
+                              <div class="col-sm-1" *ngIf="i > 0">
+                                <a href="javascript:void(0);" [attr.disabled]="tableColumn.get('fieldName').value === 'ID' ? '' : null"
+                                   (click)="removeTableColumn(i)"
+                                   class="text-danger delete-btn"><i
+                                  class="fa fa-trash-o"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <button type="button" (click)="addTableColumn()" class="btn btn-primary add-btn">
+                                  <i
+                                    class="fa fa-plus-circle" aria-hidden="true"></i> Add
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane tab-pane2 fade cover2" [attr.id]="'filter'">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label class="required">Label</label>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label class="required">Field</label>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label class="required">Input Type</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row"
+                             *ngFor="let filter of form.get('filters')['controls']; let i = index">
+                          <div formArrayName="filters">
+                            <div class="col-md-12" [formGroupName]="i">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <input formControlName="label" type="text" class="form-control input-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <select formControlName="fieldName" #column
+                                          (change)="autoGenrateFilterLabel(column.value,i)"
+                                          class="form-control input-sm">
+                                    <option *ngFor="let masterDataElement of masterDataElements"
+                                            value="{{masterDataElement.filedName}}">{{masterDataElement.name}}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <select formControlName="inputType" class="form-control input-sm">
+                                    <option value="null" disabled>select</option>
+                                    <option value="STRING">String</option>
+                                    <option value="LONG">Long</option>
+                                    <option value="INTEGER">Integer</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-sm-1">
+                                <a href="javascript:void(0);" (click)="removeFilter(i)"
+                                   class="text-danger delete-btn"><i
+                                  class="fa fa-trash-o"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <button type="button" (click)="addFilter()" class="btn btn-primary add-btn"><i
+                                  class="fa fa-plus-circle" aria-hidden="true"></i> Add
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12" align="right">
+                  <div class="form-group">
+                    <button [ladda]="isLoading" data-size="s" type="submit" class="submit-btn">Submit</button>
+                    <button type="button" (click)="cancel()" class="btn btn-primary cancel-btn">Cancel</button>
+                  </div>
+                </div>
+                <!-- END TABBED CONTENT -->
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>
+

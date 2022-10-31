@@ -1,0 +1,64 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+      <div class="panel">
+        <div class="panel panel-heading newhead newbg">
+          <div class="row">
+            <div class="col-md-10 innerheadsource">
+              <h3 class="panel-title">My Profile</h3>
+            </div>
+            <div class="col-md-2" align="right">
+              <button type="button" (click)="edit()" class="btn new-page-btn"><i class="fa fa-edit"
+                                                                                 aria-hidden="true"></i> Edit
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-1"></div>
+              <div class="col-md-5">
+                <img class="image-cover"
+                     style=" border-radius: 100%; height: 240px;margin-top: 12px; width: 220px"
+                     [src]="profilePic"/>
+              </div>
+              <div class="col-md-4" style="margin-top: 40px">
+                <div class="form-inline">
+                  <label style="font-size: 15px;">Name</label> :
+                  <span style="font-size: 14px">{{salutation}}{{SPACE}}{{userDetail.fullName}}</span>
+                </div>
+                <div class="form-inline">
+                  <label style="font-size: 15px;">Gender</label> :
+                  <span style="font-size: 14px">{{userDetail.gender}}</span>
+                </div>
+                <div class="form-inline">
+                  <label style="font-size: 15px;">Email</label> :
+                  <span style="font-size: 14px">{{userDetail.email}}</span>
+                </div>
+                <div class="form-inline">
+                  <label style="font-size: 15px;">Mobile</label> :
+                  <span style="font-size: 14px">{{userDetail.mobile}}</span>
+                </div>
+                <div class="form-inline">
+                  <label style="font-size: 15px;">Designation</label> :
+                  <span style="font-size: 14px">{{userDetail.designation}}</span>
+                </div>
+                <div class="form-inline">
+                  <label style="font-size: 15px;">Role</label> :
+                  <span style="font-size: 14px">{{userDetail.role}}</span>
+                </div>
+                <div class="form-inline">
+                  <label style="font-size: 15px;">Module</label> :
+                  <span style="font-size: 14px">{{userDetail.module}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

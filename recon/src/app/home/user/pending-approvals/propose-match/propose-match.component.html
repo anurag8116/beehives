@@ -1,0 +1,32 @@
+<div class="panel panel-profile">
+  <div class="panel panel-heading newhead newbg"><h4>Approval</h4></div>
+  <div class="row">
+    <div class="col-md-12">
+      <button *ngIf="!isShown" disabled="true" type="button" (click)="addDescription()"
+              class="btn submit-btn">Approve
+      </button>
+      <button *ngIf="isShown" type="button" (click)="addDescription()"
+              class="btn submit-btn">Approve
+      </button>
+    </div>
+  </div>
+  <div class="row form-inner-cover all-cover-privilege-type">
+    <div class="panel panel-profile">
+      <div class="row form-inner-cover">
+        <div class="col-md-12 top-spc">
+          <div class="col-md-3 right-margin" *ngFor="let searchFiled of searchFileds">
+            <label>{{searchFiled.label}}</label>
+            <input type="text" (keyup)="searchByName($event.target.value,searchFiled.fieldName)"
+                   class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 table-responsive top-spc" *ngIf="showTable">
+      <table id="pending" #pending datatable [dtOptions]="dtOptions" class="table table-condensed">
+      </table>
+    </div>
+  </div>
+</div>
+
+

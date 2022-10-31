@@ -1,0 +1,453 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid ">
+      <div class="row">
+        <div *ngIf="!pipelinePreview" class="col-md-2 left-pad right-pad2">
+          <div class="panel panel-profile">
+            <div class="clearfix">
+              <table class="table table-hover table-inner-align pipline-cover">
+                <tbody>
+                <tr>
+                  <th class="newbg">Processor</th>
+                </tr>
+
+                <div class="col-md-12 top-spc20">
+                  <select class="form-control input-sm" #type (change)="searchByType(type.value)">
+                    <option value="">--All--</option>
+                    <option *ngFor="let type of stageTypes" value="{{type.value}}">
+                      {{type.name}}
+                    </option>
+                  </select></div>
+
+
+                <div class="col-md-12"><input type="text" class="form-control input-sm input-sm2" #name
+                                              (keyup)="searchStageName(name.value)"
+                                              placeholder="Search..."></div>
+
+                </tbody>
+              </table>
+
+              <div class="">
+                <div class="col-md-12 stage-list-container left-pro-panel">
+                  <ul class="stages-list">
+
+                    <li *ngFor="let stage of filteredStages ; let i = index"
+                        class="ng-scope ng-isolate-scope">
+                      <a (click)="onStageClick($event)" [dndType]="stage.type"
+                         [dndDraggable]="{effectAllowed:'copy'}"
+                         [dndObject]="stage"
+                         (dndCopied)="stage.id = stage.id + 1">
+                        <div
+                          [ngStyle]="{'background':'url(/assets/stages/'+stage.library + '/' + stage.name+'.png)  no-repeat center center'}"
+                          class="pipe_line_componet_background_img" id="image_{{i}}"></div>
+                        <span class="ng-binding">{{stage.label}}</span>
+                      </a>
+                    </li>
+
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div [ngClass]="pipelinePreview ?'col-md-12': 'col-md-10'" class="right-pad left-pad2">
+          <div class="panel panel-profile">
+            <div class="clearfix">
+              <div class="panel panel-heading newhead newbg">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h4>{{pipelineInfo.description}}</h4>
+                  </div>
+
+                  <div class="col-md-6 error-outline" align="right">
+                    <i *ngIf="pipelineInfo?.pipelineId && !pipelinePreview"
+                       [routerLink]="['/home/etl', 'pipeline', {outlets: {'fullBodyOutlet': ['logs',pipelineInfo?.pipelineId,'edit']}}]"
+                       class="fa fa-file-text fa-14x etl-error-btn tooltip-i" aria-hidden="true"><span
+                      class="tooltiptext tooltip-bottom ">View Logs</span>
+                    </i>
+                    <i *ngIf="pipelineInfo?.issues?.issueCount && !pipelinePreview" (click)="showPipeLineIssue()"
+                       class="fa fa-exclamation-triangle etl-error-btn" aria-hidden="true"></i>
+                    <span *ngIf="pipelineInfo?.issues?.issueCount && !pipelinePreview" class="error-inline">{{pipelineInfo?.issues?.issueCount}}</span>
+                    <i *ngIf="!pipelinePreview &&!(pipelineInfo?.issues?.issueCount)" (click)="validatePipeLine()"
+                       class="glyphicon glyphicon-ok-circle fa-14x etl-error-btn tooltip-i" aria-hidden="true">
+                      <span class="tooltiptext tooltip-bottom">Validate</span>
+                    </i>
+                    <i *ngIf="!pipelinePreview && pipelineInfo?.pipelineId && !pipelinePreview"
+                       (click)="pipeLinePreview()"
+                       class="glyphicon glyphicon-eye-open fa-14x etl-error-btn tooltip-i" aria-hidden="true">
+                      <span class="tooltiptext tooltip-bottom">Preview</span>
+                    </i>
+                    <i *ngIf="pipelinePreview" (click)="deletePipeLinePreview()" style="color: #c61212;"
+                       class="glyphicon glyphicon-eye-close fa-14x etl-error-btn tooltip-i" aria-hidden="true">
+                      <span class="tooltiptext tooltip-bottom">Close Preview</span>
+                    </i>
+                    <button *ngIf="!pipelinePreview" type="button" (click)="updatePipelineData()" [ladda]="isLoading"
+                            class="btn etl-submit-btn"
+                            data-size="s">
+                      Save
+                    </button>
+
+                    <button *ngIf="!pipelinePreview" type="button"
+                            [routerLink]="['/home/etl', 'pipeline', {outlets: {'fullBodyOutlet': ['list']}}]"
+                            class="btn btn-primary etl-cancel-btn"
+                            data-size="s">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-profile border-none2 cover3 containerr">
+                <div class="row">
+                  <div dndDropzone (dndDrop)="onDrop($event,selectedStages)"
+                       [dndList]="{allowedTypes: dndAllowedTypes}"
+                       [dndModel]="selectedStages"
+                       class="wrapper" style="height: 35%">
+                    <div #nodeArea id="nodeArea" class="node-editor"></div>
+                  </div>
+                </div>
+              </div>
+              <form autocomplete="off" [formGroup]="formGroup">
+                <div class="custom-tabs-line tabs-line-bottom left-aligned">
+                  <!-- <div class="col-md-8">-->
+                  <ul class="nav" role="tablist">
+                    <li *ngIf="!pipelinePriviewData" class="active"><a href="#tab-general-config" role="tab"
+                                                                       data-toggle="tab">PipeLine</a></li>
+                    <li *ngIf="!pipelinePriviewData"><a href="#tab-parameter-config" role="tab"
+                                                        data-toggle="tab">{{selectedStageConfig?.label}}</a></li>
+                    <li *ngIf="pipelinePriviewData"><a href="#tab-pipeline-preview" role="tab"
+                                                       data-toggle="tab">Preview</a></li>
+                  </ul>
+                </div>
+                <div class="tab-content right-pro-panel">
+                  <div *ngIf="!pipelinePriviewData" class="tab-pane tab-pane3 top-spc fade in active"
+                       id="tab-general-config">
+                    <div class="col-md-12">
+
+                      <div class="parabottomspc">
+                        <div class="col-md-8">
+                          <dynamic-bootstrap-form [group]="formGroup"
+                                                  [layout]="formLayout"
+                                                  (change)="onFormChange($event)"
+                                                  [model]="pipelineGernalFormModel">
+
+                            <ng-template *ngFor="let modelId of addMoreFieldButtons" modelId="{{modelId}}"
+                                         let-group let-context="context" let-index="index">
+
+                              <div class="col-md-2">
+                                <button type="button" class="btn  btn-sm rounded"
+                                        (click)="remove(context, index,modelId)"><i class="fa fa-minus pointer"></i>
+                                </button>
+                                <button type="button" class="btn  btn-sm rounded"
+                                        (click)="add(modelId)"><i class="fa fa-plus pointer"></i>
+                                </button>
+
+                              </div>
+                            </ng-template>
+
+
+                          </dynamic-bootstrap-form>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div *ngIf="!pipelinePriviewData" class="tab-pane tab-pane3 top-spc fade in active"
+                       id="tab-parameter-config">
+
+                    <div class="row">
+                      <div *ngIf="editStage?.uiInfo?.stageType==='SOURCE'" class="col-md-12">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="fancy-checkbox">
+                              <input type="checkbox" [checked]="(editStage.eventLanes.length>0?true:false)"
+                                     (change)="onProduceEventChange($event)">
+                              <span>Produce Events  </span>
+                            </label>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 ">
+
+                      <div class="parabottomspc">
+                        <div class="col-md-8">
+                          <dynamic-bootstrap-form [group]="stageFormGroup"
+                                                  (change)="onStageChange($event)"
+                                                  [layout]="formLayout"
+                                                  [model]="stageFormModel">
+                            <ng-template *ngFor="let modelId of stageAddMoreButtons" modelId="{{modelId}}"
+                                         let-group let-stageIndex="index" let-context="context">
+                              <label class="daynamic-lable"
+                                     *ngIf="modelId ==='lanePredicates'">{{stageIndex+1}}</label>
+                              <button type="button" class="btn  btn-sm rounded"
+                                      (click)="removeStageControls(context, stageIndex,modelId)"><i
+                                class="fa fa-minus pointer"></i>
+                              </button>
+                              <button type="button"
+                                      class="btn  btn-sm rounded"
+                                      (click)="addMoreStageControls(modelId,context)"><i
+                                class="fa fa-plus pointer"></i>
+                              </button>
+                            </ng-template>
+
+                          </dynamic-bootstrap-form>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div *ngIf="pipelinePreview" class="tab-pane tab-pane3 top-spc fade in active"
+                       id="tab-pipeline-preview">
+
+                    <table class="table preview-table ">
+                      <thead>
+                      <tr>
+                        <th class="col-md-6">
+                          <span class="glyphicon glyphicon-expand pointer ng-scope"></span>
+
+                          <span class="ng-scope">Input Data</span>
+                        </th>
+
+                        <th class="col-md-6">
+                          <span class="glyphicon glyphicon-expand pointer ng-scope"></span>
+
+                          <span class="ng-scope">Output Data</span>
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody *ngIf="editStage&&(['SOURCE','TARGET'].indexOf(editStage.uiInfo.stageType)>-1)">
+                      <tr
+                        *ngFor="let previewData of (stagePriviewData?.inputs && stagePriviewData?.inputs.length>0?stagePriviewData?.inputs:stagePriviewData?.outputs) ;let i=index">
+
+                        <td
+                          *ngIf="stagePriviewData.outputs && stagePriviewData?.outputs.length>0"></td>
+                        <td style="vertical-align: top !important" class="col-md-6">
+                          <ul class="record-list">
+                            <li class="record-list-item">
+                              <div>
+
+                                <label class="pull-left root-label">
+                                  <span data-toggle="collapse" [attr.data-target]="'#records'+i"
+                                        aria-expanded="false" [attr.aria-controls]="'records'+i"
+                                        class="pointer toggler collapsed"></span>
+                                  <span class="field-name ng-binding">{{'Record' +(i+1)}}</span> :
+                                </label></div>
+                              <div class="ng-scope">
+                                <div>
+                                  <span class="field-type ng-binding">{{previewData.value.type}}</span>
+                                </div>
+                              </div>
+
+                              <ul [attr.id]="'records'+i"
+                                  class="record-list ng-isolate-scope collapse multi-collapse">
+                                <li *ngFor="let recordData of previewData?.value?.value ;let j=index"
+                                    class="record-list-item ng-scope">
+
+                                  <div>
+                                    <label class="pull-left">
+                                      <span class="field-index ">{{j}}</span>
+                                      <span class="field-name ">{{recordData?.sqpath.substring(1)}}</span> :
+                                    </label>
+
+                                    <div>
+
+                                      <div class="ng-scope">
+                                        <span class="field-type ng-binding">{{recordData.type}}</span>
+                                        <span *ngIf="recordData.type!=='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value}}</span>
+                                        <span *ngIf="recordData.type==='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value | date:['dd-MM-yyyy']}}</span>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </li>
+
+                              </ul>
+
+                            </li>
+                          </ul>
+
+                        </td>
+                        <td *ngIf="stagePriviewData.inputs && stagePriviewData?.inputs.length>0"></td>
+                      </tr>
+                      </tbody>
+                      <tbody *ngIf="editStage && 'PROCESSOR'===editStage.uiInfo.stageType">
+                      <tr
+                        *ngFor="let previewData of stagePriviewData?.inputs ;let i=index">
+                        <td style="vertical-align: top !important" class="col-md-6">
+                          <ul class="record-list">
+                            <li class="record-list-item">
+                              <div>
+
+                                <label class="pull-left root-label">
+                                  <span data-toggle="collapse" [attr.data-target]="'#records'+i"
+                                        aria-expanded="false" [attr.aria-controls]="'records'+i"
+                                        class="pointer toggler collapsed"></span>
+                                  <span class="field-name ng-binding">{{'Record' +(i+1)}}</span> :
+                                </label></div>
+                              <div class="ng-scope">
+                                <div>
+                                  <span class="field-type ng-binding">{{previewData.value.type}}</span>
+                                </div>
+                              </div>
+
+                              <ul [attr.id]="'records'+i"
+                                  class="record-list ng-isolate-scope collapse multi-collapse">
+                                <li *ngFor="let recordData of previewData?.value?.value ;let j=index"
+                                    class="record-list-item ng-scope">
+
+                                  <div>
+                                    <label class="pull-left">
+                                      <span class="field-index ">{{j}}</span>
+                                      <span class="field-name ">{{recordData?.sqpath.substring(1)}}</span> :
+                                    </label>
+
+                                    <div>
+
+                                      <div class="ng-scope">
+                                        <span class="field-type ng-binding">{{recordData.type}}</span>
+                                        <span *ngIf="recordData.type!=='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value}}</span>
+                                        <span *ngIf="recordData.type==='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value | date:['dd-MM-yyyy']}}</span>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </li>
+
+                              </ul>
+
+                            </li>
+                          </ul>
+
+                        </td>
+
+                        <td *ngIf="stagePriviewData?.outputs.length>0" style="vertical-align: top !important"
+                            class="col-md-6">
+                          <ul class="record-list">
+                            <li class="record-list-item">
+                              <div>
+
+                                <label class="pull-left root-label">
+                                  <span data-toggle="collapse" [attr.data-target]="'#recordsOP'+i"
+                                        aria-expanded="false" [attr.aria-controls]="'recordsOP'+i"
+                                        class="pointer toggler collapsed"></span>
+                                  <span class="field-name ng-binding">{{'Record' +(i+1)}}</span> :
+                                </label></div>
+                              <div class="ng-scope">
+                                <div>
+                                  <span
+                                    class="field-type ng-binding">{{stagePriviewData?.outputs[i]?.value.type }}</span>
+                                </div>
+                              </div>
+
+                              <ul [attr.id]="'recordsOP'+i"
+                                  class="record-list ng-isolate-scope collapse multi-collapse">
+                                <li *ngFor="let recordData of stagePriviewData?.outputs[i].value?.value ;let j=index"
+                                    class="record-list-item ng-scope">
+
+                                  <div>
+                                    <label class="pull-left">
+                                      <span class="field-index ">{{j}}</span>
+                                      <span class="field-name ">{{recordData?.sqpath.substring(1)}}</span> :
+                                    </label>
+
+                                    <div>
+
+                                      <div class="ng-scope">
+                                        <span class="field-type ng-binding">{{recordData.type}}</span>
+                                        <span *ngIf="recordData.type!=='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value}}</span>
+                                        <span *ngIf="recordData.type==='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value | date:['dd-MM-yyyy']}}</span>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </li>
+
+                              </ul>
+
+                            </li>
+                          </ul>
+
+                        </td>
+                        <td *ngIf="stagePriviewData?.errorRecords.length>0" style="vertical-align: top !important"
+                            class="col-md-6">
+                          <ul class="record-list">
+                            <li class="record-list-item">
+                              <div>
+
+                                <label class="pull-left label label-danger root-label">
+                                  <span data-toggle="collapse" [attr.data-target]="'#recordsOP'+i"
+                                        aria-expanded="false" [attr.aria-controls]="'recordsOP'+i"
+                                        class="pointer toggler collapsed"></span>
+                                  <span class="pointer field-name ng-binding"
+                                        (click)="openPreviewErrorPopus(stagePriviewData?.errorRecords[i]?.header?.errorMessage,stagePriviewData?.errorRecords[i]?.header?.errorStackTrace)">{{'Record'+(i+1)+'-Error'+stagePriviewData?.errorRecords[i]?.header?.errorMessage}}</span>
+                                </label></div>
+                              <div class="ng-scope">
+                                <div>
+                                  <span
+                                    class="field-type ng-binding">{{stagePriviewData?.errorRecords[i]?.value.type }}</span>
+                                </div>
+                              </div>
+
+                              <ul [attr.id]="'recordsOP'+i"
+                                  class="record-list ng-isolate-scope collapse multi-collapse">
+                                <li
+                                  *ngFor="let recordData of stagePriviewData?.errorRecords[i]?.value?.value ;let j=index"
+                                  class="record-list-item ng-scope">
+
+                                  <div>
+                                    <label class="pull-left">
+                                      <span class="field-index ">{{j}}</span>
+                                      <span class="field-name ">{{recordData?.sqpath.substring(1)}}</span> :
+                                    </label>
+                                    <div>
+
+                                      <div class="ng-scope">
+                                        <span class="field-type ng-binding">{{recordData.type}}</span>
+                                        <span *ngIf="recordData.type!=='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value}}</span>
+                                        <span *ngIf="recordData.type==='DATE'"
+                                              [class]="'field-value ' +recordData.type">{{recordData.value | date:['dd-MM-yyyy']}}</span>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </li>
+
+                              </ul>
+
+                            </li>
+                          </ul>
+
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

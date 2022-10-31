@@ -1,0 +1,97 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Invalid Data View Detail</h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-body">
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>ID</label> :
+                  <span>{{invalidDataView.id}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>DataSource</label> : <span>{{invalidDataView.invalidData?.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="custom-tabs-line tabs-line-bottom left-aligned">
+            <ul class="nav" role="tablist">
+              <li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">Columns</a></li>
+              <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Filters</a></li>
+            </ul>
+          </div>
+          <div class="tab-content all_form">
+            <div class="tab-pane tab-pane2 fade in active cover2" id="tab-bottom-left1">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 table-responsive2">
+                    <table class="table table_spc table-striped">
+                      <tr id="heading-color">
+                        <th>Id</th>
+                        <th>Label</th>
+                        <th>Field Name</th>
+                        <th>Sorter</th>
+                      </tr>
+                      <tr *ngFor="let element of invalidDataView.tableColumns">
+                        <td>{{element.id}}</td>
+                        <td>{{element.label}}</td>
+                        <td>{{element.fieldName}}</td>
+                        <td>{{element.sorter === true ? 'Yes' : 'No'}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane tab-pane2 fade cover2" id="tab-bottom-left2">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12 table-responsive2">
+                    <table class="table table_spc table-striped">
+                      <tr id="heading-color2">
+                        <th>Id</th>
+                        <th>Label</th>
+                        <th>Field Name</th>
+                        <th>Input Type</th>
+                        <th>LookUp Provider</th>
+                      </tr>
+                      <tr *ngFor="let element of invalidDataView.filters">
+                        <td>{{element.id}}</td>
+                        <td>{{element.label}}</td>
+                        <td>{{element.fieldName}}</td>
+                        <td>{{element.inputType}}</td>
+                        <td>{{element.lookUpProvider}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12" align="right">
+                <button type="button"
+                        [routerLink]="['/home/etl', 'invalid-data-view', {outlets: {'fullBodyOutlet': ['list']}}]"
+                        class="btn submit-btn">Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

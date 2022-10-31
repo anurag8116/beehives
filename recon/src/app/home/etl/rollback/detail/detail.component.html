@@ -1,0 +1,85 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Rollback Detail</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row detailpage">
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>ID</label> :
+                  <span>{{rollbackObj.id}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Rollback Date</label> : <span>{{rollbackObj.toRollbackDate}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Execution StartDate</label> : <span>{{rollbackObj.executionStartDate | date: 'dd/mm/yyyy'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Execution EndDate</label> : <span>{{rollbackObj.executionEndDate | date: 'dd/mm/yyyy'}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Pipe Line</label> : <span>{{rollbackObj.pipeLine}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>PipeLine Name</label> : <span>{{rollbackObj.pipeLineName}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>File Name</label> : <span>{{rollbackObj.fileName}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Status</label> : <span>{{rollbackObj.rollbackStatus}}</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Module</label> : <span>{{rollbackObj.moduleList}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12 editnew-btn" align="right">
+                <button type="button" [routerLink]="['/home/etl', 'rollback', {outlets: {'fullBodyOutlet': ['list']}}]"
+                        data-size="s" class="btn submit-btn">Back
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

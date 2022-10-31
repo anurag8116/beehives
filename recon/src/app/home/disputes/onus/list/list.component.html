@@ -1,0 +1,95 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile ">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h4>Onus</h4>
+            </div>
+
+            <div *ngIf="moduleId" class="col-md-6" align="right">
+              <a routerLinkActive="active"
+                 [routerLink]="['/home/disputes', 'issuer-disputes', {outlets: {'fullBodyOutlet': ['disputeform', moduleId, disputeType]}}]"
+                 title="">
+                <button type="button" class="btn new-page-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  New
+                </button>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="">
+          <div class="row form-inner-cover">
+            <div class="col-md-12">
+
+              <div class="col-md-3 right-margin">
+                <label>Module</label>
+                <select class="form-control" #module (change)="search(module.value, 2)">
+                  <option value="">--All--</option>
+                  <option *ngFor="let module of modules" value="{{module.id}}">
+                    {{module.name}}
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <label>Created On</label>
+                <div class="form-group">
+                  <input type="text" (bsValueChange)="searchByDate($event, 7)"
+                         class="range-group-input form-control" placeholder="From"
+                         bsDatepicker #fromDate
+                         (click)="toDate.value=''"
+                         [bsConfig]="bsConfig">
+                  <span class="range-group-addon">to</span>
+                  <input type="text" (bsValueChange)="searchByDate($event, 8)"
+                         class="range-group-input form-control" placeholder="Till"
+                         bsDatepicker #toDate
+                         (click)="getToDatePickerConfig(fromDate.value)"
+                         [bsConfig]="getDatePickerConfigRestrictPastDate">
+                </div>
+              </div>
+              <div class="col-md-3 right-margin">
+                <label>Status</label>
+                <select class="form-control" #statu (change)="search(statu.value, 6)">
+                  <option value="">--All--</option>
+                  <option *ngFor="let statu of status" value="{{statu}}">
+                    {{statu}}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-profile">
+        <div class="clearfix">
+          <div class="row form-idocument-modalnner-cover">
+            <div class="col-md-12 ">
+              <div class="col-md-12 right-margin top-bottom-spc">
+                <button type="button" class="btn submit-btn" (click)="onHistory()">View History</button>
+                <button type="button" class="btn submit-btn" (click)="onProcess()">Process</button>
+                <button type="button" class="btn submit-btn" (click)="onTransactionClick()">View Transaction</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-profile panel-top-spc">
+        <div class="clearfix">
+          <div class="col-md-12 top-spc all-cover-modules">
+            <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+

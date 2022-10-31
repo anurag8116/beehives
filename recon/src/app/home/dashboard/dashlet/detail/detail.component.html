@@ -1,0 +1,138 @@
+ <div class="panel panel-profile">
+    <div class="clearfix">
+      <!-- TABBED CONTENT -->
+      <div class="panel panel-heading newhead newbg">
+        <h4>Dashlet <i (click)="onEdit()" class="fa fa-pencil-square-o pull-right cursor" aria-hidden="true"></i></h4> </div>
+      <div class="panel panel-profile border-none2 cover3">
+        <div class="row form-inner-cover">
+          <div class="col-md-12 rowbg">
+            <div class="col-md-5">
+              <div class="form-inline">
+                <label class="">Name</label> : <span>{{dashlet?.name}}</span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-inline">
+                <label class="">Type</label> : <span>{{dashlet?.dashletType}}</span>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="form-inline">
+                <label class="">Data Provider</label> : <span>{{dashlet?.dataProvider}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-tabs-line tabs-line-bottom left-aligned">
+        <ul class="nav" role="tablist">
+          <li class="active" *ngIf="dashlet.tableColumns.length > 0"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">Columns</a></li>
+          <li class="active" *ngIf="dashlet.tableColumns.length == 0"><a href="#tab-bottom-left5" role="tab" data-toggle="tab">Labels</a></li>
+          <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Filters</a></li>
+          <li><a href="#tab-bottom-left3" role="tab" data-toggle="tab">Sorters</a></li>
+          <li><a href="#tab-bottom-left4" role="tab" data-toggle="tab">Color</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div *ngIf="dashlet.tableColumns.length > 0" class="tab-pane tab-pane2 fade in active cover2" id="tab-bottom-left1">
+          <div class="col-md-12 cover2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Label</th>
+                <th scope="col">Field</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let tableColumn of dashlet.tableColumns">
+                <td>{{tableColumn.label}}</td>
+                <td>{{tableColumn.fieldName}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane tab-pane2 fade cover2" id="tab-bottom-left2">
+          <div class="col-md-12 cover2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Label</th>
+                <th scope="col">Field</th>
+                <th scope="col">Input Type</th>
+                <th scope="col">Lookup Provider</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let filter of dashlet.filters">
+                <td>{{filter.label}}</td>
+                <td>{{filter.fieldName}}</td>
+                <td>{{filter.inputType}}</td>
+                <td>{{filter.lookUpProvider}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane tab-pane2 fade" id="tab-bottom-left3">
+          <div class="col-md-12 cover2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Field</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let sorter of dashlet.sorters">
+                <td>{{sorter.name}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane tab-pane2 fade cover4" id="tab-bottom-left4">
+          <div class="col-md-12 cover2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Condition</th>
+                <th scope="col">Condition Value</th>
+                <th scope="col">Color Code</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let color of dashlet.colors">
+                <td>{{color.fieldName}}</td>
+                <td>{{color.conditionName}}</td>
+                <td>{{color.conditionValue}}</td>
+                <td > {{color.colorCode}} </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div *ngIf="dashlet.tableColumns.length == 0" class="tab-pane tab-pane2 fade in active cover2" id="tab-bottom-left5">
+          <div class="col-md-12 cover2">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Series</th>
+                <th scope="col">Label</th>
+                <th scope="col">Count</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{dashlet.seriesColumn}}</td>
+                <td>{{dashlet.labelColumn}}</td>
+                <td>{{dashlet.countColumn}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- END TABBED CONTENT -->
+    </div>
+  </div>

@@ -1,0 +1,82 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>Cashback Coupon</h3>
+            </div>
+            <div class="col-md-6" align="right">
+              <a [routerLink]="['/home/etl', 'cashback-coupon', {outlets: {'fullBodyOutlet': ['new']}}]" title="">
+                <button type="button" class="btn new-page-btn"><i class="fa fa-plus-circle"
+                                                                  aria-hidden="true"></i> New
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="clearfix">
+            <div class="row form-inner-cover">
+              <div class="col-md-9 top-spc">
+                <div class="col-md-3 right-margin">
+                  <label>Brand Name</label>
+                  <select class="form-control" #brand (change)="search(brand.value, 1)">
+                    <option value="null">--All--</option>
+                    <option *ngFor="let brand of brands" value="{{brand.id}}">
+                      {{brand.name}}
+                  </select>
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Coupon Code</label>
+                  <input type="text" #couponCode (keyup)="search(couponCode.value, 2)" class="form-control"
+                         placeholder="Coupon Name">
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Offer Key</label>
+                  <input type="text" #offerKey (keyup)="search(offerKey.value, 8)" class="form-control"
+                         placeholder="Offer Key">
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Sub Category</label>
+                  <input type="text" #subCategory (keyup)="search(subCategory.value, 9)" class="form-control"
+                         placeholder="Sub Category">
+                </div>
+              </div>
+              <div class="col-md-3 top-spc">
+                <div class="row">
+                  <div class="col-md-6 right-margin">
+                    <label>Offer Start Date</label>
+                    <input type="text" (bsValueChange)="searchByDate($event, 6)"
+                           class="form-control" placeholder="Offer Start Date"
+                           bsDatepicker #fromDate
+                           [bsConfig]="bsConfig">
+                  </div>
+                  <div class="col-md-6 right-margin">
+                    <label>Offer End Date</label>
+                    <input type="text" (bsValueChange)="searchByDate($event, 7)"
+                           class="form-control" placeholder="Offer End Date"
+                           bsDatepicker #toDate
+                           [bsConfig]="bsConfig">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-profile panel-top-spc">
+        <div class="clearfix">
+          <div class="col-md-12 top-spc table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

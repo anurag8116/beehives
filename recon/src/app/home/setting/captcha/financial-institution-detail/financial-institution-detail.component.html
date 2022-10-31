@@ -1,0 +1,34 @@
+<div class="col-md-12 left-pad right-pad2">
+  <div class="panel panel-heading newhead newbg"><h4>Financial Institution</h4></div>
+  <div class="panel panel-profile">
+    <div class="panel-body all_form">
+    <div class="clearfix">
+      <div class="row form-inner-cover cover2">
+        <div class="row">
+          <div class="col-md-12 table-responsive2">
+            <table class="table table_spc table-striped">
+              <tr id="heading-color">
+                <th>Master Data Usage</th>
+                <th>Master Data Type</th>
+                <th>ATM Column Name</th>
+                <th>File Column Name</th>
+              </tr>
+              <tr *ngFor="let element of user">
+                <td>{{element.settingKey}}</td>
+                <td>{{element.settingValue}}</td>
+                <td>{{element.parentKey}}</td>
+                <td>{{element.fileColumnName}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" align="right">
+            <button (click)="edit()" data-size="s" type="submit" [ladda]="isLoading" class="submit-btn">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

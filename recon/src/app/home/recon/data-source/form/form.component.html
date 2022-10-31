@@ -1,0 +1,434 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="panel">
+          <div class="panel-heading newbg">
+            <h3 class="panel-title">{{editMode ? 'Edit':'New'}} Data Source</h3>
+          </div>
+          <div class="panel-profile">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="required">Name</label>
+                    <input type="text" formControlName="name" class="form-control input-sm" placeholder="Name"
+                           maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3" formGroupName="module">
+                  <div class="form-group">
+                    <label class="required">Module</label>
+                    <select class="form-control input-sm" formControlName="id" #module
+                            (change)="onModuleChange(module.value)">
+                      <option value="null" disabled>--Select One--</option>
+                      <option *ngFor="let parentModule of modules" value="{{parentModule.id}}">
+                        {{parentModule.name}}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="required">Recon</label>
+                    <select class="form-control input-sm" formControlName="reconId" #recon>
+                      <option value="null" disabled>--Select One--</option>
+                      <option *ngFor="let recon of recons" value="{{recon.id}}">
+                        {{recon.name}}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group ">
+                    <label class=" required lbl6">Pipeline</label>
+                    <angular2-multiselect class="form-control input-sm" [data]="pipelines" [settings]="dropDownSettings"
+                                          formControlName="pipelineId">
+                    </angular2-multiselect>
+                    <!--  <select class="form-control input-sm" formControlName="pipelineId" #pipelineId>
+                        <option value="null" disabled>&#45;&#45;Select One&#45;&#45;</option>
+                        <option *ngFor="let pipeline of pipelines" value="{{pipeline.pipelineId}}">
+                          {{pipeline.description}}
+                      </select>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="required">Max Duplicate records Limit</label>
+                    <input type="number" formControlName="maxDuplicateRecordLimit"
+                           onkeydown="return event.keyCode !== 69" class="form-control input-sm">
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('maxDuplicateRecordLimit').value !== null">
+                  <div class="form-group">
+                    <label class=" required ">Max Duplicate Record Count Method</label>
+                    <select class="form-control input-sm" formControlName="maxDuplicateRecordCountUnit"
+                            #maxDuplicateRecordCountUnit>
+                      <option value="RECORD_COUNT" selected>RECORD_COUNT</option>
+                      <option value="IN_PERCENTAGE">IN_PERCENTAGE</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="required">Max Invalid Record Limit</label>
+                    <input type="number" formControlName="maxInvalidRecord" onkeydown="return event.keyCode !== 69"
+                           class="form-control input-sm">
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('maxInvalidRecord').value !== null">
+                  <div class="form-group">
+                    <label class=" required ">Max Invalid Record Count Method</label>
+                    <select class="form-control input-sm" formControlName="maxInvalidRecordCountUnit"
+                            #maxInvalidRecordCountUnit>
+                      <option value="RECORD_COUNT" selected>RECORD_COUNT</option>
+                      <option value="IN_PERCENTAGE">IN_PERCENTAGE</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="required">Data Base Table Config : </label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group inline-label-align radio-label">
+                      <div class="col-md-3">
+                        <label class="fancy-radio">
+                          <input name="sourceElementType" value="EXISTING" type="radio" #source
+                                 formControlName="sourceElementType">
+                          <span style="width: 300px"><i></i>Use Existing Table</span>
+                        </label>
+                      </div>
+                      <div class="col-md-2">
+                        <label class="fancy-radio">
+                          <input name="sourceElementType" value="TABLE" type="radio" #source
+                                 formControlName="sourceElementType">
+                          <span style="width: 300px"><i></i>Create Table</span>
+                        </label>
+                      </div>
+                      <label class="fancy-radio">
+                        <input name="sourceElementType" value="SCRIPT" type="radio" #source
+                               formControlName="sourceElementType">
+                        <span style="width: 300px"><i></i>Create Script</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-3"
+                     *ngIf="form.get('sourceElementType').value === 'TABLE' || form.get('sourceElementType').value === 'SCRIPT'">
+                  <div class="form-group">
+                    <label>Amount Column</label>
+                    <input type="text" formControlName="amountColumn" class="form-control input-sm"
+                           placeholder="Amount Column" maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('sourceElementType').value === 'EXISTING'">
+                  <div class="form-group">
+                    <label class=" required lbl6">Recon Table</label>
+                    <select class="form-control input-sm" formControlName="table" #table
+                            (change)="onTableChange(table.value)">
+                      <option value="null" disabled>--Select One--</option>
+                      <option *ngFor="let table of tables" value="{{table.name}}">
+                        {{table.name}}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3"
+                     *ngIf="form.get('sourceElementType').value === 'TABLE' || form.get('sourceElementType').value === 'SCRIPT'">
+                  <div class="form-group">
+                    <label class=" required lbl6">Recon Table</label>
+                    <input type="text" formControlName="table" class="form-control input-sm" placeholder="Table"
+                           maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('sourceElementType').value === 'EXISTING'">
+                  <div class="form-group">
+                    <label class=" required lbl6">Invalid Data Table</label>
+                    <select class="form-control input-sm" formControlName="invalidTable" #invalidtable>
+                      <option value="null" disabled>--Select One--</option>
+                      <option *ngFor="let table of InvalidTable" value="{{table.name}}">
+                        {{table.name}}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3"
+                     *ngIf="form.get('sourceElementType').value === 'TABLE' || form.get('sourceElementType').value === 'SCRIPT'">
+                  <div class="form-group">
+                    <label class=" required lbl6">Invalid Data Table</label>
+                    <input type="text" formControlName="invalidTable" class="form-control input-sm"
+                           placeholder="Invalid Table" maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('sourceElementType').value === 'EXISTING'">
+                  <div class="form-group ">
+                    <label class=" required">Invalid Data History Table</label>
+                    <select class="form-control input-sm" formControlName="historyTable" #historytable>
+                      <option value="null" disabled>------Select One-------</option>
+                      <option *ngFor="let table of historyTable" value="{{table.name}}">
+                        {{table.name}}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3"
+                     *ngIf="form.get('sourceElementType').value === 'TABLE' || form.get('sourceElementType').value === 'SCRIPT'">
+                  <div class="form-group ">
+                    <label class=" required">Invalid Data History</label>
+                    <input type="text" formControlName="historyTable" class="form-control input-sm"
+                           placeholder="HistoryTable" maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('sourceElementType').value === 'EXISTING'">
+                  <div class="form-group">
+                    <label>Amount Column</label>
+                    <select class="form-control input-sm" formControlName="amountColumn">
+                      <option value=" " disabled>--Select One--</option>
+                      <option *ngFor="let column of columns" value="{{column}}">
+                        {{column}}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3"
+                     *ngIf="form.get('sourceElementType').value === 'TABLE' || form.get('sourceElementType').value === 'SCRIPT'">
+                  <div class="form-group">
+                    <label>Status Column</label>
+                    <input type="text" formControlName="statusColumn" class="form-control input-sm"
+                           placeholder="Status Column" maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3"
+                     *ngIf="form.get('sourceElementType').value === 'TABLE' || form.get('sourceElementType').value === 'SCRIPT'">
+                  <div class="form-group">
+                    <label>Iteration Id Column</label>
+                    <input type="text" formControlName="iterationIdColumn" class="form-control input-sm"
+                           placeholder="Iteration Id Column" maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('sourceElementType').value === 'EXISTING'">
+                  <div class="form-group">
+                    <label>Status Column</label>
+                    <select class="form-control input-sm" formControlName="statusColumn">
+                      <option value=" " disabled>--Select One--</option>
+                      <option *ngFor="let column of columns" value="{{column}}">
+                        {{column}}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3" *ngIf="form.get('sourceElementType').value === 'EXISTING'">
+                  <div class="form-group">
+                    <label>Cutoff Time</label>
+                    <input type="time" formControlName="cutOffTime" class="form-control input-sm"
+                           placeholder="cutoff Time" maxlength="50">
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Agreed Time(in minutes)</label>
+                    <input type="number" formControlName="agreedTime" class="form-control input-sm"
+                           placeholder="Agreed Time" maxlength="50">
+                  </div>
+                </div>
+                <div class="col-md-3 checkbox-form-inline">
+                  <div class="form-group">
+                    <label>Allow Manual Marking</label>
+                    <input type="checkbox" formControlName="manualMark" #manualMark class="checkboxSize">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-profile all_form">
+            <div class="col-sm-11">
+              <div class="row">
+
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label class="required">Name</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label class=" required lbl6">Type</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label class=" required">Table Column</label>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label class="required checkbox-align">Used For Duplicate Check</label>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label class="required checkbox-align">Encrypted</label>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label class="required checkbox-align">Mask Type</label>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label class="required checkbox-align">Mask Length</label>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label class="required checkbox-align">Mask Char</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div *ngFor=" let dataElement of form.get('dataElements')['controls'] ; let i = index">
+            <div class="col-sm-11" formArrayName="dataElements">
+              <div class="row formArray" [formGroupName]="i">
+                <div class="border-btm-new">
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" formControlName="name" class="form-control"
+                             placeholder="Name" maxlength="50">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group ">
+                      <select class="form-control" formControlName="type">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let type of dataElementTypes" value="{{type}}">
+                          {{type}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-2" *ngIf="form.get('sourceElementType').value === 'EXISTING'">
+                    <div class="form-group">
+                      <select class="form-control" formControlName="tableColumn" #column
+                              (change)="autoGenrateColName(column.value,i)">
+                        <option value="" disabled>--Select One--</option>
+                        <option *ngFor="let column of columns" value="{{column}}">
+                          {{column}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-1"
+                       *ngIf="form.get('sourceElementType').value === 'TABLE' || form.get('sourceElementType').value === 'SCRIPT'">
+                    <div class="form-group">
+                      <input type="text" formControlName="tableColumn" class="form-control"
+                             placeholder="Table Column" maxlength="50">
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" formControlName="usedForDuplicateCheck" class="checkboxSize">
+                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" (click)="encryptedChange(encrypted.value,i)" formControlName="encrypted"
+                               #encrypted class="checkboxSize">
+                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-1" *ngIf="dataElement.get('encrypted').value===true">
+                    <div class="form-group">
+                      <select class="form-control" formControlName="maskType" #maskType>
+                        <option value="" disabled>--Select One--</option>
+                        <option *ngFor="let maskType of maskTypes" value="{{maskType}}">
+                          {{maskType}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-1"
+                       *ngIf="dataElement.get('maskType').value&&dataElement.get('maskType').value!=='NONE'">
+                    <div class="form-group">
+                      <input type="number" formControlName="maskLength" class="form-control"
+                             placeholder="length" maxlength="2">
+                    </div>
+                  </div>
+                  <div class="col-md-1"
+                       *ngIf="dataElement.get('maskType').value&&dataElement.get('maskType').value!=='NONE'">
+                    <div class="form-group">
+                      <select class="form-control" formControlName="maskChar" #maskChar>
+                        <option value="*">*</option>
+                        <option value="#">#</option>
+                        <option value="$">$</option>
+                        <option value="X">X</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-1">
+              <div class="top-spc20" *ngIf="editMode===false">
+                <a href="javascript:void(0);" (click)="removeDataElement(i)"
+                   class="text-danger delete-btn"><i class="fa fa-trash-o"></i></a>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12 btm-spc">
+              <div class="col-md-12">
+
+                <button type="button" (click)="addDataElement()" class="btn btn-primary add-btn"><i
+                  class="fa fa-plus-circle" aria-hidden="true"></i>
+                  Add
+                </button>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 btm-spc">
+              <div class="col-md-12" align="right">
+                <button type="submit" data-size="s" class="submit-btn" [ladda]="isLoading">
+                  {{editMode?'Update':'Submit'}}
+                </button>
+                <button type="button"
+                        [routerLink]="['/home/recon', 'data-source', {outlets: {'fullBodyOutlet': ['list']}}]"
+                        class="btn btn-primary cancel-btn">Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+</div>

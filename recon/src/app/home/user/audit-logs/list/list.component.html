@@ -1,0 +1,69 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>Audit Logs</h3>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="clearfix">
+            <div class="row form-inner-cover">
+              <div class="col-md-12 top-spc">
+                <div class="col-sm-3">
+                  <label>Date</label>
+                  <div class="form-group">
+                    <input type="text" #fromDate bsDatepicker (bsValueChange)="searchByDate($event, 0)"
+                           (click)="toDate.value=''"
+                           class="range-group-input form-control"
+                           placeholder="From"
+                           [bsConfig]="bsConfig">
+                    <span class="range-group-addon">to</span>
+                    <input type="text" #toDate bsDatepicker (bsValueChange)="searchByDate($event, 5)"
+                           class="range-group-input form-control"
+                           placeholder="Till"
+                           (click)="getToDatePickerConfig(fromDate.value)"
+                           [bsConfig]="getDatePickerConfigRestrictPastDate">
+                  </div>
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>User</label>
+                  <input type="text" #userName (keyup)="search(userName.value, 1)" class="form-control"
+                         placeholder="User">
+                </div>
+                <div class="col-md-3 right-margin">
+                  <div class="form-group">
+                    <label>Activity</label>
+                    <input type="text" autocomplete="off" class="form-control"
+                           id="ledgerName"
+                           value=""
+                           [(ngModel)]="selectedActivity"
+                           [typeahead]="activities"
+                           typeaheadOptionField="name"
+                           [typeaheadOptionsInScrollableView]="10"
+                           (typeaheadOnSelect)="search($event?.item?.id,6)"
+                           (keyup)="searchByKeyDown($event);"
+                           placeholder="Activity">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-profile panel-top-spc">
+        <div class="clearfix">
+          <div class="col-md-12 top-spc all-cover-rules">
+            <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

@@ -1,0 +1,64 @@
+<form [formGroup]="upload">
+  <div class="panel panel-heading newhead newbg">
+    <h4 class="modal-title">Process</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6 spc-bottom">
+        <label class="required">Status:</label>
+        <select class="form-control input-sm" formControlName="status">
+          <option *ngFor="let stage of stages" value="{{stage.value}}">{{stage.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>Remarks:</label>
+        <textarea class="form-control" formControlName="remark" maxlength="500"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="required">Document:</label>
+      </div>
+    </div>
+    <div *ngFor="let document of upload.get('document')['controls']; let i = index">
+      <div formArrayName="document">
+        <div [formGroupName]="i">
+
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="required">Title</label>
+                <input type="text" formControlName="title" class="form-control" maxlength="100">
+              </div>
+            </div>
+            <div class="col-md-5">
+              <label class="required">File</label>
+              <app-file-input (onFileSelect)="fileChangeEvent($event, i)"></app-file-input>
+            </div>
+            <div class="col-md-1 ">
+              <label class=""></label>
+              <a href="javascript:void(0);" (click)="removeDocument(i)"
+                 class="text-danger mt-4"><i class="fa fa-trash-o"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <button type="button" (click)="addDocument()" class="btn btn-primary add-btn">Add</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="submit-btn" data-size="s" [ladda]="isLoading"
+            (click)="onDocumentSubmit()">Submit
+    </button>
+    <button type="button" class="btn btn-primary cancel-btn" (click)="close()"
+            data-dismiss="modal">
+      Cancel
+    </button>
+  </div>
+</form>

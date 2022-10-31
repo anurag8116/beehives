@@ -1,0 +1,26 @@
+<div class="panel-heading newhead newbgpopup">
+  <h4 class="modal-title">Description</h4>
+</div>
+<form [formGroup]="descriptionForm">
+  <div class="modal-body">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" class="form-control"></textarea>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="col-md-12 top-spc20" align="right">
+  <button type="button" *ngIf="getEtlAndReconValidation()" (click)="submit(BLANK)" [ladda]="isLoading" class="btn submit-btn">Submit</button>
+  <button type="button" *ngIf="getPandingValidation()" (click)="submit(ACCEPT)" [ladda]="isLoadingAccept"
+          class="btn submit-btn">Approve
+  </button>
+  <button type="button" *ngIf="getPandingValidation()" (click)="submit(REJECT)" [ladda]="isLoadingReject"
+          class="btn cancel-btn">Reject
+  </button>
+  <button type="button" class="btn btn-primary cancel-btn" (click)="close('close')" data-dismiss="modal">Close
+  </button>
+</div>
+
+

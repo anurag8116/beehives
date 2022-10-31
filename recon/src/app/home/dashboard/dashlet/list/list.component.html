@@ -1,0 +1,61 @@
+<!--
+<div class="panel panel-profile panel-align">
+  <div class="clearfix">
+    <div class="panel panel-heading newhead newbg">
+      <h3 class="panel-title">Groups <a class="cursor pull-right" (click)="createNewDashlet()" ><i class="fa fa-plus-circle" aria-hidden="true"></i></a></h3>
+    </div>
+    &lt;!&ndash;<div class="inner-td">
+      <input id="filter2" #filter2  type="text" class="form-control input-sm input-sm2" placeholder="Search...">
+    </div>&ndash;&gt;
+    <tree [tree]="tree" [settings]="settings" (nodeExpanded)="handleExpanded($event)" (nodeSelected)="nodeSelection($event)"></tree>
+  </div>
+</div>
+-->
+
+<div class="panel panel-profile all-panel-align">
+  <div class="clearfix">
+    <table class="table table-hover table-inner-align2 privilege-table-cover">
+      <tbody>
+      <tr>
+        <th class="newbg">
+          <h3 class="panel-title">Groups <a class="cursor pull-right" (click)="createNewDashlet()"><i
+            class="fa fa-plus-circle" aria-hidden="true"></i></a></h3>
+        </th>
+      </tr>
+      <tr *ngFor="let module of modules; let i = index">
+        <td>
+          <div class="col-md-12 space-none">
+            <a class="" data-toggle="collapse" [href]="'#subPagesnew'+i" (click)="selectGroup(module.id)"
+               (click)="select(i)" [ngClass]="{'active': selectedIndex == i  }">
+              <span> <i aria-hidden="true" class="fa fa-folder"></i>  {{module.name}}</span>
+            </a>
+            <div class="collapse" [attr.id]="'subPagesnew'+i" style="">
+              <ul class="nav submenualignnew" *ngFor="let subModule of module?.subModule; let j = index">
+                <li>
+                  <a class="" data-toggle="collapse" [href]="'#subPagesnew1'+j" (click)="selectGroup(subModule.id)"
+                     (click)="selectSubGroup(i)" [ngClass]="{'active': selectedSubGroupIndex == i  }" >
+                    <i aria-hidden="true" class="fa fa-folder"></i> {{subModule.name}}</a>
+                  <div class="collapse" [attr.id]="'subPagesnew1'+j" style="">
+                    <ul class="nav submenualignnew" *ngFor="let dashlet of subModule?.dashlet; let k = index">
+                      <li>
+                        <a class="" data-toggle="collapse" href="" (click)="onDashletSelect(dashlet.id)">
+                          <i class="fa fa-bar-chart"></i> {{dashlet.name}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+              <ul class="nav submenualignnew" *ngFor="let dashlet of module?.dashlet; let j = index">
+                <li>
+                  <a class="" data-toggle="collapse" [href]="'#subPagesnew1'+j" (click)="onDashletSelect(dashlet.id)">
+                    <i aria-hidden="true" class="fa fa-bar-chart"></i> {{dashlet.name}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

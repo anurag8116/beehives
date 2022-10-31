@@ -1,0 +1,44 @@
+<div class="close-popup-button">
+  <button mat-button [mat-dialog-close]="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+</div>
+<div mat-dialog-title>
+  <div class="panel-heading newcommanbginner">
+    <div class="col-md-9">
+      <h1 class="panel-title">{{data.parentObject.dashlet.name}} <div class="drill-down-label" *ngIf="data.parentObject.drillDownFilters.length >0 "> - Filtered by <p class="drill-down-label" *ngFor="let drillDownFilter of data.parentObject.drillDownFilters"> {{drillDownFilter.value}} &nbsp;&nbsp; </p></div> </h1>
+    </div>
+    <div align="right" class="col-md-3 dashboard-icon-size cursor">
+      <button [disabled]='!data.parentObject.isFilterViewAble' class="grpah-model-button" (click)="data.parentObject.openDialog()"><i class="fa fa-filter" [class.active]='!data.parentObject.isFilterViewAble'  aria-hidden="true"></i></button>
+      <button [disabled]='!data.parentObject.showChart' class="grpah-model-button" (click)="data.parentObject.refreshGraph(data.dashlet.id)"> <i class="fa fa-refresh" aria-hidden="true"></i></button>
+      <div id="download" class="chart-download">
+        <a href="javascript:void(0)" class="dropdown-toggle icon-menu icon-menu2" data-toggle="dropdown">
+          <i class="fa fa-download" aria-hidden="true"></i>
+        </a>
+        <ul  class="dropdown2-menu dropdown-menu dropdown-menu2 notifications dropdown-menu-dashlet">
+          <li><a  class="notification-item" (click)="data.parentObject.downloadAsPdf('PDF',$event)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>Download as Pdf</a></li>
+          <li><a  class="notification-item" (click)="data.parentObject.downloadAsPdf('IMAGE',$event)"><i class="fa fa-file-image-o" aria-hidden="true"></i>Download as Image</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+      <div *ngIf="data.parentObject.showChart">
+        <div class="zoom-graph-dynmic" >
+          <canvas  baseChart #baseChart="base-chart" id="dashlet-chart-{{data.parentObject.dashlet.id}}"
+                   [datasets]="data.parentObject.chartData"
+                   [labels]="data.parentObject.chartLabels"
+                   [options]="data.parentObject.chartOptions"
+                   [legend]="data.parentObject.chartLegend"
+                   [chartType]="data.parentObject.chartType"
+                   [colors]="data.parentObject.chartBackgroundColors"
+                   (chartHover)="data.parentObject.chartHovered($event)"
+                   (chartClick)="data.parentObject.chartClicked($event)"></canvas>
+        </div>
+      </div>
+      <div *ngIf="!data.parentObject.showChart" class="dashlet-loader">
+        <div id="DataTables_Table_0_processing" class="dataTables_processing panel panel-default" style="display: block;">Processing...</div>
+      </div>
+</div>
+<div mat-dialog-actions  align="end">
+  <button mat-button (click)="onNoClick()" >Close</button>
+</div>

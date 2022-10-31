@@ -1,0 +1,74 @@
+<div class="col-md-12 left-pad2 right-pad2">
+  <div class="panel">
+    <div class="panel-heading newbg">
+      <h3 class="panel-title">Matching Detail</h3>
+    </div>
+    <!-- <div class="panel-body">-->
+    <div class="panel-body">
+      <div class="panel-body">
+        <div class="row detailpage">
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Module</label> :
+                <span>{{detail.moduleName}}</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Name</label> : <span>
+              {{detail.name}}
+              </span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Created On</label> : <span>
+              {{detail.createdOn | date:['dd-MM-yyyy']}}
+              </span>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!--</div>-->
+      <div>
+        <!-- <div class="panel-body">-->
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12"><h4>Items</h4></div>
+          </div>
+          <div class="row detailpage">
+              <table class="table ">
+                <thead>
+                <tr>
+                  <th><h6><b>Dispute Column</b></h6></th>
+                  <th><h6><b>Repersenment Column</b></h6></th>
+                  <th><h6><b>Join Type</b></h6></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of detail.itemVos">
+                  <td><h6>{{item.disputeCol }}</h6></td>
+                  <td><h6>{{item.represermentCol }}</h6></td>
+                  <td><h6>{{item.jointType }}</h6></td>
+                </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+        <!-- </div>-->
+      </div>
+    </div>
+    <div class="row" style="padding-bottom: 25px;">
+      <div class="col-md-12">
+        <div class="col-md-12" align="right">
+          <button type="button"
+                  [routerLink]="['/home/disputes/part', 'matching-criteria', {outlets: {'bodyOutlet': ['list']}}]"
+                  class="btn submit-btn">Back
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

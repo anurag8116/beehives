@@ -1,0 +1,358 @@
+<!-- MAIN -->
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 left-pad2 right-pad2">
+          <div class="panel panel-profile">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="clearfix">
+              <!-- TABBED CONTENT -->
+              <div class="panel panel-heading newhead newbg"><h4>New Dashboard
+                  <div align="right" class="cursor dashboard-icon-size pull-right">
+                  <button type="button" (click)="cancel()"
+                          class="btn pull-right btn-xs dashboard-head-btn-danger cancel-btn-dashboard">Cancel
+                  </button>
+                  <button [ladda]="isLoading" data-size="s" type="submit" class="btn btn-primary pull-right dashboard-submit-btn">Submit
+                  </button>
+                </div>
+              </h4>
+              </div>
+              <div class="panel panel-profile border-none2 cover5 drag-content">
+                <div class="row dashlet-drag-zone" dropzone>
+                  <div dndDropzone (dndDrop)="onDrop($event,selectedDashlets)" class="dndList" >
+                    <div *ngIf="selectedDashlets.length == 0" class="drag-inner-content drag-bg">
+                      <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                      <p><b>Drop Dashlet</b> here...</p>
+                    </div>
+                      <div class="stage-list-container">
+                          <ul class="stages-list icon-size drag-icon-align">
+                            <li  *ngFor="let selectedDashlet of selectedDashlets;  index as i;" [dndDraggable]="selectedDashlet" [dndType]="selectedDashlet">
+                              <a> <i (click)="removeDashlet(i)" class="fa fa-times trash drag-component-delete"></i>
+                                <i [ngClass]="{'fa fa-list-alt drag-drop-icon-align' : selectedDashlet.dashletType === 'LIST'}" aria-hidden="true"></i>
+                                <i [ngClass]="{'fa fa-bar-chart drag-drop-icon-align' : selectedDashlet.dashletType != 'LIST'}" aria-hidden="true"></i>
+                                <span class="ng-binding">{{selectedDashlet.name}}</span>
+                              </a>
+                            </li>
+                          </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row form-inner-cover">
+                <div class="col-md-12">
+                  <div class="col-md-4">
+                    <div class="form-inline inline-label-top-align">
+                      <label class="lbl2 required">Name : </label>
+                      <input type="text" formControlName="name" class="form-control input-sm" placeholder="Name">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-inline inline-label-top-align">
+                      <label class="lbl required">Layout Type : </label>
+                      <select formControlName="layoutType" class="form-control input-sm" >
+                        <option value="">select</option>
+                        <option value="SIMPLE_LAYOUT">Simple Layout</option>
+                        <option value="TAB_LAYOUT">Tab Layout</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-inline inline-label-top-align">
+                      <label class="lbl required">Refresh : </label>
+                      <label class="">
+                        <input name="refreshType" value="AUTOMATIC" type="radio" checked="true" #refreshType
+                               formControlName="refreshType">
+                        <span><i></i>Auto</span>
+                      </label>
+                      <label class="">
+                        <input name="refreshType" value="MANUAL" type="radio" #refreshType formControlName="refreshType">
+                        <span><i></i>Manual</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12" *ngIf="form.get('refreshType').value==='AUTOMATIC'">
+                  <div class="col-md-4">
+                    <div class="form-inline inline-label-top-align">
+                      <label class="lbl2 required">Time : </label>
+                      <input type="number" formControlName="refreshTime" class="form-control input-sm" placeholder="Refresh Time(In Seconds)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="all_form">
+              <div class="custom-tabs-line tabs-line-bottom left-aligned">
+                <ul class="nav" role="tablist">
+                  <li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">Dashboard Parameter</a></li>
+                  <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Drill Down</a></li>
+                  <li *ngIf="form.get('layoutType').value==='TAB_LAYOUT'"><a href="#tab-bottom-left3" role="tab" data-toggle="tab">Tab Configurations</a></li>
+                </ul>
+              </div>
+              <div class="tab-content">
+                <div class="tab-pane tab-pane3 fade in active new-tab-content" id="tab-bottom-left1">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12 tab-pane4 border-btm top-spc-fr "  *ngFor="let dashboardParameter of form.get('dashboardParameters')['controls']; let i = index">
+                        <div formArrayName="dashboardParameters">
+                        <div [formGroupName]="i">
+                        <div class="row" >
+                          <div class="col-md-3">
+                            <label class="required"><b>Label</b></label>
+                            <input type="text" formControlName="label" id="label" class="form-control input-sm">
+                          </div>
+                          <div class="col-md-3">
+                            <label class="required"><b>Input Type</b></label>
+                            <select formControlName="inputType" id="inputType" class="form-control input-sm">
+                              <option>Select</option>
+                              <option value="TEXT">Text</option>
+                              <option value="DROPDOWN">Drop Down</option>
+                              <option value="CALENDER">Calender</option>
+                            </select>
+                          </div>
+                          <div  class="col-md-3" *ngIf="dashboardParameter.get('inputType').value === 'CALENDER'">
+                            <label class="">
+                              <input id="dateType" value="ALL" type="radio" checked="true" formControlName="dateType">
+                              <span><i></i>ALL</span>
+                            </label>
+                            <label class="">
+                              <input id="dateType" value="PAST" type="radio" formControlName="dateType">
+                              <span><i></i>From Date</span>
+                            </label>
+                            <label class="">
+                              <input id="dateType" value="FUTURE" type="radio" formControlName="dateType" >
+                              <span><i></i>To Date</span>
+                            </label>
+                          </div>
+                          <div class="col-md-3" *ngIf="dashboardParameter.get('inputType').value === 'DROPDOWN'">
+                            <div class="form-group">
+                              <label>Lookup Provider</label>
+                              <select formControlName="lookUpProvider" class="form-control input-sm">
+                                <option *ngFor="let lookUpProvider of lookUpProviders"
+                                        value="{{lookUpProvider.lookUpProviderId}}">{{lookUpProvider.lookUpProviderName}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-sm-1 dashboard-delete-icon" >
+                            <div class="form-group">
+                              <a href="javascript:void(0);" (click)="removeDashboardParameter(i)" class="text-danger mt-4"><i
+                                class="fa fa-trash-o"></i></a></div>
+                          </div>
+                        </div>
+
+                        <div class="row parabottomspc" *ngIf="dashboardParameter.get('dashboardFilters').length > 0">
+                          <div class="col-md-3">
+                            <label class="dash-lbl required">Dashlet</label>
+                          </div>
+                          <div class="col-md-3">
+                            <label class="dash-lbl required">Filter Field</label>
+                          </div>
+                        </div>
+                        <div class="row parabottomspc " *ngFor="let dashboardFilter of dashboardParameter.get('dashboardFilters')['controls']; let j = index">
+                          <div formArrayName="dashboardFilters">
+                          <div  [formGroupName]="j">
+                          <div class="col-md-3" formGroupName="dashlet">
+                            <select  formControlName="id" (change)="onDashletChange($event.target.value,j)" class="form-control input-sm">
+                              <option value="">Select Dashlet </option>
+                             <option  value="{{selectedDashlets[j].id}}">{{selectedDashlets[j].name}} </option>
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <select formControlName="fieldName" class="form-control input-sm">
+                              <option value="">Select</option>
+                              <option *ngFor="let filter of filters[j]" value="{{filter.fieldName}}">{{filter.label}}
+                              </option>
+                            </select>
+                          </div>
+                          </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 spc-bottom">
+                    <button type="button" (click)="addDashboardParameter()"  class="btn btn-primary add-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add </button>
+                  </div>
+                </div>
+                <div class="tab-pane tab-pane2 fade cover2 new-tab-content" id="tab-bottom-left2">
+                  <div class="col-md-12" align="right">
+                    <div class="col-md-12">
+                        <mat-slide-toggle formControlName="drillDownMultiLevel" (change)="toggle($event)" [checked]="true" [color]="'accent'">Multi-level</mat-slide-toggle>
+                    </div>
+                  </div>
+                  <div class="col-md-12 " *ngIf="form.get('drillDowns')">
+                    <div class="col-md-3">
+                      <label class="required">Parent</label>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="required">Parent Field</label>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="required">Child</label>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="required">Child Field</label>
+                    </div>
+                  </div>
+                 <div class="col-md-12 drill-down"  *ngFor="let drillDown of form.get('drillDowns')['controls']; let i = index; let last = last;">
+                    <div formArrayName="drillDowns">
+                      <div  [formGroupName]="i">
+                        <div  class="col-md-6">
+                          <div class="col-md-6" formGroupName="parent">
+                            <select formControlName="id"  class="form-control input-sm" (change)="onParentDashletChange($event.target.value,i); changeParent($event.target.value ,i)">
+                              <option value="">Select Parent </option>
+                              <option *ngFor="let dashlet of selectedDashlets" value="{{dashlet.id}}">{{dashlet.name}} </option>
+                            </select>
+                          </div>
+                          <div class="col-md-6">
+                            <select formControlName="parentFieldName" (change)="changeParentField($event.target.value, i)" class="form-control input-sm">
+                              <option value="">Select</option>
+                              <option *ngFor="let filter of parentFilters[i]" value="{{filter.fieldName}}">{{filter.label}}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-5" >
+                          <div *ngFor="let drillDownChild of drillDown.get('drillDownChilds')['controls']; let childIndex = index">
+                          <div formArrayName="drillDownChilds">
+                            <div [formGroupName]="childIndex">
+                              <div class="col-md-6" formGroupName="child" *ngIf="childIndex == 0">
+                                <select formControlName="id" class="form-control input-sm" (change)="onChildDashletChange($event.target.value,i,childIndex)">
+                                  <option value="">Select Child </option>
+                                  <option *ngFor="let dashlet of selectedDashlets" value="{{dashlet.id}}">{{dashlet.name}} </option>
+                                </select>
+                              </div>
+                              <div class="col-md-6" *ngIf="childIndex > 0">
+                                <input type="text" formControlName="parentFieldName" [readonly]="true" class="form-control input-sm">
+                                <!--<select formControlName="id" class="form-control input-sm" (change)="onChildDashletChange($event.target.value,i,childIndex)">
+                                  <option value="">Select Child </option>
+                                  <option *ngFor="let dashlet of selectedDashlets" value="{{dashlet.id}}">{{dashlet.name}} </option>
+                                </select>-->
+                              </div>
+                              <div class="col-md-6">
+                                <select formControlName="childFieldName" class="form-control input-sm">
+                                  <option value="">Select</option>
+                                  <option *ngFor="let filter of childFilters[i][0]" value="{{filter.fieldName}}">{{filter.label}}
+                                  </option>
+                                </select>
+                              </div>
+                          </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-1" *ngIf="last">
+                          <div class="form-group">
+                            <a href="javascript:void(0);" (click)="removeDrillDown(i)" class="text-danger mt-4"><i
+                              class="fa fa-trash-o"></i></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 spc-bottom border-top" >
+                    <button type="button" (click)="addDrillDown()" class="btn btn-primary add-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add </button>
+                  </div>
+                </div>
+                <div *ngIf="form.get('layoutType').value==='TAB_LAYOUT'" class="tab-pane tab-pane2 fade cover2 new-tab-content" id="tab-bottom-left3">
+                  <div class="col-md-12 cover2" *ngIf="form.get('dashboardTabConfigs')">
+                    <div class="col-md-3">
+                      <label class="required">Tab Name</label>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="required">Tab Number</label>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="required">Dashlet</label>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="required">Closeable</label>
+                    </div>
+                  </div>
+                  <div class="col-md-12 cover2"  *ngFor="let tabConfiguration of form.get('dashboardTabConfigs')['controls']; let i = index">
+                    <div formArrayName="dashboardTabConfigs">
+                      <div  [formGroupName]="i">
+                        <div class="col-md-3">
+                          <input type="text" formControlName="name" class="form-control input-sm" placeholder="Tab Name">
+                        </div>
+                        <div class="col-md-3">
+                          <select formControlName="tabNumber" class="form-control input-sm">
+                            <option value="">Select</option>
+                            <option *ngFor="let tabNumber of tabNumbers" value="{{tabNumber.value}}">{{tabNumber.key}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-md-3" formGroupName="dashlet">
+                          <select formControlName="id"  class="form-control input-sm" >
+                            <option value="">Select Dashlet </option>
+                            <option *ngFor="let dashlet of selectedDashlets" value="{{dashlet.id}}">{{dashlet.name}} </option>
+                          </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="">
+                              <input name="closable" value="true" type="radio" checked="true" #closable formControlName="closable">
+                              <span><i></i>Yes</span>
+                            </label>
+                            <label class="">
+                              <input name="closable" value="false" type="radio" #closable formControlName="closable">
+                              <span><i></i>No</span>
+                            </label>
+                        </div>
+                        <div class="col-sm-1" >
+                          <div class="form-group">
+                            <a href="javascript:void(0);" (click)="removeTabConfiguration(i)" class="text-danger mt-4"><i
+                              class="fa fa-trash-o"></i></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 spc-bottom">
+                    <button type="button" (click)="addTabConfiguration()" class="btn btn-primary add-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add </button>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-2 left-pad right-pad2">
+          <div class="panel panel-profile panel-align">
+            <div class="clearfix">
+              <div class="panel panel-heading newhead newbg">
+                <h3 class="panel-title">Dashlets</h3>
+              </div>
+              <div class="dashboard-dashlet-search-box">
+                <input type="text" #dashletName (keyup)="searchByName(dashletName.value)" class="form-control input-sm input-sm2" placeholder="Search Dashlet">
+              </div>
+              <!--a draggable element-->
+              <div class="dashboard-dashlet-list">
+              <div class="stage-list-container" [dndDraggable]="draggable.data">
+                <ul class="stages-box-list icon-size">
+                  <li title="{{dashlet.name}}" *ngFor="let dashlet of dashlets"
+                      class="ng-scope ng-isolate-scope" [dndDraggable]="dashlet"
+                      [dndType]="dashlet"
+                      dndEffectAllowed="copy"
+                      (dndMoved)="onDragged(dashlet, dashlets)">
+                   <a>
+                    <i [ngClass]="{'fa fa-list-alt' : dashlet.dashletType === 'LIST'}" aria-hidden="true"></i>
+                    <i [ngClass]="{'fa fa-bar-chart' : dashlet.dashletType != 'LIST'}" aria-hidden="true"></i>
+                    <span class="ng-binding">{{dashlet.name}}</span>
+                   </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+  </div>
+  <!-- END MAIN -->
+</div>

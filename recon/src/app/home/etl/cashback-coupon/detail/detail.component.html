@@ -1,0 +1,108 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Cashback Coupon Detail</h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-body">
+            <div class="row detailpage">
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>ID</label> :
+                    <span>{{cashbackCoupon.id}}</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Brand Name</label> : <span>{{ cashbackCoupon?.brand?.name }}</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Coupon Code</label> : <span>{{cashbackCoupon.couponCode}}</span>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Discount (in %)</label> : <span>{{cashbackCoupon.discount}}</span>
+                </div>
+              </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Slice Share (in %)</label> :
+                    <span>{{cashbackCoupon.sliceShare}}</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Partner Share (in %)</label> :
+                    <span>{{cashbackCoupon.partnerShare}}</span>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row detailpage">
+              <div class="col-md-4">
+                <div class="form-inline">
+                  <label>Offer Start Date</label> : <span>{{cashbackCoupon.offerStartDate | date: 'dd-MM-yyyy'}}</span>
+                </div>
+              </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Offer End Date</label> :
+                    <span>{{cashbackCoupon.offerEndDate | date: 'dd-MM-yyyy'}}</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Offer Key</label> :
+                    <span>{{cashbackCoupon.offerKey}}</span>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row detailpage">
+                <div class="col-md-4">
+                  <div class="form-inline">
+                    <label>Sub Category</label> :
+                    <span>{{cashbackCoupon.subCategory}}</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+
+          <div class="row detailpage">
+            <div class="col-md-12"><h4>Uploaded Files</h4></div>
+          </div>
+          <div class="panel panel-profile panel-top-spc">
+              <div class="clearfix">
+                <div class="col-md-12 top-spc all-cover-report-executions">
+                  <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          <div class="row">
+            <div class="col-md-12 top-spc20" align="right">
+              <button type="button" [routerLink]="['/home/etl', 'cashback-coupon', {outlets: {'fullBodyOutlet': ['list']}}]"
+                      class="btn submit-btn">Back
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

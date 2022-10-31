@@ -1,0 +1,111 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">{{isEditMode === true ? 'Edit Cashback Coupon' : 'New Cashback Coupon'}}</h3>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="panel-body">
+
+            <div class="panel panel-profile border-none cover2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-3" formGroupName="brand">
+                    <div class="form-group ">
+                      <label class="required" for="brandName">Brand Name</label>
+                      <select class="form-control input-sm" #brand formControlName="id" id="brandName">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let brand of brands" value="{{brand.id}}">
+                          {{brand.name}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group inline-label-align">
+                      <label class="required">Coupon Code</label>
+                      <input type="text" formControlName="couponCode" class="form-control input-sm" placeholder="Coupon Code">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group ">
+                      <label class="required">Discount (in %)</label>
+                      <input type="text" OnlyNumber="true" formControlName="discount" class="form-control input-sm"
+                             placeholder="Short Name">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group ">
+                      <label class="required">Slice Share (in %)</label>
+                      <input type="text" OnlyNumber="true" (input)="onSliceShareChange()" formControlName="sliceShare" class="form-control input-sm"
+                             placeholder="Slice Share">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-3">
+                    <div class="form-group ">
+                      <label class="required">Partner Share (in %)</label>
+                      <input type="text" OnlyNumber="true" (input)="onPartnerShareChange()" formControlName="partnerShare" class="form-control input-sm"
+                             placeholder="Partner Share">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="required">Offer Start Date</label>
+                      <input type="text" formControlName="offerStartDate" class="form-control input-sm"
+                             placeholder="Offer Start Date" bsDatepicker #fromDate (click)="toDate.value='';"
+                             [bsConfig]="bsConfig">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="required">Offer End Date</label>
+                      <input type="text" formControlName="offerEndDate" class="form-control input-sm"
+                             placeholder="Offer End Date" bsDatepicker #toDate (click)="getToDatePickerConfig(fromDate.value)"
+                             [bsConfig]="bsConfigRestrictPastDate">
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group inline-label-align">
+                      <label class="required">Offer Key</label>
+                      <input type="text" formControlName="offerKey" class="form-control input-sm" placeholder="Offer Key">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-3">
+                    <div class="form-group inline-label-align">
+                      <label>Sub Category</label>
+                      <input type="text" formControlName="subCategory" class="form-control input-sm" placeholder="Sub Category">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12" align="right">
+                  <button type="submit" class="submit-btn" data-size="s" [ladda]="isLoading">
+                    {{isEditMode===true?'Update':'Submit'}}
+                  </button>
+                  <button type="button"
+                          [routerLink]="['/home/etl', 'cashback-coupon', {outlets: {'fullBodyOutlet': ['list']}}]"
+                          class="btn btn-primary cancel-btn">Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

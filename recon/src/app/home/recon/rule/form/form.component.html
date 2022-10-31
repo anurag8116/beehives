@@ -1,0 +1,363 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">{{isEditMode === true ? 'Edit Rule' : 'New Rule'}}</h3>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="panel-body">
+            <div class="panel-profile new-panel-bottom rule-panel-body-top" style="overflow: inherit;">
+              <div class="row full-panel-row-bg">
+                <div class="col-md-12">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="required">Name</label>
+                      <input type="text" formControlName="name" class="form-control input-sm" placeholder="Name">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="required">Short Name</label>
+                      <input type="text" formControlName="shortName" class="form-control input-sm"
+                             placeholder="Short Name">
+                    </div>
+                  </div>
+                  <div class="col-md-3" formGroupName="module">
+                    <div class="form-group ">
+                      <label class="required">Module</label>
+                      <select class="form-control input-sm" #parentModule formControlName="id"
+                              (change)="onModuleSelect(parentModule.value)">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let parentModule of modules" value="{{parentModule.id}}">
+                          {{parentModule.name}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="required">Recon</label>
+                      <select class="form-control input-sm" formControlName="reconId" #recon
+                              (change)="onReconSelect(recon.value)">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let recon of recons" value="{{recon.id}}">
+                          {{recon.name}}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row full-panel-row-bg">
+                <div class="col-md-12">
+                  <div class="col-md-3">
+                    <div class="form-group ">
+                      <label class="required">Rule Type</label>
+                      <select class="form-control input-sm" #ruleType (change)="onChangeRuleType(ruleType.value)"
+                              formControlName="ruleType">
+                        <option value="" disabled>--Select One--</option>
+                        <option *ngFor="let ruleType of ruleTypes" value="{{ruleType}}">
+                          {{ruleType}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3 checkbox-form-inline" *ngIf="(ruleType.value==='SAME_SIDE_REVERSAL'?true:false)">
+                    <div class="form-group">
+                      <label class="required">Use Reconcield Trxn</label>
+                      <input type="checkbox" formControlName="useReconcield" #useReconcield class="checkboxSize">
+                    </div>
+                  </div>
+                  <div class="col-md-3" formGroupName="primaryDataSource">
+                    <div class="form-group ">
+                      <label class="required">Primary Data Source</label>
+                      <select class="form-control input-sm" #primaryDataSource formControlName="id"
+                              (change)="getAllDataElement(ruleType.value,'PRI')">
+                        <option value="" disabled>--Select One--</option>
+                        <option *ngFor="let source of dataSources" value="{{source.id}}">
+                          {{source.name}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3" *ngIf="(ruleType.value!=='KNOCK_OFF'?true:false)"
+                       formGroupName="secondaryDataSource">
+                    <div class="form-group ">
+                      <label [ngClass]="{'required':ruleType.value==='MATCHING'}">Secondary Data Source</label>
+                      <select class="form-control input-sm" #secondaryDataSource formControlName="id"
+                              (change)="getAllDataElement( ruleType.value,'SEC')">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let secondary of secDataSource" value="{{secondary.id}}">
+                          {{secondary.name}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3" [hidden]="(form.get('ruleType').value!=='MATCHING'&& form.get('ruleType').value!=='UNMATCH_RULE')">
+                    <div class="form-group ">
+                      <label class="required">Matching Type</label>
+                      <select class="form-control input-sm"
+                              formControlName="matchingType" #matchingType
+                              (change)="onRuleMatchingTypeChange(matchingType.value)">
+                        <option value="" disabled>--Select One--</option>
+                        <option *ngFor="let matchType of matchingTypes" value="{{matchType}}">
+                          {{matchType}}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf=" form.get('ruleType').value==='MATCHING' || form.get('ruleType').value==='UNMATCH_RULE'" class="row full-panel-row-bg">
+                <div class="col-md-12">
+                  <div class="col-md-3"
+                       *ngIf="(matchingType.value && (matchingType.value==='MANY_TO_ONE' ||matchingType.value==='MANY_TO_MANY'))?true:false">
+                    <div class="form-group">
+                      <label class="required">Primary Source Group By Fields</label>
+                      <angular2-multiselect [data]="multiSelectDataElementPri" [settings]="dropDownSettings"
+                                            formControlName="priGroupByFields" class="form-control input-sm">
+                      </angular2-multiselect>
+                    </div>
+                  </div>
+
+                  <div *ngIf="(matchingType.value && (matchingType.value==='ONE_TO_MANY' ||matchingType.value==='MANY_TO_MANY'))?true:false">
+                    <div class="col-md-3">
+                       <div class="form-group">
+                      <label class="required">Secondary Source Group By Fields</label>
+                      <angular2-multiselect [data]="multiSelectDataElementSec" [settings]="dropDownSettings"
+                                            formControlName="secGroupByFields" class="form-control input-sm">
+                      </angular2-multiselect>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group textarea-bottom-size">
+                      <label class="required">Bulk Data in Secondray Datasource</label>
+                      <input formControlName="bulkdata" type="checkbox">
+
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div class="row full-panel-row-bg">
+                <div class="col-md-12">
+                  <div class="col-md-6">
+                    <div class="form-group textarea-bottom-size">
+                      <label class="required">Prevent Duplicate Match</label>
+                      <input formControlName="preventDuplicateMatch" type="checkbox">
+
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="ruleType.value ==='UNMATCH_RULE' || ruleType.value ==='KNOCK_OFF'">
+                    <div class="form-group">
+                      <label class="required" *ngIf="ruleType.value ==='UNMATCH_RULE'">Unmatch transaction tag</label>
+                      <label class="required" *ngIf="ruleType.value ==='KNOCK_OFF'">Reason</label>
+                      <input type="text" formControlName="unMatchTrxnTag" class="form-control input-sm" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row full-panel-row-bg">
+
+                <div class="col-md-12">
+                  <div class="col-md-12">
+                    <div class="form-group textarea-bottom-size">
+                      <label class="required">Description</label>
+                      <textarea formControlName="discription" class="form-control"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-group all_form" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel"
+                   *ngFor=" let condition of form.get('conditions')['controls'] ; let i = index">
+                <div formArrayName="conditions">
+                  <div [formGroupName]="i">
+                    <div class="panel-heading new-rule-panel-head">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div *ngIf="i!==0" class="btn-group addornew" id="status" data-toggle="buttons">
+                            <label class="btn btn-default btn-on-2 btn-sm "
+                                   (click)="updateFormConditionType('AND',i)"
+                                   [ngClass]="(condition.get('conditionJointType').value=='AND')?'active':''">
+                              <input type="radio" value="AND" formControlName="conditionJointType"
+                              >And</label>
+                            <label class="btn btn-default btn-off-2 btn-sm " (click)="updateFormConditionType('OR',i)"
+                                   [ngClass]="(condition.get('conditionJointType').value=='OR')?'active':''">
+                              <input type="radio" value="OR" formControlName="conditionJointType">Or</label>
+                          </div>
+                        </div>
+
+                        <div [hidden]="isHiddenRemoveButton(i)" class="col-md-6" align="right">
+                          <i class="fa fa-trash-o trash-align" aria-hidden="true" (click)="removeCondition(i)"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="panel-body rule-panel-body">
+                      <div class="row rowwhitebg">
+                        <div formGroupName="elementOne">
+                          <div class="col-md-2"
+                               *ngIf="isConditionIsHidden(matchingType.value,i)">
+                            <div class="form-inline">
+                              <i class="fa fa-list-ul" aria-hidden="true"></i>
+                              <select class="form-control input-sm input-new-sm" #formula
+                                      formControlName="formula">
+                                <option value="null" disabled>Function</option>
+                                <option *ngFor="let formula of conditionGroupFormula" value="{{formula}}">
+                                  {{formula}}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <select class="form-control input-sm input-new-sm" #priDataElement
+                                      (change)="getSecondDataElements(priDataElement.value,i)"
+                                      formControlName="uiElement">
+                                <option value="null" disabled>Data Element</option>
+                                <option *ngFor="let element of mergeDataElements" value="{{element.id}}">
+                                  {{element.name}}
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <select class="form-control input-sm input-new-sm" #priValueType
+                                      (change)="onPrimaryValueTypeChange(i)"
+                                      formControlName="valueType">
+                                <option value="null" disabled>Value Type</option>
+                                <option *ngFor="let type of getFilterValueType(i, true)" value="{{type.id}}">
+                                  {{type.value}}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-2"
+                               *ngIf="(priValueType.value && priValueType.value==='VARIANCE')?true:false">
+                            <div class="form-group">
+                              <select class="form-control input-sm input-new-sm" #priVarianceType
+                                      formControlName="varianceType">
+                                <option value="null" disabled>Variance Type</option>
+                                <option *ngFor="let type of varianceTypes" value="{{type}}">
+                                  {{type}}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-2" *ngIf="(priValueType.value && priValueType.value!=='NONE')?true:false">
+                            <div class="form-group">
+                              <input class="form-control input-sm input-new-sm" formControlName="value"
+                                     placeholder="Variance">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <select class="form-control input-sm input-new-sm" #matchingOperator
+                                    formControlName="matchingOperator"
+                                    (change)="updateSecondDataElementVisibility(matchingOperator.value,i)">
+                              <option value="null" disabled>Matching Opretor</option>
+                              <option *ngFor="let operator of filterOperators.get(i)" value="{{operator.id}}">
+                                {{operator.value}}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngIf="secondColumnVisibility.get(+i)"
+                           class="row rowwhitebg" formGroupName="elementSecond">
+                        <div class="col-md-2"
+                             *ngIf="isConditionIsHidden(matchingType.value,i)">
+                          <div class="form-inline">
+                            <i class="fa fa-list-ul" aria-hidden="true"></i>
+                            <select class="form-control input-sm input-new-sm" #secFormula
+                                    formControlName="formula">
+                              <option value="null" disabled>Function</option>
+                              <option *ngFor="let formula of conditionGroupFormula" value="{{formula}}">
+                                {{formula}}
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <select class="form-control input-sm input-new-sm" #secDataElement
+                                    (change)="updateFormControlForSecCol(secDataElement.value,i)"
+                                    formControlName="uiElement">
+                              <option value="null" disabled>Data Element</option>
+                              <option *ngFor="let element of  secondColumnMap.get(i)"
+                                      value="{{element.id}}">
+                                {{element.name}}
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2"
+                             *ngIf="(condition.get('elementSecond').get('dataElement').value!==null)?true:false">
+                          <div class="form-group">
+                            <select class="form-control input-sm input-new-sm" #secValueType
+                                    (change)="onSecondaryValueTypeChange(i)"
+                                    formControlName="valueType">
+                              <option value="null" disabled>Value Type</option>
+                              <option *ngFor="let type of getFilterValueType(i, false)" value="{{type.id}}">
+                                {{type.value}}
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2"
+                             *ngIf="(condition.get('elementSecond').get('valueType').value && condition.get('elementSecond').get('valueType').value==='VARIANCE')?true:false">
+                          <div class="form-group">
+                            <select class="form-control input-sm input-new-sm" #secVarianceType
+                                    formControlName="varianceType">
+                              <option value="null" disabled>Variance Type</option>
+                              <option *ngFor="let type of varianceTypes" value="{{type}}">
+                                {{type}}
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2"
+                             *ngIf="(condition.get('elementSecond').get('valueType').value && condition.get('elementSecond').get('valueType').value!=='NONE') ||(condition.get('elementSecond').get('dataElement').value===null)?true:false">
+                          <div class="form-group">
+                            <input class="form-control input-sm input-new-sm" formControlName="value"
+                                   [placeholder]="(condition.get('elementSecond').get('dataElement').value===null)?'Value':'Variance'">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row bottom-30" style="margin-top: 10px;">
+              <div class="col-md-6">
+                <button type="button" (click)="addCondition()" class="btn btn-primary add-btn"><i
+                  class="fa fa-plus-circle" aria-hidden="true"></i>
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12" align="right">
+                <button type="submit" class="submit-btn" data-size="s" [ladda]="isLoading">
+                  {{isEditMode?'update':'Submit'}}
+                </button>
+                <button type="button"
+                        [routerLink]="['/home/recon', 'rule', {outlets: {'fullBodyOutlet': ['list']}}]"
+                        class="btn btn-primary cancel-btn">Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

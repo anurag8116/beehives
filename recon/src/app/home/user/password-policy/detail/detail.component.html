@@ -1,0 +1,110 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">Password Policy</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row detailpage">
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Min Length</label> : <span>{{passwordPolicy.minLength}}</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Max Length</label> : <span>{{passwordPolicy.maxLength}}</span>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="passwordPolicy.numberAllowed === true">
+              <div class="form-inline">
+                <label>Number Allowed</label> : <span>Yes</span>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="passwordPolicy.numberAllowed === false">
+              <div class="form-inline">
+                <label>Number Allowed</label> : <span>No</span>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Password Max Age</label> : <span>{{passwordPolicy.passwordMaxAge + ' Days'}}</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Password Expiry Warning</label> : <span>{{passwordPolicy.passwordExpWarning + ' Days'}}</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Password Max Failure</label> : <span>{{passwordPolicy.passwordMaxFailure}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-4" *ngIf="passwordPolicy.allowUserToChamgePwd === true">
+              <div class="form-inline">
+                <label>Allow User to change Pwd</label> : <span>Yes</span>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="passwordPolicy.allowUserToChamgePwd === false">
+              <div class="form-inline">
+                <label>Allow User to change Pwd</label> : <span>No</span>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="passwordPolicy.specialCharAllowed === true">
+              <div class="form-inline">
+                <label>Special Char Allowed</label> : <span>Yes</span>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-4" *ngIf="passwordPolicy.specialCharAllowed === false">
+              <div class="form-inline">
+                <label>Special Char Allowed</label> : <span>No</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-inline">
+                <label>Special Characters</label> : <span>{{passwordPolicy.specialCharacters}}</span>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="passwordPolicy.uppercaseLetterAllowed === true">
+              <div class="form-inline">
+                <label>Upper Case Letters</label> : <span>Yes</span>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-4" *ngIf="passwordPolicy.uppercaseLetterAllowed === false">
+              <div class="form-inline">
+                <label>Upper Case Letters</label> : <span>No</span>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="passwordPolicy.usePolicy === true">
+              <div class="form-inline">
+                <label>Use Policy</label> : <span>Yes</span>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="passwordPolicy.usePolicy === false">
+              <div class="form-inline">
+                <label>Use Policy</label> : <span>No</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10"></div>
+          <div class="col-md-2 editnew-btn" align="right">
+            <button (click)="edit()" type="submit" class="btn submit-btn" data-size="s">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

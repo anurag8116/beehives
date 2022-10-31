@@ -1,0 +1,18 @@
+<div class="panel panel-profile all-panel-align">
+  <div class="clearfix">
+    <table class="table table-hover table-inner-align privilege-table-cover">
+      <tbody>
+      <tr>
+        <th class="newbg">Types</th>
+      </tr>
+      <tr *ngFor="let subSetting of settingType; let i = index" (click)="select(i)"
+          [ngClass]="{'active': selectedIndex == i  }">
+        <td><a href="javascript:void(0);" class="active">
+          <div (click)="onSelectSubSetting(subSetting.value)">{{subSetting.key}}</div>
+        </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

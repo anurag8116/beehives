@@ -1,0 +1,79 @@
+<div class="col-md-12 left-pad">
+  <div class="panel-profile cover2 all_form">
+    <div class="col-md-12">
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Approval Level</label>
+          </div>
+          <div class="col-md-3">
+            <label>Approval Required</label>
+          </div>
+          <div class="col-md-6">
+            <label>Approver</label>
+          </div>
+        </div>
+        <div>
+          <div class="row detailpage">
+            <div class="col-md-3">
+              <label>LEVEL 1</label>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group top-spc">
+                <label class="fancy-radio">
+                  <span>{{approvalRight.approvalLevelOneVo.levelType === 'ALWAYS' ? 'Yes' : 'No'}}</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <span>{{approvalRight.approvalLevelOneVo.assigneeForDetail}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-3">
+              <label>LEVEL 2</label>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group top-spc">
+                <label class="fancy-radio">
+                  <span>{{approvalRight.approvalLevelTwoVo.levelType === 'ALWAYS' ? 'Yes' : 'No'}}</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <span>{{approvalRight.approvalLevelTwoVo.assigneeForDetail}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row detailpage">
+            <div class="col-md-3">
+              <label>LEVEL 3</label>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group top-spc">
+                <label class="fancy-radio">
+                  <span>{{approvalRight.approvalLevelThreeVo.levelType === 'ALWAYS' ? 'Yes' : 'No'}}</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <span>{{approvalRight.approvalLevelThreeVo.assigneeForDetail}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" align="right">
+        <button (click)="edit()" data-size="s" type="submit" class="btn submit-btn">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+

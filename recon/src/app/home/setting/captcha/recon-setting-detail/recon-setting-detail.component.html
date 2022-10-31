@@ -1,0 +1,33 @@
+<div class="panel panel-profile">
+  <div class="clearfix">
+    <div class="row form-inner-cover cover2">
+      <div class="row top-spc10">
+        <div class="col-md-12 all_form">
+          <div class="col-md-12 table-responsive2">
+            <table class="table table_spc table-striped">
+              <tr id="heading-color">
+                <th>Module</th>
+                <th>Recon</th>
+                <th>Setting Type</th>
+              </tr>
+              <tr *ngFor="let setting of settings">
+                <td>{{setting.module.name}}</td>
+                <td>{{setting.recon.name}}</td>
+                <td>{{setting.settingType}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-12" align="right">
+            <button type="button" data-size="s" (click)="edit()" class="btn submit-btn">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

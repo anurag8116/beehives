@@ -1,0 +1,26 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>GL Item Transactions</h3>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix">
+          <div class="col-md-12 top-spc all-cover-data-sources">
+            <div class="col-md-12" align="right">
+              <button type="button" (click)="back()" class="btn submit-btn">Back
+              </button>
+            </div>
+            <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

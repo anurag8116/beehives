@@ -1,0 +1,68 @@
+<div class="col-md-12 right-pad2 left-pad2">
+  <div class="panel panel-profile">
+    <div class="panel panel-heading newhead newbg">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Security Settings</h4></div>
+      </div>
+    </div>
+
+    <div class="panel-body all_form">
+      <div class="row">
+        <div class="col-md-12 all_form">
+          <div class="col-md-12 left-pad right-pad2" *ngIf="isFormShow">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div class="row top-spc">
+                <div>
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <label>Setting</label>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Enabled</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngFor=" let setting of form.get('globalSetting')['controls'] ; let i = index">
+                    <div class="col-sm-12" formArrayName="globalSetting">
+                      <div class="row formArray" [formGroupName]="i">
+                        <div class="col-md-7" formGroupName="displayMessage">
+                          <div class="form-group">
+                            <p>{{setting.get('displayMessage').value}}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group inline-label-align radio-label">
+                            <label class="fancy-radio">
+                              <input value="Yes" type="radio" #settingValue
+                                     formControlName="settingValue">
+                              <span><i></i>Yes</span>
+                            </label>
+                            <label class="fancy-radio">
+                              <input value="No" type="radio" #settingValue formControlName="settingValue">
+                              <span><i></i>No</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 spc-bottom" align="right">
+                <button data-size="s" type="submit" [ladda]="isLoading" class="submit-btn">Submit</button>
+                <button *ngIf="isEdit" data-size="s" (click)="cancel()" type="button" class="btn cancel-btn">Cancel</button>
+              </div>
+            </form>
+          </div>
+         <div *ngIf="!isFormShow">
+            <app-user-detail [user]="settingData"
+                        (editClick)="editDetail()"></app-user-detail>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

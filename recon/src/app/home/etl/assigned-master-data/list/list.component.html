@@ -1,0 +1,15 @@
+<div class="panel panel-profile all-panel-align">
+  <div class="clearfix">
+
+    <table class="table table-hover table-inner-align privilege-table-cover">
+      <tbody>
+      <tr>
+        <th class="newbg">Master Data Sources</th>
+      </tr>
+      <tr *ngFor="let masData of masterDataViews; let i = index" (click)="select(i)"  [ngClass]="{'active': selectedIndex == i  }">
+        <td><a href="javascript:void(0);" (click)="showMasterDataView(masData.id)" class="active"><div>{{masData.name}}</div></a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,266 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>Invoice Report</h3>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 left-space">
+            <div class="checkbox">
+              <label for="monthPicker">Month</label>
+              <input type="month" class="form-control" id="monthPicker" [formControl]="month">
+            </div>
+          </div>
+
+          <div class="col-md-1 top-spc28">
+            <button type="button" (click)="getReport()" class="btn submit-btn">View</button>
+          </div>
+
+          <div class="col-md-1 top-spc28">
+            <button type="button" (click)="exportReport()" class="btn submit-btn">Export</button>
+          </div>
+
+          <div class="col-md-2 top-spc28">
+            <button type="button" (click)="onAddVisaExpenseCharge()" class="btn submit-btn">Add VISA Expense Charges</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-body all-cover-relax-match">
+        <section *ngIf="invoiceSummary">
+          <div class="wizard">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content">
+                  <div class="tab-pane active" role="tabpanel" id="step1">
+                    <div class="col-md-12">
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.settledAmount?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.settledAmount?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.interchangeCr?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.interchangeCr?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.atmTrxnFee?.DESCRIPTION}}</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.interchangeDr?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.interchangeDr?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                          </tr>
+                          <tr>
+                            <td class="bold">Interchange Received (Cr)</td>
+                            <td>{{invoiceSummary?.interchangeCr?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>Less: Interchange (Dr)</td>
+                            <td>{{invoiceSummary?.interchangeDr?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>Less: Fee on ATM</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.interchangeBooked?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.interchangeBooked?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.gstComponent?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.gstComponent?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.incomeBooked?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.incomeBooked?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold">Network Cost</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.domAuthTrxn?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.domAuthTrxn?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.domSettlementTrxn?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.domSettlementTrxn?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrAuthTrxn1?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrAuthTrxn1?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrAuthTrxn2?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrAuthTrxn2?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrAuthTrxn3?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrAuthTrxn3?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrSettlementTrxn1?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrSettlementTrxn1?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrSettlementTrxn2?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrSettlementTrxn2?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrSettlementTrxn3?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrSettlementTrxn3?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.domAuthFee?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.domAuthFee?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrAuthFee?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrAuthFee?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.domAdvanceAuth?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.domAdvanceAuth?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrAdvanceAuth?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrAdvanceAuth?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.domSmsRawData?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.domSmsRawData?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrSmsRawData?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrSmsRawData?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.domLicenseFee?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.domLicenseFee?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrLicenseFee?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrLicenseFee?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.isaFee?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.isaFee?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.domCardServiceFee?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.domCardServiceFee?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrCardServiceFee1?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrCardServiceFee1?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrCardServiceFee2?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrCardServiceFee2?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.intrCardServiceFee3?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.intrCardServiceFee3?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>Visa dispute cost @225</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.networkCost?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.networkCost?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.bankShare?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.bankShare?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.m2pShare?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.m2pShare?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>Less: Network Cost</td>
+                            <td>{{invoiceSummary?.networkCost?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.grossRevenue?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.grossRevenue?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.otpFee?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.otpFee?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.smsCost?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.smsCost?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td>{{invoiceSummary?.kycCollection?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.kycCollection?.AMOUNT}}</td>
+                          </tr>
+                          <tr>
+                            <td class="bold">{{invoiceSummary?.grossIncome?.DESCRIPTION}}</td>
+                            <td>{{invoiceSummary?.grossIncome?.AMOUNT}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <section *ngIf="invoiceReport">
+          <div class="wizard">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content">
+                  <div class="tab-pane active" role="tabpanel" id="step2">
+                    <div class="col-md-12">
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr *ngFor="let report of invoiceReport">
+                            <td class="bold">{{report?.description}}</td>
+                            <td>{{report?.amount ? report?.amount : ''}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <div *ngIf="!invoiceReport || invoiceReport.length < 1" class="row">
+          <div class="col-md-12">
+            <div class="tab-content">
+
+              <div class="col-md-12 wizard-body">
+                <div class=" table-responsive #TABLEEE" #table>
+                  <div class="center col-md-10">
+                    <h5 class="center">No Report</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

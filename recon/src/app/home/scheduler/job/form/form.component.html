@@ -1,0 +1,304 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg">
+          <h3 class="panel-title">{{isEditMode === true ? 'Edit Job' : 'New Job'}}</h3>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="panel-body">
+
+            <div class="panel panel-profile border-none cover2">
+              <div class="row">
+
+
+                <div class="col-md-12">
+                  <div class="col-md-3">
+                    <div class="form-group inline-label-align">
+                      <label class="required">Name</label>
+                      <input type="text" formControlName="name" class="form-control input-sm" placeholder="name">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="lbl6 required"> Module</label>
+                      <select class="form-control input-sm" #moduleId formControlName="moduleId"
+                              (change)="onModuleSelect(moduleId.value)">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let module of modules" value="{{module.id}}">
+                          {{module.name}}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group ">
+                      <label>Number of Retrials</label>
+                      <input type="number" formControlName="noOfRetrial" class="form-control input-sm">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group ">
+                      <label>Retrial Interval(in minutes)</label>
+                      <input type="number" formControlName="retrialInterval" class="form-control input-sm">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="lbl6 required"> Scheduling Type</label>
+                      <select (change)="onSchedulingTypeChange()" class="form-control input-sm" #scheduleType formControlName="scheduleType">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let type of scheduleTypes" value="{{type}}">
+                          {{type}}
+                      </select>
+                    </div>
+                  </div>
+                  <div *ngIf="form.get('scheduleType').value==='CRON'" class="col-md-3">
+                    <div class="form-group ">
+                      <label class="required">Cron Expression</label>
+                      <input type="text" (click)="openModalDialog()" formControlName="cronExpression"
+                             class="form-control input-sm"
+                             placeholder="cron expression">
+                    </div>
+                  </div>
+                  <div *ngIf="form.get('scheduleType').value==='EVENT'" class="col-md-3">
+                    <div class="form-group ">
+                      <label class="required">Event</label>
+                      <select class="form-control input-sm" #eventName formControlName="eventName">
+                        <option value="null" disabled>--Select One--</option>
+                        <option *ngFor="let event of reconEvents" value="{{event}}">
+                          {{event}}
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form.get('eventName').value!=='RECON_FINISHED' && form.get('scheduleType').value==='EVENT'"
+                    class="col-md-3">
+                    <div class="form-group">
+                      <label class="required">Data Sources</label>
+                      <angular2-multiselect [data]="dataSources" [settings]="dropDownSettings"
+                                            formControlName="dataSources">
+                      </angular2-multiselect>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form.get('eventName').value==='RECON_FINISHED' && form.get('scheduleType').value==='EVENT'"
+                    class="col-md-3">
+                    <div class="form-group">
+                      <label class="required">Recon : </label>
+                      <select class="form-control input-sm" formControlName="reconId" placeholder="text field">
+                        <option [value]="0">Select One</option>
+                        <option *ngFor="let recon of recons" value="{{recon.id}}">{{recon.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label >Conflict with</label>
+                      <angular2-multiselect [data]="conflictWithJobs" [settings]="dropDownSettings"
+                                            formControlName="conflictJobs">
+                      </angular2-multiselect>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Description</label>
+                      <textarea type="text" formControlName="description" class="form-control"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12"><h4>Steps </h4></div>
+            </div>
+
+            <div class="panel panel-profile border-none all_form cover2">
+
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <label class="">Step</label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label class=" required lbl6">Activity Type</label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label class=" required">Activity</label>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngFor=" let dataElement of form.get('activities')['controls'] ; let i = index">
+                <div class="col-sm-12" formArrayName="activities">
+                  <div class="row formArray" [formGroupName]="i">
+                    <div class="col-md-12">
+                      <div class="col-md-1">
+
+                        <p>{{i+1}}</p>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group ">
+                          <select class="form-control input-sm" formControlName="type" #activity>
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let activity of activityType" value="{{activity}}">
+                              {{activity}}
+                          </select>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="activity.value !== 'DATA_PRE_PROCESSING' && activity.value !== 'DISPUTE' && activity.value !== 'PIPE_LINE' && activity.value !== 'GL_EXECUTION'"
+                        class="col-md-3">
+                        <div class="form-group " formGroupName="activity">
+                          <select class="form-control input-sm" formControlName="typeId">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let module of activityMap.get(activity.value)" value="{{module.id}}">
+                              {{module.name}}
+                          </select>
+                        </div>
+                      </div>
+                      <div *ngIf="activity.value === 'PIPE_LINE'" class="col-md-3">
+                        <div class="form-group " formGroupName="activity">
+                          <select class="form-control input-sm" formControlName="typeId">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let module of activityMap.get(activity.value)"
+                                    value="{{module.pipelineId}}">
+                              {{module.description}}
+                          </select>
+                        </div>
+                      </div>
+                      <div *ngIf="activity.value === 'GL_EXECUTION'" class="col-md-3">
+                        <div class="form-group " formGroupName="activity">
+                          <select class="form-control input-sm" formControlName="typeId">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let glBalanceConfig of activityMap.get(activity.value)"
+                                    value="{{glBalanceConfig.id}}">
+                              {{glBalanceConfig.glName}}
+                          </select>
+                        </div>
+                      </div>
+                      <div *ngIf="activity.value === 'DATA_PRE_PROCESSING'" class="col-md-3">
+                        <div class="form-group " formGroupName="activity">
+                          <select class="form-control input-sm" formControlName="typeId">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let scheduleSqlQuery of activityMap.get(activity.value)"
+                                    value="{{scheduleSqlQuery.id}}">
+                              {{scheduleSqlQuery.name}}
+                          </select>
+                        </div>
+                      </div>
+                      <div *ngIf="activity.value === 'DISPUTE'" class="col-md-3">
+                        <div class="form-group ">
+                          <select class="form-control input-sm" formControlName="disputeActivity">
+                            <option value="null" disabled>--Select One--</option>
+                            <option *ngFor="let module of activityMap.get(activity.value)" value="{{module.id}}">
+                              {{module.name}}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <a href="javascript:void(0);" (click)="removeDataElement(i)"
+                           class="text-danger delete-btn"><i class="fa fa-trash-o"></i></a>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="row bottom-30">
+                <div class="col-sm-12">
+                  <div class="col-md-12">
+                    <div class="col-md-6">
+                      <button type="button" (click)="addDataElement()" class="btn btn-primary add-btn"><i
+                        class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12" align="right">
+                  <button type="submit" data-size="s" class="submit-btn" [ladda]="isLoading">
+                    {{isEditMode?'Update':'Submit'}}
+                  </button>
+                  <button type="button"
+                          [routerLink]="['/home/scheduler', 'job', {outlets: {'fullBodyOutlet': ['list']}}]"
+                          class="btn btn-primary cancel-btn">Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="backdrop" #backdrop id="backdrop" style=" display: none"></div>
+
+        <!-- modal -->
+        <div class="modal" #modal id="modal" tabindex="-1" role="dialog" style="display: none">
+          <!-- modal-dialog -->
+          <div class="modal-dialog" style="width: 62%; " role="document">
+            <!-- modal-content -->
+            <div class="modal-content">
+              <!-- modal-header -->
+              <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+                  aria-hidden="true">&times;</span></button>
+                <!-- <h4 class="modal-title">Login</h4> -->
+              </div>
+
+              <!-- modal-body -->
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <cron-editor [(cron)]="cronExpression" [options]="cronOptions"></cron-editor>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- modal-footer -->
+              <div class="modal-footer">
+                <button type="button" class="submit-btn" (click)="closeModalDialog(true)">Submit</button>
+                <button type="button" class="btn btn-primary cancel-btn" (click)="closeModalDialog()">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>
+
+

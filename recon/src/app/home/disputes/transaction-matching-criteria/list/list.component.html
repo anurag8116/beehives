@@ -1,0 +1,58 @@
+<div class="col-md-12 left-pad2 right-pad2">
+  <div class="panel panel-profile">
+    <div class="panel panel-heading newhead newbg iconsize">
+      <div class="row">
+        <div class="col-md-6 innerheadsource">
+          <h3>Transaction Matching Criteria</h3>
+        </div>
+        <div class="col-md-6" align="right">
+          <a [routerLink]="['/home/disputes/part','transaction-matching-criteria', {outlets: {'bodyOutlet': ['new']}}]"
+             title="">
+            <button type="button" class="btn new-page-btn"><i class="fa fa-plus-circle"
+                                                              aria-hidden="true"></i> New
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body panel-body-align">
+      <div class="clearfix">
+        <div class="row form-inner-cover cover2">
+          <div class="col-md-12 top-spc">
+            <div class="col-md-3 right-margin">
+              <label>Module</label>
+              <select class="form-control input-sm" #parent (change)="search(parent.value, 1)">
+                <option value=" ">--All--</option>
+                <option *ngFor="let parentModule of modules" value="{{parentModule.id}}">
+                  {{parentModule.name}}
+              </select>
+            </div>
+            <div class="col-md-3 right-margin">
+              <label>Data Source</label>
+              <select class="form-control input-sm" #data (change)="search(data.value, 2)">
+                <option value=" ">--All--</option>
+                <option *ngFor="let source of dataSources" value="{{source.id}}">
+                  {{source.name}}
+              </select>
+            </div>
+            <div class="col-md-3 right-margin">
+              <label>Name</label>
+              <input type="text" #name (keyup)="search(name.value, 3)" class="form-control input-sm">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-profile panel-top-spc">
+    <div class="clearfix">
+      <div class="col-md-12 top-spc all-cover-recon-data-element">
+        <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+

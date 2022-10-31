@@ -1,0 +1,173 @@
+<div class="main">
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 left-pad2 right-pad all-panel-align">
+          <div class="panel panel-profile panel_height">
+            <div class="clearfix">
+              <table class="table table-hover table-inner-align privilege-table-cover" id="tableModule">
+                <tbody>
+                <tr>
+                  <th class="newbg">Recons</th>
+                </tr>
+                <tr *ngFor="let dataSource of dataSources; let i = index " (click)="select(i)"
+                    [ngClass]="{'active': selectedIndexForMod == i  }">
+                  <td><a href="javascript:void(0);" (click)="onModuleChange(dataSource.id)" class="active">
+                    <div>{{dataSource.name}}</div>
+                  </a></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 left-pad right-pad2">
+          <div class="panel panel-profile">
+            <div class="panel panel-heading newhead newbg">
+              <div class="row">
+                <div class="col-md-6 innerheadsource">
+                  <h3>{{heading}}</h3>
+                </div>
+                <div *ngIf="processType==='ALL'" class="col-md-6" align="right">
+                  <a routerLinkActive="active"
+                     [routerLink]="['/home/disputes', 'issuer-disputes', {outlets: {'fullBodyOutlet': ['disputeform', id, disputeType]}}]"
+                     title="">
+                    <button type="button" class="btn new-page-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                      New
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body panel-body-align">
+              <div class="clearfix">
+                <div class="row form-inner-cover cover2">
+                  <form [formGroup]="filterFormGroup">
+                  <div class="col-md-12 top-spc">
+
+                    <div class="col-md-3 margin-top-30" *ngIf="hasRoleM2p || hasRoleCardOps">
+                      <input formControlName="isReversalDispute" type="checkbox" class="checkboxSize" (change)="onCheckboxSelect($event.target.checked, 'isReversalDispute')">
+                      <span><i></i>Reversal Dispute</span>
+                    </div>
+                    <div class="col-md-3 margin-top-30" *ngIf="hasRoleM2p || hasRoleCardOps">
+                      <input formControlName="isDualDispute" type="checkbox" class="checkboxSize" (change)="onCheckboxSelect($event.target.checked, 'isDualDispute')">
+                      <span><i></i>Dual Dispute</span>
+                    </div>
+                    <div class="col-md-2 padding_none">
+                      <label>RRN</label>
+                      <input formControlName="rrn" type="text" (keyup)="search($event.target.value, 'rrn')" class="form-control  input-sm"
+                             placeholder="By RRN">
+                    </div>
+                    <div class="col-md-2 left-space padding_none">
+                      <label>Kit Number</label>
+                      <input formControlName="kitNumber" type="text" (keyup)="search($event.target.value, 'kitNumber')" class="form-control  input-sm"
+                             placeholder="By Kit Number">
+                    </div>
+                    <div class="col-md-2 left-space padding_none">
+                      <label>Customer Name</label>
+                      <input formControlName="customerName" type="text" (keyup)="search($event.target.value, 'customerName')" class="form-control  input-sm"
+                             placeholder="By Customer Name">
+                    </div>
+                    <div class="col-md-2 left-space padding_none">
+                      <label>Customer Email</label>
+                      <input formControlName="customerEmail" type="text" (keyup)="search($event.target.value, 'customerEmail')" class="form-control  input-sm"
+                             placeholder="By Customer Email">
+                    </div>
+                    <div class="col-md-2 left-space padding_none">
+                      <label>Customer Mobile</label>
+                      <input formControlName="customerTelephone" type="text" (keyup)="search($event.target.value, 'customerTelephone')" class="form-control  input-sm"
+                             placeholder="By Customer Mobile">
+                    </div>
+                    <div class="col-md-2 left-space padding_none" *ngIf="!hasRoleM2p">
+                      <label>Refund Status</label>
+                      <select formControlName="refundStatus" class="form-control input-sm" #refundStatus (change)="search(refundStatus.value, 'refundStatus')">
+                        <option value="">--All--</option>
+                        <option value="ADVANCE_REFUND_PROCESSED">ADVANCE_REFUND_PROCESSED</option>
+                        <option value="DISPUTE_REFUND_PROCESSED">DISPUTE_REFUND_PROCESSED</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2 left-space padding_none">
+                      <label>Status</label>
+                      <select formControlName="status" class="form-control input-sm" #statu (change)="search(statu.value, 'status')">
+                        <option value="">--All--</option>
+                        <option *ngFor="let statu of filterStatus" value="{{statu.value}}">
+                          {{statu.label}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                    <div class="col-md-12 top-spc">
+                      <div class="col-md-6 padding_none">
+                        <label>Created Date</label>
+                        <div class="form-group">
+                          <input type="datetime-local" class="range-group-input form-control" #fromDate
+                                 formControlName="fromDate" (change)="searchByDateTime(fromDateControl.value, 'fromDate')"
+                                 (click)="toDate.value=''; toDateControl.setValue(null)">
+                          <span class="range-group-addon">to</span>
+                          <input type="datetime-local" class="range-group-input form-control" #toDate
+                                 formControlName="fromDate" (change)="searchByDateTime(toDateControl.value, 'toDate')">
+                        </div>
+                      </div>
+                      <div class="col-md-6 padding_none">
+                        <label>M2P Raise Date</label>
+                        <div class="form-group">
+                          <input type="datetime-local" class="range-group-input form-control" #m2pRaisedFromDate
+                                 formControlName="m2pRaisedFromDate" (change)="searchByDateTime(m2pRaisedFromDateControl.value, 'm2pRaisedFromDate')"
+                                 (click)="m2pRaisedToDate.value=''; m2pRaisedToDateControl.setValue(null)">
+                          <span class="range-group-addon">to</span>
+                          <input type="datetime-local" class="range-group-input form-control" #m2pRaisedToDate
+                                 formControlName="m2pRaisedToDate" (change)="searchByDateTime(m2pRaisedToDateControl.value, 'm2pRaisedToDate')">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-profile">
+            <div class="clearfix">
+              <div class="row form-idocument-modalnner-cover">
+                <div class="col-md-12 ">
+                  <div class="col-md-12 right-margin top-bottom-spc">
+                    <button type="button" class="btn submit-btn" (click)="onHistory()" *ngIf="hasRoleCX || hasRoleCardOps">View Trxn History</button>
+                    <button type="button" class="btn submit-btn" (click)="onProcess()" *ngIf="hasRoleCardOps || hasRoleM2p">Update Merchant Reponse</button>
+                    <button type="button" class="btn submit-btn" (click)="onRaiseByM2P()" *ngIf="hasRoleCardOps || hasRoleM2p">M2P Raise Date</button>
+                    <button type="button" class="btn submit-btn" (click)="onTransactionClick()" *ngIf="hasRoleCX || hasRoleCardOps || hasRoleM2p">View Trxn Detail
+                    </button>
+                    <!--<button type="button" class="btn submit-btn" (click)="onDocument()" *ngIf="hasRoleCardOps">Add Document</button>-->
+                    <!-- <button *ngIf="heading === 'Pre Arbitrations' && hasRoleCardOps" type="button" class="btn submit-btn"
+                            (click)="onViewResponse()">View Response
+                    </button> -->
+                    <button type="button" class="btn submit-btn" (click)="onEdit()" *ngIf="hasRoleCX || hasRoleCardOps">Edit</button>
+                    <button type="button" class="btn submit-btn" (click)="onDelete()" *ngIf="hasRoleCX">Delete</button>
+                    <button type="button" class="btn submit-btn" (click)="onApprove()" *ngIf="hasRoleCardOps">Approve</button>
+                    <button type="button" class="btn submit-btn" (click)="onReject()" *ngIf="hasRoleCardOps || hasRoleM2p">Reject</button>
+                    <button type="button" class="btn submit-btn" (click)="onSendForApproval()" *ngIf="hasRoleCX || hasRoleCardOps">Send for Approval</button>
+                    <button type="button" class="btn submit-btn" (click)="onRaisePreArb()" *ngIf="processType === 'CHARGE_BACK' && (hasRoleCX || hasRoleCardOps)">Raise Pre Arb</button>
+                    <button type="button" class="btn submit-btn top-spc" (click)="onCloseDispute()" *ngIf="hasRoleCX || hasRoleCardOps">Close Dispute</button>
+                    <button type="button" class="btn submit-btn top-spc" (click)="onAdvancePayment()" *ngIf="hasRoleCX || hasRoleCardOps">Advance Refund</button>
+                    <button type="button" class="btn submit-btn top-spc" (click)="onRefundProcess()" *ngIf="hasRoleCX || hasRoleCardOps">Refund Process</button>
+                    <button type="button" class="btn submit-btn top-spc" (click)="downloadAll()" *ngIf="docsDownload && (hasRoleCX || hasRoleCardOps || hasRoleM2p)">Download files zip</button>
+                    <button type="button" class="btn submit-btn top-spc" (click)="downloadRejectedDisputeFiles()" [disabled]="!rejectStatusSelected " *ngIf="(hasRoleCX || hasRoleCardOps || hasRoleM2p)">Download Rejected Files</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-profile panel-top-spc">
+            <div class="clearfix">
+              <div class="col-md-12 table-responsive top-spc" *ngIf="showTable">
+                <table datatable [dtOptions]="dtOptions" class="table table-condensed column-spacing">
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

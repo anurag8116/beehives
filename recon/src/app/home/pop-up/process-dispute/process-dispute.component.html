@@ -1,0 +1,77 @@
+<form [formGroup]="form">
+  <div class="panel panel-heading newhead newbg">
+    <h4 class="modal-title">{{heading}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6 spc-bottom" *ngIf="closeDispute">
+        <label class="required">Refund / Reversal Amount:</label>
+        <input type="text" OnlyNumber="true" formControlName="reversalAmount" class="form-control form-control input-sm">
+      </div>
+      <div class="col-md-6 spc-bottom" *ngIf="closeDispute">
+        <label class="required">Refund / Reversal Date:</label>
+        <input type="text" bsDatepicker formControlName="reversalDate"
+               class="form-control form-control input-sm" placeholder="Date"
+               [bsConfig]="bsConfig">
+      </div>
+      <div class="col-md-6 spc-bottom" *ngIf="closeDispute">
+        <label class="required">Solved Ticket Reason:</label>
+        <select class="form-control input-sm" formControlName="solvedTicketReason">
+          <option value="null" disabled> ---Select--- </option>
+          <option *ngFor="let reason of solvedTicketReason" value="{{reason.value}}">
+            {{reason.label}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 spc-bottom" *ngIf="approval">
+        <label class="required">Slice Raise Date:</label>
+        <input type="text" bsDatepicker formControlName="activityDate"
+               class="form-control form-control input-sm" placeholder="Date"
+               [bsConfig]="bsConfig">
+      </div>
+
+      <div class="col-md-6 spc-bottom" *ngIf="raisedByM2p">
+        <label class="required">M2P Raise Date:</label>
+        <input type="text" bsDatepicker formControlName="activityDate"
+               class="form-control form-control input-sm" placeholder="Date"
+               [bsConfig]="bsConfig">
+      </div>
+      <div class="col-md-12 spc-bottom radio-label" *ngIf="refundProcess">
+        <label class="fancy-radio mar-left pad-spc">
+          <input type="radio" formControlName="status" value="ADVANCE_REFUND_PROCESSED">
+          <span><i></i>ADVANCE REFUND</span>
+        </label>
+        <label class="fancy-radio mar-left pad-spc">
+          <input type="radio" formControlName="status" value="DISPUTE_REFUND_PROCESSED">
+          <span><i></i>DISPUTE REFUND</span>
+        </label>
+      </div>
+      <div class="col-md-6 spc-bottom" *ngIf="refundProcess">
+        <label class="required">Process On:</label>
+        <input type="text" bsDatepicker formControlName="activityDate"
+               class="form-control form-control input-sm" placeholder="Date"
+               [bsConfig]="bsConfig">
+      </div>
+      <div class="col-md-6 spc-bottom" *ngIf="refundProcess">
+        <label class="required">Refund Amount:</label>
+        <input type="text" OnlyNumber="true" formControlName="refundAmount" class="form-control form-control input-sm">
+      </div>
+      <div class="col-md-6 spc-bottom" *ngIf="refundProcess">
+        <label>Txn Reference Number:</label>
+        <input type="text" formControlName="txnReferenceNumber" class="form-control form-control input-sm">
+      </div>
+      <div class="col-md-12">
+        <label>Remarks:</label>
+        <textarea class="form-control" formControlName="remark" maxlength="500"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="submit-btn" data-size="s" [ladda]="isLoading"
+            (click)="processSubmit()">Submit
+    </button>
+    <button type="button" class="btn btn-primary cancel-btn" (click)="close()" data-dismiss="modal">
+      Cancel
+    </button>
+  </div>
+</form>

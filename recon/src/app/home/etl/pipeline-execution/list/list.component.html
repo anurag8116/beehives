@@ -1,0 +1,19 @@
+<div class="panel panel-profile all-panel-align">
+  <div class="clearfix">
+    <table class="table table-hover table-inner-align privilege-table-cover">
+      <tbody>
+      <tr>
+        <th class="newbg">Pipe Line</th>
+      </tr>
+      <tr *ngFor="let pipeLine of pipelines; let i = index" (click)="select(i)"  [ngClass]="{'active': selectedIndex == i  }">
+        <td><a href="javascript:void(0);" (click)="selectPipeLine(pipeLine.pipelineId)" class="active"><div>{{pipeLine.description}}</div></a></td>
+      </tr>
+      </tbody>
+    </table>
+   <!-- <div class="col-md-12 all-cover-leftside-executions">
+      <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+      </table>
+    </div>-->
+  </div>
+</div>
+

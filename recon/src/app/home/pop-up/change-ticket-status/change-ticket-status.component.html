@@ -1,0 +1,49 @@
+<form [formGroup]="form">
+    <div class="panel panel-heading newhead newbg">
+      <h4 class="modal-title">Change Status</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 spc-bottom">
+          <label class="required">Status:</label>
+          <select class="form-control input-sm" formControlName="status">
+            <option *ngFor="let stage of stages" value="{{stage.value}}">
+              {{stage.name}}
+            </option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label>Attachment:</label>
+            <div *ngFor="let document of form.get('document')['controls']; let i = index">
+              <div formArrayName="document">
+                <div [formGroupName]="i">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" formControlName="title" class="form-control" maxlength="100" placeholder="Title">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <app-file-input (onFileSelect)="fileChangeEvent($event, i)"></app-file-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <label>Remarks:</label>
+          <textarea class="form-control" formControlName="remark" maxlength="500"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="submit-btn" data-size="s" [ladda]="isLoading"
+              (click)="processSubmit()">Submit
+      </button>
+      <button type="button" class="btn btn-primary cancel-btn" (click)="close()" data-dismiss="modal">
+        Cancel
+      </button>
+    </div>
+</form>

@@ -1,0 +1,781 @@
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+  display: none;
+}
+
+.colaspe-panel {
+  background: #fff !important;
+  border: 1px solid #e5e5e5;
+  margin: 8px 0 0 0;
+  padding: 0 !important;
+  box-shadow: -6px 4px 6px #e7e7e7;
+  font-size: 18px;
+}
+
+.btn-default.btn-on-2.active {
+  background-color: #006FFC;
+  color: #fff !important;
+}
+
+.btn-default.btn-off-2.active {
+  background-color: #006FFC;
+  color: #fff !important;
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.btn-default {
+  border-color: #ccc !important;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+.addor-align {
+  padding: 0 0 8px 15px !important;
+}
+
+.addornew {
+  margin: -7px 12px 0 0;
+}
+
+.addornew label {
+  margin: 4px -1px 0 0;
+  box-shadow: none;
+}
+
+.table-bg {
+  background: #fff;
+  border-color: #DDDDDD;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  margin: 0;
+}
+
+.table-bg tr th {
+  color: #a2a2a2;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.table-bg tr td {
+  border-bottom: none;
+  height: 46px;
+}
+
+.table-bg tr:hover {
+  background: #efefef;
+}
+
+.table-bg tr:first-child td {
+  border-top: 0;
+}
+
+.table-bg tr td:first-child {
+  border-left: 0;
+}
+
+.table-bg tr:last-child td {
+  border-bottom: 0;
+}
+
+.table-bg tr td:last-child {
+  border-right: 0;
+}
+
+.table-bg tr th:first-child {
+  border-left: 0;
+}
+
+.table-bg tr th:last-child {
+  border-right: 0;
+}
+
+.rowwhitebg3 {
+  background: #fff;
+  padding: 9px 11px 0 11px;
+  border-radius: 6px;
+  margin: 0 0 11px 0;
+}
+
+.border-none {
+  border: 0 !important;
+}
+
+.colaspe-inner-panel {
+  background: #fff !important;
+}
+
+.colaspe-panel-body {
+  border-top: 1px solid #ccc;
+  padding: 0;
+}
+
+.colaspe-ul-align ul {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.colaspe-ul-align ul li {
+  display: inline-block;
+  list-style: none;
+  margin: -3px 13px;
+  width: 17%;
+  overflow: auto;
+  height: 57px;
+  padding: 8px 11px 0;
+  font-size: 13px;
+}
+
+.list-border {
+  border-right: 1px solid #ebebeb;
+  border-left: 1px solid #ebebeb;
+}
+
+.colaspe-ul-align ul li .checkbox {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.colaspe-ul-align ul li .input-sm {
+  margin-bottom: 0;
+  margin-top: 5px;
+  height: 26px !important;
+}
+
+.colaspe-ul-align ul li span {
+  font-size: 11px;
+}
+
+.list-onoff {
+  padding: 19px 11px 0 !important;
+}
+
+.drag-toggle-align {
+  float: left;
+  width: 77px;
+  padding: 9px 0 0 12px;
+}
+
+.head-matching-rules {
+  padding: 16px 0 16px 16px;
+  float: left;
+  width: 92%;
+}
+
+.custom-switch {
+  line-height: 12px;
+}
+
+.custom-switch .custom-switch-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.custom-switch .custom-switch-input, .custom-switch .custom-switch-input:after, .custom-switch .custom-switch-input:before,
+.custom-switch .custom-switch-input *,
+.custom-switch .custom-switch-input *:after,
+.custom-switch .custom-switch-input *:before,
+.custom-switch .custom-switch-input + .custom-switch-btn {
+  box-sizing: border-box;
+}
+
+.custom-switch .custom-switch-input:selection, .custom-switch .custom-switch-input:after:selection, .custom-switch .custom-switch-input:before:selection,
+.custom-switch .custom-switch-input *:selection,
+.custom-switch .custom-switch-input *:after:selection,
+.custom-switch .custom-switch-input *:before:selection,
+.custom-switch .custom-switch-input + .custom-switch-btn:selection {
+  background: none;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn {
+  outline: 0;
+  display: inline-block;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  width: 68px;
+  height: 38px;
+  margin: 0;
+  padding: 4px;
+  background: #adb5bd;
+  border-radius: 76px;
+  transition: all 150ms ease;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:after, .custom-switch .custom-switch-input + .custom-switch-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 29px;
+  height: 29px;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:after {
+  left: 2px;
+  border-radius: 50%;
+  background: white;
+  transition: all 150ms ease;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:before {
+  display: none;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn.text-hide {
+  top: -.80rem;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn {
+  background: #28a745;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 30px;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn ~ .custom-switch-content-checked {
+  opacity: 1;
+  height: auto;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn ~ .custom-switch-content-unchecked {
+  display: none;
+  opacity: 0;
+  height: 0;
+}
+
+.custom-switch .custom-switch-input:not(:checked) + .custom-switch-btn ~ .custom-switch-content-checked {
+  display: none;
+  opacity: 0;
+  height: 0;
+}
+
+.custom-switch .custom-switch-input:not(:checked) + .custom-switch-btn ~ .custom-switch-content-unchecked {
+  opacity: 1;
+  height: auto;
+}
+
+.custom-switch .custom-switch-input[disabled] + .custom-switch-btn {
+  background: rgba(173, 181, 189, 0.6);
+  cursor: default;
+}
+
+.custom-switch .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(40, 167, 69, 0.4);
+}
+
+.custom-switch .custom-switch-input:not([disabled]):focus ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.25rem rgba(56, 123, 189, 0.25);
+}
+
+.custom-switch .custom-switch-input[required] ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.125rem rgba(220, 53, 69, 0.5);
+}
+
+.custom-switch .custom-switch-form-text {
+  display: inline-block;
+  height: 38px;
+  margin-left: .5rem;
+  line-height: 38px;
+  vertical-align: top;
+}
+
+.custom-switch.custom-switch-label-io .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='42.5' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EO%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-io .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='18.13333' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EI%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-onoff .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='38.85714' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOff%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-onoff .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='9.71429' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOn%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-yesno .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='38.85714' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3ENo%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-yesno .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='9.71429' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EYes%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-status .custom-switch-input + .custom-switch-btn {
+  width: 96px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='38'%3E%3Ctext x='38.85714' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EDisabled%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='38'%3E%3Ctext x='9.71429' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EEnabled%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 58px;
+}
+
+.custom-switch-sm {
+  line-height: 11px;
+}
+
+.custom-switch-sm .custom-switch-input + .custom-switch-btn {
+  width: 60px;
+  height: 31px;
+  padding: 3px;
+  border-radius: 62px;
+}
+
+.custom-switch-sm .custom-switch-input + .custom-switch-btn:after, .custom-switch-sm .custom-switch-input + .custom-switch-btn:before {
+  width: 23px;
+  height: 23px;
+}
+
+.custom-switch-sm .custom-switch-input + .custom-switch-btn:after {
+  left: 2px;
+}
+
+.custom-switch-sm .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 29px;
+}
+
+.custom-switch-sm .custom-switch-form-text {
+  height: 31px;
+  margin-left: .5rem;
+  line-height: 31px;
+}
+
+.custom-switch-sm.custom-switch-label-io .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='37.5' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EO%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-io .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='16' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EI%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-onoff .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='32.87671' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOff%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-onoff .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='8.57143' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOn%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-yesno .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='32.87671' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3ENo%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-yesno .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='8.57143' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EYes%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-status .custom-switch-input + .custom-switch-btn {
+  width: 88px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31'%3E%3Ctext x='32.87671' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EDisabled%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31'%3E%3Ctext x='8.57143' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EEnabled%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-sm.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 57px;
+}
+
+.custom-switch-xs {
+  line-height: 10px;
+}
+
+.custom-switch-xs .custom-switch-input + .custom-switch-btn {
+  width: 48px;
+  height: 24px;
+  padding: 3px;
+  border-radius: 48px;
+}
+
+.custom-switch-xs .custom-switch-input + .custom-switch-btn:after, .custom-switch-xs .custom-switch-input + .custom-switch-btn:before {
+  width: 18px;
+  height: 18px;
+}
+
+.custom-switch-xs .custom-switch-input + .custom-switch-btn:after {
+  left: 1px;
+}
+
+.custom-switch-xs .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 24px;
+}
+
+.custom-switch-xs .custom-switch-form-text {
+  height: 24px;
+  margin-left: .5rem;
+  line-height: 24px;
+}
+
+.custom-switch-xs.custom-switch-label-io .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='27.42857' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EO%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-io .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='12.8' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EI%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-onoff .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='25.6' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOff%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-onoff .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='6.85714' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOn%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-yesno .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='25.6' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3ENo%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-yesno .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='6.85714' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EYes%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-status .custom-switch-input + .custom-switch-btn {
+  width: 76px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='24'%3E%3Ctext x='25.6' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EDisabled%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='24'%3E%3Ctext x='6.85714' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EEnabled%3C/text%3E%3C/svg%3E");
+}
+
+.custom-switch-xs.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 52px;
+}
+
+.is-invalid .custom-switch .custom-switch-input ~ .custom-switch-btn,
+.was-validated .custom-switch:invalid .custom-switch-input ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.25rem #dc3545;
+}
+
+.custom-switch {
+  line-height: 12px
+}
+
+.custom-switch .custom-switch-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0
+}
+
+.custom-switch .custom-switch-input, .custom-switch .custom-switch-input *, .custom-switch .custom-switch-input :after, .custom-switch .custom-switch-input :before, .custom-switch .custom-switch-input + .custom-switch-btn, .custom-switch .custom-switch-input:after, .custom-switch .custom-switch-input:before {
+  box-sizing: border-box
+}
+
+.custom-switch .custom-switch-input :after:selection, .custom-switch .custom-switch-input :before:selection, .custom-switch .custom-switch-input :selection, .custom-switch .custom-switch-input + .custom-switch-btn:selection, .custom-switch .custom-switch-input:after:selection, .custom-switch .custom-switch-input:before:selection, .custom-switch .custom-switch-input:selection {
+  background: 0 0
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn {
+  outline: 0;
+  display: inline-block;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  width: 68px;
+  height: 38px;
+  margin: 0;
+  padding: 4px;
+  background: #adb5bd;
+  border-radius: 76px;
+  transition: all 150ms ease
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:after, .custom-switch .custom-switch-input + .custom-switch-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 29px;
+  height: 29px
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:after {
+  left: 2px;
+  border-radius: 50%;
+  background: #fff;
+  transition: all 150ms ease
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:before {
+  display: none
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn.text-hide {
+  top: -.8rem
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn {
+  background: #43bfef
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 30px
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn ~ .custom-switch-content-checked {
+  opacity: 1;
+  height: auto
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn ~ .custom-switch-content-unchecked {
+  display: none;
+  opacity: 0;
+  height: 0
+}
+
+.custom-switch .custom-switch-input:not(:checked) + .custom-switch-btn ~ .custom-switch-content-checked {
+  display: none;
+  opacity: 0;
+  height: 0
+}
+
+.custom-switch .custom-switch-input:not(:checked) + .custom-switch-btn ~ .custom-switch-content-unchecked {
+  opacity: 1;
+  height: auto
+}
+
+.custom-switch .custom-switch-input[disabled] + .custom-switch-btn {
+  background: rgba(173, 181, 189, .6);
+  cursor: default
+}
+
+.custom-switch .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(40, 167, 69, .4)
+}
+
+.custom-switch .custom-switch-input:not([disabled]):focus ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 .25rem rgba(56, 123, 189, .25)
+}
+
+.custom-switch .custom-switch-input[required] ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 .125rem rgba(220, 53, 69, .5)
+}
+
+.custom-switch .custom-switch-form-text {
+  display: inline-block;
+  height: 38px;
+  margin-left: .5rem;
+  line-height: 38px;
+  vertical-align: top
+}
+
+.custom-switch.custom-switch-label-io .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='42.5' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EO%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-io .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='18.13333' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EI%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-onoff .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='38.85714' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOff%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-onoff .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='9.71429' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOn%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-yesno .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='38.85714' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3ENo%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-yesno .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='38'%3E%3Ctext x='9.71429' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EYes%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-status .custom-switch-input + .custom-switch-btn {
+  width: 96px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='38'%3E%3Ctext x='38.85714' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EDisabled%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='38'%3E%3Ctext x='9.71429' y='23.75' font-size='12px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EEnabled%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 58px
+}
+
+.custom-switch-sm {
+  line-height: 11px
+}
+
+.custom-switch-sm .custom-switch-input + .custom-switch-btn {
+  width: 60px;
+  height: 31px;
+  padding: 3px;
+  border-radius: 62px
+}
+
+.custom-switch-sm .custom-switch-input + .custom-switch-btn:after, .custom-switch-sm .custom-switch-input + .custom-switch-btn:before {
+  width: 23px;
+  height: 23px
+}
+
+.custom-switch-sm .custom-switch-input + .custom-switch-btn:after {
+  left: 2px
+}
+
+.custom-switch-sm .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 29px
+}
+
+.custom-switch-sm .custom-switch-form-text {
+  height: 31px;
+  margin-left: .5rem;
+  line-height: 31px
+}
+
+.custom-switch-sm.custom-switch-label-io .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='37.5' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EO%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-io .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='16' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EI%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-onoff .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='32.87671' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOff%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-onoff .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='8.57143' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOn%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-yesno .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='32.87671' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3ENo%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-yesno .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='31'%3E%3Ctext x='8.57143' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EYes%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-status .custom-switch-input + .custom-switch-btn {
+  width: 88px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31'%3E%3Ctext x='32.87671' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EDisabled%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='31'%3E%3Ctext x='8.57143' y='19.375' font-size='11px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EEnabled%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-sm.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 57px
+}
+
+.custom-switch-xs {
+  line-height: 10px
+}
+
+.custom-switch-xs .custom-switch-input + .custom-switch-btn {
+  width: 48px;
+  height: 24px;
+  padding: 3px;
+  border-radius: 48px
+}
+
+.custom-switch-xs .custom-switch-input + .custom-switch-btn:after, .custom-switch-xs .custom-switch-input + .custom-switch-btn:before {
+  width: 18px;
+  height: 18px
+}
+
+.custom-switch-xs .custom-switch-input + .custom-switch-btn:after {
+  left: 1px
+}
+
+.custom-switch-xs .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 24px
+}
+
+.custom-switch-xs .custom-switch-form-text {
+  height: 24px;
+  margin-left: .5rem;
+  line-height: 24px
+}
+
+.custom-switch-xs.custom-switch-label-io .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='27.42857' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EO%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-io .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='12.8' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EI%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-onoff .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='25.6' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOff%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-onoff .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='6.85714' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EOn%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-yesno .custom-switch-input + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='25.6' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3ENo%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-yesno .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Ctext x='6.85714' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EYes%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-status .custom-switch-input + .custom-switch-btn {
+  width: 76px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='24'%3E%3Ctext x='25.6' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EDisabled%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='24'%3E%3Ctext x='6.85714' y='15' font-size='10px' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji' fill='%23fff'%3EEnabled%3C/text%3E%3C/svg%3E")
+}
+
+.custom-switch-xs.custom-switch-label-status .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 52px
+}
+
+.is-invalid .custom-switch .custom-switch-input ~ .custom-switch-btn, .was-validated .custom-switch:invalid .custom-switch-input ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 .25rem #dc3545
+}
+
+.nav-tabs > li > a {
+  border-radius: 27px !important;
+}

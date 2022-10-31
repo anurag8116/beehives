@@ -1,0 +1,33 @@
+<div class="panel-heading newhead newbgpopup">
+  <div class="row">
+    <div class="col-md-4">
+      <h4><b> Import User</b></h4>
+    </div>
+  </div>
+</div>
+<div class="panel-body">
+  <div class="row top-spc20">
+    <div class="col-md-12">
+      <div class="col-md-2">
+        <label class="required">File : </label>
+      </div>
+      <div class="col-md-6">
+        <app-file-input (onFileSelect)="fileChangeEvent($event)"></app-file-input>
+      </div>
+      <div class="col-md-12 top-spc40">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+          <div class="col-md-1"></div>
+          <button data-size="s" class="btn submit-btn" type="button" (click)="submitFile()">Submit
+          </button>
+        </div>
+        <div class="col-md-2">
+          <div class="col-md-1"></div>
+          <button type="button" (click)="close()" data-size="s" class="btn cancel-btn">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 right-pad left-pad2">
+
+          <div class="panel panel-profile panel_height">
+            <div class="clearfix">
+
+              <table class="table table-hover table-inner-align">
+                <tbody>
+                <tr>
+                  <th class="newbg">Groups</th>
+                </tr>
+
+                <tr *ngFor="let module of modules; let i = index">
+                  <td class="active"><a href="javascript:void(0);" class="active">
+                    <div (click)="onSelectModule(module.id)">{{module.name}}</div>
+                  </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-9 right-pad2 left-pad2">
+          <div class="panel panel-profile">
+            <div class="panel panel-heading newhead newbg"><h4>Export Dashboards</h4></div>
+            <div class="panel panel-profile border-none border-none2 all-cover-new-user">
+              <div class="panel-body">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <div class="col-sm-6" *ngFor="let dashboard of dashboards; let i = index">
+                      <div class="form-group checkbox-space">
+                        <input type="checkbox"
+                               (click)="updatePrivilege($event)"
+                               [value]="dashboard.id"><label>{{dashboard.name}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row footer-btn">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                  <a *ngIf="!isShown" disabled="true" class="btn submit-btn">Export</a>
+                  <a *ngIf="isShown" [href]="exportUrl" class="btn submit-btn">Export</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

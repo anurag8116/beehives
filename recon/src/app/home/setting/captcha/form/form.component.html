@@ -1,0 +1,177 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-3 left-pad2 right-pad2">
+
+          <div class="panel panel-profile panel_height">
+            <div class="clearfix">
+              <table class="table table-hover table-inner-align privilege-table-cover">
+                <tbody>
+                <tr>
+                  <th class="newbg">Types</th>
+                </tr>
+                <tr *ngFor="let subSetting of subSettings; let i = index" (click)="select(i)"
+                    [ngClass]="{'active': selectedIndex == i  }">
+                  <td><a href="javascript:void(0);" class="active">
+                    <div (click)="onSelectSubSetting(subSetting.value)">{{subSetting.key}}</div>
+                  </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 left-pad2 right-pad2">
+          <div class="panel panel-profile">
+            <div class="panel panel-heading newhead newbg">
+              <div class="row">
+                <div class="col-md-6">
+                  <h4>Settings</h4></div>
+
+              <div class="col-md-6" align="right" *ngIf="isreconCycleNewButton">
+                <button type="button" (click)="reconCycleNewForm()" class="btn new-page-btn"><i class="fa fa-plus-circle"
+                                                                  aria-hidden="true"></i> New
+                </button>
+              </div>
+              </div>
+            </div>
+
+            <div class="panel-body all_form">
+              <div class="row" *ngIf="userMod">
+                <div class="col-md-12 all_form">
+                  <div class="col-md-12 left-pad right-pad2" *ngIf="userformOpen && userMod">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                      <div class="row top-spc">
+                        <div>
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <label>Setting</label>
+                              </div>
+                              <div class="col-md-4">
+                                <label>Enabled</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngFor=" let setting of form.get('globalSetting')['controls'] ; let i = index">
+                            <div class="col-sm-12" formArrayName="globalSetting">
+                              <div class="row formArray" [formGroupName]="i">
+                                <div class="col-md-7" formGroupName="displayMessage">
+                                  <div class="form-group">
+                                    <p>{{setting.get('displayMessage').value}}</p>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group inline-label-align radio-label">
+                                    <label class="fancy-radio">
+                                      <input value="Yes" type="radio" #settingValue
+                                             formControlName="settingValue">
+                                      <span><i></i>Yes</span>
+                                    </label>
+                                    <label class="fancy-radio">
+                                      <input value="No" type="radio" #settingValue formControlName="settingValue">
+                                      <span><i></i>No</span>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 spc-bottom" align="right">
+                        <button data-size="s" type="submit" [ladda]="isLoading" class="submit-btn">Submit</button>
+                        <button data-size="s" (click)="cancel()" type="button" class="btn cancel-btn">Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div *ngIf="!userformOpen && userMod">
+                    <app-detail [user]="settingData"
+                                (editClick)="editDetail()"></app-detail>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="financialInstitution">
+                <div class="col-md-12 all_form">
+                  <div class="col-md-12 left-pad right-pad2" *ngIf="financialForm && financialInstitution">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                      <div class="row top-spc">
+                        <div>
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <div class="col-md-7">
+                                <label>Financial Institution</label>
+                              </div>
+                              <div class="col-md-4">
+                                <label>Master Data type</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngFor=" let setting of form.get('globalSetting')['controls'] ; let i = index">
+                            <div class="col-sm-12" formArrayName="globalSetting">
+                              <div class="row formArray" [formGroupName]="i">
+                                <div class="col-md-7" formGroupName="displayMessage">
+                                  <div class="form-group">
+                                    <p>{{setting.get('displayMessage').value}}</p>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-control input-sm" formControlName="settingValue">
+                                    <option value="">--All--</option>
+                                    <option *ngFor="let statu of masterDatas" value="{{statu.name}}">
+                                      {{statu.name}}
+                                  </select>
+                                  <!-- <div class="form-group inline-label-align radio-label">
+                                     <label class="fancy-radio">
+                                       <input value="Yes" type="radio" #settingValue
+                                              formControlName="settingValue">
+                                       <span><i></i>Yes</span>
+                                     </label>
+                                     <label class="fancy-radio">
+                                       <input value="No" type="radio" #settingValue formControlName="settingValue">
+                                       <span><i></i>No</span>
+                                     </label>
+                                   </div>-->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 spc-bottom" align="right">
+                        <button data-size="s" type="submit" [ladda]="isLoading" class="submit-btn">Submit</button>
+                        <button data-size="s" (click)="cancel()" type="button" [ladda]="isLoading"
+                                class="btn cancel-btn">Cancel
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <div *ngIf="financialInstitution && !financialForm">
+                    <app-financial-institution-detail [user]="settingData"
+                                                      (editClick)="editFinancialDetail()"></app-financial-institution-detail>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="isreconCycle">
+                <div class="all_form">
+                  <div class="col-md-12 left-pad right-pad2" *ngIf="isreconCycleForm">
+                    <app-recon-cycle-form (openReconCycleDetal)="openReconDeail()" [formType]="formType"></app-recon-cycle-form>
+                  </div>
+                  <div class="col-md-12 left-pad right-pad2" *ngIf="!isreconCycleForm">
+                    <app-recon-cycle-detail  #data (editReconCycle)="editReconCycl(data)"></app-recon-cycle-detail>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+  </div>
+</div>

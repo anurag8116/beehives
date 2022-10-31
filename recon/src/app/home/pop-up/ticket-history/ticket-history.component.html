@@ -1,0 +1,112 @@
+<div class="panel panel-heading newhead newbg">
+  <h4 class="modal-title">History</h4>
+</div>
+  <div class="row" *ngIf="ticketHistory.jiraUrl">
+    <div class="col-md-12">
+      <div class="form-inline">
+        <label>Jira Ticket</label> :
+        <a href="{{ticketHistory.jiraUrl}}" target="_blank">{{ticketHistory.jiraKey}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-md-12 table-responsive-ticket">
+    <label>Transition Details </label>
+    <table *ngIf="showTransactionTable" class="table table_spc table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Elements</th>
+        <th scope="col">Value</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let dataElement of dataSourceRecord">
+        <td>{{dataElement.name}}</td>
+        <td>{{dataElement.value}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+    <div *ngIf="!showTransactionTable" align="center"> <text *ngFor="let rowId of ticketHistory.rowIds; let last = last;">{{rowId}}<text *ngIf="!last">,  &ensp; </text> </text></div>
+</div>
+
+  <div class="row">
+    <div class="col-md-12 table-responsive-ticket">
+      <label>Status Transitions </label>
+      <table *ngIf="ticketHistory?.transitions.length > 0" class="table table_spc table-striped">
+        <thead>
+        <tr>
+          <th width="15%">Date</th>
+          <th width="17%">User</th>
+          <th>Activity</th>
+          <th>Remark</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tbody>
+        <tr *ngFor="let activities of ticketHistory.transitions">
+          <td>{{activities.transitionOn | date:'medium'}}</td>
+          <td>{{activities.changedBy}}</td>
+          <td>Changed status from {{activities.fromStatus}} to {{activities.toStatus}}</td>
+          <td>{{activities.remark}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="ticketHistory?.transitions.length <= 0" align="center"> No Status Transitions Found</div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-12 table-responsive-ticket">
+    <label>Comments </label>
+    <table *ngIf="ticketHistory?.comments.length > 0" class="table table_spc table-striped">
+      <thead>
+      <tr>
+        <th width="15%">Date</th>
+        <th width="17%">User</th>
+        <th>Remark</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tbody>
+      <tr *ngFor="let comment of ticketHistory.comments">
+        <td>{{comment.createdOn | date:'medium'}}</td>
+        <td>{{comment.createdBy}}</td>
+        <td>{{comment.comment}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="ticketHistory?.comments.length <= 0" align="center"> No Comment Found</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 table-responsive-ticket">
+    <label>Documents </label>
+    <table  *ngIf="ticketHistory?.documents.length > 0" class="table table_spc table-striped">
+      <thead>
+      <tr>
+        <th width="15%">Date</th>
+        <th width="17%">Uploaded By</th>
+        <th>Title</th>
+        <th>View</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tbody>
+      <tr *ngFor="let document of ticketHistory.documents">
+        <td>{{document.createdOn | date:'medium'}}</td>
+        <td>{{document.uploadedBy}}</td>
+        <td>{{document.title}}</td>
+        <td><a class="notification-item" href="javascript:void(0);" (click)="downloadFile(document.id)"> <i class="fa fa-cloud-download icon-2x cursor" aria-hidden="true"></i> </a>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="ticketHistory?.documents.length <= 0" align="center"> No Documents Found</div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary cancel-btn" (click)="close()"
+          data-dismiss="modal">Close
+  </button>
+</div>

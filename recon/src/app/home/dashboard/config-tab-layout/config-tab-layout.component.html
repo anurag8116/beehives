@@ -1,0 +1,125 @@
+<!-- MAIN -->
+<div class="main output-main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content dashboard-main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 left-pad2 right-pad2 menu-relative">
+          <i *ngIf="subMenuOpen" (click)="close()" class="fa fa-times menu-close-icon cursor" aria-hidden="true"></i>
+          <mat-sidenav-container class="example-container" (backdropClick)="close()" *ngIf="shouldRun">
+            <mat-sidenav #sidenav align="end" (keydown.escape)="close()" disableClose>
+              <div class="dashboard-side-menu-header">
+                <div class="clearfix">
+                  <table class="table dashboard-menu-table">
+                    <tbody>
+                    <tr>
+                      <th class="dashboard-side-menu"> Groups<a class="cursor"  (click)="createNewDashdoard()" ><i class="fa fa-plus-circle padddng-right10 add-menu-icon" aria-hidden="true"></i></a></th>
+                    </tr>
+                    <tr (click)="expandMainMenu(i)"   *ngFor="let parent of dashboardMenu;let i = index; let last = last;">
+                      <td [ngClass]="last ? 'none-border-bottom' : ''" >
+                        <div class="row ">
+                          <div class="col-md-12 dashboard-active">
+                            <a id="dashbaord-main-menu-{{parent.id}}" class="btn-toggle-collapse" href="#dashbaord-sub-menu-{{parent.id}}" [ngClass]="menuExpands[i].active ? 'active collapse in' : 'collapsed'" data-toggle="collapse" aria-expanded="true">
+                              <i [ngClass]="menuExpands[i].active ? 'fa fa-folder-open-o' : 'fa fa-folder'" aria-hidden="true"></i> {{parent.name}} <i [ngClass]="menuExpands[i].active ? 'dashboard-menu-collaspe-icon lnr lnr-chevron-down' : 'dashboard-menu-collaspe-icon lnr lnr-chevron-left'"  ></i>
+                            </a>
+                            <div id="dashbaord-sub-menu-{{parent.id}}" class="collapse ">
+                              <ul class="nav submenualignnew dashboard-nav">
+                                <li *ngFor="let child of parent.dashboardLists;">
+                                  <a id="dashboard-menu-child-{{child.id}}" href="javascript:void(0);"  [ngClass]="selectedDashboardId === child.id ? 'active' : ''" (click)="dashbaordSelection(child.id, child.layoutType )" > {{child.name}}</a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </mat-sidenav>
+            <mat-sidenav-content>
+              <div class="panel dashboard-panel panel-profile">
+                <div class="clearfix">
+           <!--      TABBED CONTENT-->
+                  <div class="panel panel-heading newhead newbg newcommanbg"><h4>
+                    <div align="right"  class="cursor dashboard-icon-size pull-right">
+                      <button [disabled]='!isFilterViewAble' (click)="openDialog()"><i class="fa fa-filter" [class.active]='!isFilterViewAble'  aria-hidden="true"></i></button>
+                      <i class="fa fa-refresh" (click)="refreshChild()" aria-hidden="true"></i>
+                      <i *ngIf="! isEdit" (click)="onEdit()" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      <i class="fa fa-bars" (click)="open()" aria-hidden="true"></i>
+                    </div>
+
+                    <button *ngIf="isEdit"  type="button" (click)="cancel()" class="btn pull-right btn-xs dashboard-head-btn-danger cancel-btn-dashboard">Cancel</button>
+                    <button *ngIf="isEdit" [ladda]="isLoading" data-size="s" type="submit" (click)="submit()" class="btn btn-primary pull-right dashboard-submit-btn">Submit</button>
+                    <button (click)="hideListMenu()" ></button> {{dashboard.name}} Dashboard</h4></div>
+                  <div class="dashboard-container-scroll output-dashboard-container-scroll dashbaord-scroll">
+                    <div class="panel-profile border-none2 " *ngIf="showContentBox">
+                      <div class="row form-inner-cover dashboard-form-inner-cover dashlet-drag-zone">
+                        <div [ngWidgetContainer]="wegtcontainerConfig">
+                          <div *ngFor="let widgetmetadata of wgetMaterData; let i=index " [(ngWidget)]="widgetmetadata.config " >
+                            <div class="handle">
+                              <div [ngSwitch]="widgetmetadata.type ">
+                                <app-kpi [refresh]="refresh" *ngSwitchCase="'KPI'" [dashletId]="widgetmetadata.id"></app-kpi>
+                                <app-grid [refresh]="refresh" [changing]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'LIST'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-grid>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_BAR'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_HORIZONTAL_BAR'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_RADAR'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_PIE'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_POLAR_AREA'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_LINE'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_DOUGHNUT'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                                <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_STACKED'" [dashletId]="widgetmetadata.id" [rangFilterValue]="widgetmetadata.rangFilterValue"></app-graph>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel-profile border-none2 all-margin margin-top-15" *ngIf="showTab">
+
+                      <tabset [justified]="false" class="tab-align-all-side newcommantab ">
+                        <tab [ngClass]="wgetMaterData.length === 0 ? 'tab-auto-height-all-cover' : 'tab-auto-height'" *ngFor="let tabz of tabs"
+                              [heading]="tabz.title"
+                              [active]="tabz.active"
+                              (selectTab)="tabz.active = true"
+                              (deselect)="tabz.active = false"
+                              [disabled]="tabz.disabled"
+                              [removable]="tabz.removable"
+                              (removed)="removeTabHandler(tabz)"
+                              [customClass]="tabz.customClass"
+                              (select)="onTabChange(tabz)">
+                          <div class="row form-inner-cover" >
+                            <div *ngFor="let widgetmetadata of wgetMaterListDashlet; let i=index " >
+                              <div class="" *ngIf="tabz.tabNumber === widgetmetadata.tabNumber ">
+                                <div [ngSwitch]="widgetmetadata.type ">
+                                  <app-kpi *ngSwitchCase="'KPI'" [dashletId]="widgetmetadata.id"></app-kpi>
+                                  <app-grid [refresh]="refresh" [changing]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'LIST'" [dashletId]="widgetmetadata.id"></app-grid>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_BAR'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_HORIZONTAL_BAR'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_RADAR'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_PIE'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_POLAR_AREA'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_LINE'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [refresh]="refresh" [changing]="changingValue" [changetab]="changetabValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_DOUGHNUT'" [dashletId]="widgetmetadata.id"></app-graph>
+                                  <app-graph [changing]="changingValue" [changetab]="changingValue" (drillDownValue)="updateDrillDown($event)" *ngSwitchCase="'CHART_STACKED'" [dashletId]="widgetmetadata.id"></app-graph>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </tab>
+                      </tabset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-sidenav-content>
+          </mat-sidenav-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>
+

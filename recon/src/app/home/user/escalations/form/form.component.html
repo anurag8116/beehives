@@ -1,0 +1,59 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>Escalations</h3>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="clearfix">
+            <div class="row form-inner-cover">
+              <div class="col-md-12 top-spc">
+                <div class="col-sm-4">
+                  <label>Date</label>
+                  <div class="form-group">
+                    <input type="text" (bsValueChange)="searchByDate($event, 5)"
+                           class="range-group-input form-control" placeholder="From"
+                           bsDatepicker #fromDate
+                           (click)="toDate.value=''"
+                           [bsConfig]="bsConfig">
+                    <span class="range-group-addon">to</span>
+                    <input type="text" (bsValueChange)="searchByDate($event, 6)"
+                           class="range-group-input form-control" placeholder="Till"
+                           bsDatepicker #toDate
+                           (click)="getToDatePickerConfig(fromDate.value)"
+                           [bsConfig]="getDatePickerConfigRestrictPastDate">
+                  </div>
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Escalation Type</label>
+                  <select class="form-control" #esc (change)="search(esc.value, 3)">
+                    <option [value]=" ">--- Select One ---</option>
+                    <option *ngFor="let escalationType of escalationTypes" value="{{escalationType}}">
+                      {{escalationType}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-profile panel-top-spc">
+        <div class="clearfix">
+          <div class="col-md-12 top-spc all-cover-jobs">
+            <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>

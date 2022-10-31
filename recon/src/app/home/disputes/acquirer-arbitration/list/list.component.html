@@ -1,0 +1,91 @@
+<div class="main">
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 left-pad2 right-pad all-panel-align">
+          <div class="panel panel-profile panel_height">
+            <div class="clearfix">
+              <table class="table table-hover table-inner-align privilege-table-cover" id="tableModule">
+                <tbody>
+                <tr>
+                  <th class="newbg">Modules</th>
+                </tr>
+                <tr *ngFor="let module of modules; let i = index " (click)="select(i)"
+                    [ngClass]="{'active': selectedIndexForMod == i  }">
+                  <td><a href="javascript:void(0);" (click)="onModuleChange(module.id)" class="active">
+                    <div>{{module.name}}</div>
+                  </a></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 right-pad2 left-pad">
+          <div class="panel-profile">
+            <div class="panel panel-heading newhead newbg">
+              <div class="row">
+                <div class="col-md-10">
+                  <h4>{{heading}}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-profile">
+              <div class="clearfix">
+                <div class="row form-inner-cover cover2">
+                  <div class="col-md-12 top-spc">
+                    <div class="col-md-3 right-margin">
+                      <label>Account</label>
+                      <input type="text" #acc (keyup)="search(acc.value, 4)" class="form-control  input-sm"
+                             placeholder="By Account Number">
+                    </div>
+                    <div class="col-md-3 right-margin">
+                      <label>Card Number</label>
+                      <input type="text" #card (keyup)="search(card.value, 3)" class="form-control  input-sm"
+                             placeholder="By Card Number">
+                    </div>
+                    <div class="col-md-3 right-margin">
+                      <label>Customer Name</label>
+                      <input type="text" #name (keyup)="search(name.value, 5)" class="form-control  input-sm"
+                             placeholder="By Name">
+                    </div>
+                    <div class="col-md-3 right-margin">
+                      <label>Status</label>
+                      <select class="form-control input-sm" #statu (change)="search(statu.value, 7)">
+                        <option value="">--All--</option>
+                        <option *ngFor="let statu of status" value="{{statu}}">
+                          {{statu}}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-profile">
+              <div class="clearfix">
+                <div class="row form-idocument-modalnner-cover">
+                  <div class="col-md-12 ">
+                    <div class="col-md-12 right-margin top-bottom-spc">
+                      <button type="button" (click)="onHistory()" class="btn submit-btn">View History</button>
+                      <button type="button" (click)="onDocument()" class="btn submit-btn">Process</button>
+                      <button type="button" class="btn submit-btn" (click)="onTransactionClick()">View Transaction
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-profile panel-top-spc all-cover-disputes">
+              <div class="clearfix">
+                <div class="col-md-12 top-spc" *ngIf="showTable">
+                  <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

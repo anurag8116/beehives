@@ -1,0 +1,63 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="col-md-12 left-pad2 right-pad2">
+      <div class="panel panel-profile">
+        <div class="panel panel-heading newhead newbg iconsize">
+          <div class="row">
+            <div class="col-md-6 innerheadsource">
+              <h3>Pipelines</h3>
+            </div>
+            <div class="col-md-6" align="right">
+              <a title="">
+                <button *ngIf="showPipelineDetails" type="button" (click)="onNewPipelineSelect()" class="btn btn-success new-page-btn"><i
+                  class="fa fa-plus-circle"
+                  aria-hidden="true"></i> New
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="clearfix">
+            <div class="row form-inner-cover">
+              <div class="col-md-12 top-spc">
+                <div class="col-md-3 right-margin">
+                  <label>Name</label>
+                  <input type="text" #name (keyup)="searchPipeLineName(name.value)" class="form-control" placeholder="Name">
+                </div>
+                <div class="col-md-3 right-margin">
+                  <label>Module</label>
+                  <select class="form-control" #module (change)="searchByModule(module.value)">
+                    <option value=''>--All--</option>
+                    <option *ngFor="let module of modulesOption" value="{{module.value}}">
+                      {{module.label}}
+                  </select>
+                </div>
+
+                <div class="col-md-3 right-margin">
+                  <label>Status</label>
+                  <select class="form-control" #source (change)="searchByStatus(source.value)">
+                    <option value=''>---All---</option>
+                    <option *ngFor="let status of statues" value="{{status}}">
+                      {{status}}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-profile panel-top-spc">
+        <div class="clearfix">
+          <div class="col-md-12 top-spc all-cover-pipelines all-new-datatable">
+            <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- END MAIN CONTENT -->

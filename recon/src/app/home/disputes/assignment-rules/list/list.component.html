@@ -1,0 +1,59 @@
+<div class="col-md-12 left-pad2 right-pad2">
+  <div class="panel panel-profile">
+    <div class="panel panel-heading newhead newbg iconsize">
+      <div class="row">
+        <div class="col-md-6 innerheadsource">
+          <h3>Assignment Rules</h3>
+        </div>
+
+        <div class="col-md-6" align="right">
+          <a routerLinkActive="active"
+             [routerLink]="['/home/disputes/part', 'assignment-rules', {outlets: {'bodyOutlet': ['new']}}]"
+             title="">
+            <button type="button" class="btn new-page-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+              New
+            </button>
+          </a>
+        </div>
+
+      </div>
+    </div>
+    <div class="panel-body panel-body-align">
+      <div class="row form-inner-cover">
+        <div class="col-md-12">
+
+          <div class="col-md-3 right-margin">
+            <label>Module</label>
+            <select class="form-control input-sm" #module (change)="search(module.value, 0)">
+              <option value="">&#45;&#45;All&#45;&#45;</option>
+              <option *ngFor="let module of modules" value="{{module.id}}">
+                {{module.name}}
+            </select>
+          </div>
+
+          <div class="col-md-3 right-margin">
+            <label>Role</label>
+            <select class="form-control input-sm" #statu (change)="search(statu.value, 1)">
+              <option value="">&#45;&#45;All&#45;&#45;</option>
+              <option *ngFor="let rol of roles" value="{{rol.id}}">
+                {{rol.name}}
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-profile panel-top-spc">
+    <div class="clearfix">
+      <div class="col-md-12 top-spc all-cover-disputes">
+        <table datatable [dtOptions]="dtOptions" class="table table-condensed">
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+

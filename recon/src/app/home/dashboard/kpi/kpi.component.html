@@ -1,0 +1,10 @@
+<div class="panel2">
+  <div *ngIf="showKpi" class="dashboard-grid-table dashboard-box-bg ">
+    <i (click)="refreshKpi()" aria-hidden="true" class="fa fa-refresh pull-right refresh-icon-align"></i>
+    <h1>{{kpiData.value}}</h1>
+    <h4>{{kpiData.key}}</h4>
+  </div>
+  <div *ngIf="!showKpi" class="dashlet-loader kpi-cart">
+    <div class="dataTables_processing panel panel-default" id="DataTables_Table_0_processing" style="display: block;">Processing...</div>
+  </div>
+</div>

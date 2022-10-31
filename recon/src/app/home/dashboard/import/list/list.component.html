@@ -1,0 +1,37 @@
+<div class="main">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="container-fluid left-pad2 right-pad2">
+
+      <div class="panel">
+        <div class="panel-heading newbg innerheadsource-pad">
+          <h3 class="panel-title">Import Dashboards</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12 top-large-spc">
+              <div class="col-md-1">
+                <label class="required">File : </label>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="file" (change)="fileChangeEvent($event)" id="file" class="file-upload-btn"/>
+                  <input type="text" [value]="fileName" class="form-control" placeholder="Choose a file..."
+                         id="filename">
+                  <span class="input-group-btn"> <button class="btn btn-main choosefile3 d-inline-block"
+                                                         type="button"><i class="fa fa-upload"></i></button></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="submit-btn" data-size="s" (click)="submit()">Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT -->
+</div>
